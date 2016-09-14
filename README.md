@@ -2,7 +2,7 @@
 
 An UIEditor for Game, base on electron.
 
-![](./screenshot/screenprint.png)
+![](./screenshot/screenprint.jpg)
 
 #install
 > install node.js first
