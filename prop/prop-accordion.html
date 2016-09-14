@@ -1,0 +1,132 @@
+<dom-module id="prop-accordion">
+  <template>
+    <style>
+      .header {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        padding: 4px 0px 4px 6px;
+        font-weight: 700;
+
+        border-bottom: 1px solid #666;
+        margin-bottom: 5px;
+
+        font-weight: bold;
+        padding-bottom: 0px;
+
+        background-color:#696969;
+      }
+
+      .content {
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 5px 0px 5px 3px;
+      }
+
+      :host[folded] .content{
+        display: none;
+      }
+
+      :host[focused] .fold{
+        color: #6495ED;
+      }
+
+      :host[focused] .title{
+        color: #6495ED;
+      }
+
+      span.space {
+          flex:none;
+          width:6px
+      }
+    </style>
+    <div class="header" id="header" on-click="_onFoldClick" on-keydown="_onKeyDown">
+      <div class="layout horizontal center flex-1">
+        <i id="arrow" class$="{{_foldClass(folded)}}"></i>
+        <span class="space"></span>
+        <div class="title">{{_targetName(target)}}</div>
+      </div>
+    </div>
+    <div class="content" id="content">
+        <template is="dom-repeat" items="{{target.__props__}}">
+          <ve-prop prop="{{item}}"></ve-prop>
+          <div style="margin:0;padding:0; width:100%;height:1px;background-color:#aaa;overflow:hidden;margin-top: 0px;"></div>
+        </template>
+    </div>
+    
+    <div class="content" id="extend">
+        <template is="dom-repeat" items="{{target.__comps__}}">
+            <prop-accordion target="{{item}}" folded="{{item.folded}}"></prop-accordion>
+        </template>
+    </div>
+  </template>
+  <script>(() => {
+      'use strict';
+
+      Polymer({
+        listeners: {},
+
+        properties: {
+          target: {
+            type: Object,
+            value: null,
+            notify: true,
+          },
+
+          folded: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true,
+          },
+        },
+
+        observers: [
+        ],
+
+        ready () {
+          this.$.arrow.class = this._foldClass(this.folded);
+        },
+
+        _onFoldClick () {
+          this.folded = !this.folded;
+        },
+
+        _foldClass ( folded ) {
+          if (folded) {
+            return 'fa fa-caret-right fold flex-none ';
+          }
+
+          return 'fa fa-caret-down fold flex-none';
+        },
+
+        _targetName ( target ) {
+          if ( target ) {
+            return target.__displayName__;
+          }
+          return 'Unknown';
+        },
+
+        _onKeyDown (event) {
+          // press 'enter' and 'space'
+          if (event.keyCode === 13 || event.keyCode === 32) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.folded = !this.folded;
+          }
+          // press left
+          else if (event.keyCode === 37) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.folded = true;
+          }
+          // press right
+          else if (event.keyCode === 39) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.folded = false;
+          }
+        },
+      });
+    })();
+  </script>
+</dom-module>

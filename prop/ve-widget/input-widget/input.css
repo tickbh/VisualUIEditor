@@ -1,0 +1,88 @@
+:host {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  min-width: 60px;
+  border: 1px solid #666666;
+  cursor: default;
+  background: #232323;
+}
+:host:focus {
+  outline: none;
+}
+:host:hover {
+  border: 1px solid #999;
+}
+:host[focused] {
+  border: 1px solid #228B22;
+}
+:host[disabled] {
+  pointer-events: none;
+  background: #000;
+}
+:host[disabled] #input {
+  color: #787878;
+}
+:host[disabled] #input {
+  pointer-events: none;
+}
+#input {
+  display: block;
+  padding: 2px 4px;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  background: transparent;
+  color: #bbb;
+  pointer-events: auto;
+  user-select: auto;
+  cursor: auto;
+  border: 1px solid black;
+}
+#input::-webkit-input-placeholder {
+  font-style: italic;
+  color: #666;
+  text-shadow: none;
+}
+#input:focus {
+  outline: none;
+}
+#input::selection {
+  background: #007acc;
+}
+:host.mini #input {
+  font-size: 0.6rem;
+}
+:host.small #input {
+  font-size: 0.8rem;
+}
+:host #input {
+  font-size: 1.0rem;
+}
+:host.large #input {
+  font-size: 1.2rem;
+}
+:host.big #input {
+  font-size: 1.4rem;
+}
+:host[readonly] #input {
+  -webkit-user-select: text;
+  cursor: text;
+}
+.fa-times-circle {
+  display: block;
+  padding: 0;
+  margin: -0.48em 0 0 0;
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  cursor: pointer;
+}
+:host .fa-times-circle {
+  font-size: 1.0rem;
+  height: 1.2em;
+}
+:host[cancelable] #input {
+  padding-right: 1.4em;
+}

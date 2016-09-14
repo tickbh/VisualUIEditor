@@ -1,0 +1,22 @@
+:host {
+  position: fixed;
+  z-index: 999;
+  box-sizing: border-box;
+  font-size: 12px;
+  width: 120px;
+  min-width: 60px;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #2a2a2a;
+  padding: 3px 4px 3px 4px;
+  border-top: 0px;
+  border-left: 1px solid #0c70a6;
+  border-right: 1px solid #0c70a6;
+  border-bottom: 1px solid #0c70a6;
+}
+:host.upward {
+  border-bottom: 0px;
+  border-left: 1px solid #0c70a6;
+  border-right: 1px solid #0c70a6;
+  border-top: 1px solid #0c70a6;
+}

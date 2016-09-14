@@ -1,0 +1,21 @@
+<dom-module id="ve-control-item">
+  <link rel="import" type="css" href="item.css">
+
+  <template>
+      <style>
+        #name {
+          border: 1px solid black;
+
+          box-shadow: inset 0 0 8px 2px rgba(0,0,0,0.2);
+          background: #333;
+          font-size: larger;
+        }
+      </style>
+      <div class="desc layout horizontal center">
+        <img src="{{icon}}" width="46" height="46"></img>
+        <div id="name" fontsize="40x">{{name}}</div>
+      </div>
+  </template>
+
+  <script type="text/javascript" src="item.js"></script>
+</dom-module>

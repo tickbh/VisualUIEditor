@@ -1,0 +1,22 @@
+:host {
+  display: inline-block;
+  height: auto;
+  padding: 4px 4px;
+  min-height: 12px;
+  color: #aaa;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+:host:hover {
+  background-color: #3f3f3f;
+}
+:host[selected] {
+  background-color: #2865c7;
+}
+:host[disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}

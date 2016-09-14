@@ -1,0 +1,22 @@
+<link rel="import" href="app://bower_components/iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<dom-module id="ve-textarea">
+  <link rel="import" type="css" href="textarea.css">
+
+  <template>
+    <iron-autogrow-textarea id="input"
+      bind-value="{{inputValue}}"
+      rows=4
+      max-rows=20
+      readonly$="{{readonly}}"
+      placeholder="{{placeholder}}"
+      on-focus="_onFocus"
+      on-blur="_onBlur"
+      on-keydown="_onKeyDown"
+    >
+    </iron-autogrow-textarea>
+
+  </template>
+
+  <script type="text/javascript" src="textarea.js"></script>
+</dom-module>

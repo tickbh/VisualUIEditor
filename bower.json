@@ -1,0 +1,25 @@
+{
+  "name": "visual ui editor",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "3rd",
+    "bower_components",
+    "ext",
+    "node_modules",
+    "test"
+  ],
+  "dependencies": {
+    "fontawesome": "4.4.0",
+    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^1.0.0",
+    "iron-behaviors": "PolymerElements/iron-behaviors#^1.0.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^1.0.0",
+    "iron-input": "PolymerElements/iron-input#^1.0.0",
+    "iron-selector": "PolymerElements/iron-selector#^1.0.0",
+    "pace": "1.0.2",
+    "polymer": "Polymer/polymer#^1.5.0"
+  },
+  "devDependencies": {}
+}

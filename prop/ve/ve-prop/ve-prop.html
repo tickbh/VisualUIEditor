@@ -1,0 +1,12 @@
+<link rel="import" href="../ve-field/ve-field.html">
+<dom-module id="ve-prop">
+    <link rel="import" type="css" href="ve-prop.css">
+    <template>
+        <div class="layout horizontal flex-1 group">
+            <div class$="{{_nameClass(prop.name)}}" title="{{_nameText(prop.name)}}">{{_nameText(prop.name)}}</div>
+        </div>
+        <ve-field id="field" class="flex-2" path="[[prop.path]]" type="[[prop.type]]" attrs="[[prop.attrs]]" value="{{prop.value}}"></ve-field>
+        
+    </template>
+    <script src="ve-prop.js"></script>
+</dom-module>

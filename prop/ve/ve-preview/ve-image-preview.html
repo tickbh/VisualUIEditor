@@ -1,0 +1,50 @@
+<dom-module id="ve-image-preview">
+  <template>
+    <style>
+      :host {
+        position: relative;
+        height: 300px;
+        overflow: hidden;
+      }
+
+      .view {
+        box-shadow: inset 0 0 15px 5px rgba(0,0,0,0.5);
+        background: #292929;
+      }
+
+      #content {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        bottom: 15px;
+        left: 15px;
+      }
+
+      canvas {
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+
+        display: block;
+        background-image: url('app://res/grid1.png');
+        background-size: 32px 32px;
+        background-position: center center;
+      }
+
+      ve-label {
+        position: absolute;
+        width: 100%;
+        bottom: 10px;
+        pointer-events: none;
+        text-align: center;
+      }
+    </style>
+    <div class="view fit">
+      <div id="content">
+        <canvas id="canvas" width="1" height="1"></canvas>
+      </div>
+      <ve-label class="mini blue">{{info}}</ve-label>
+    </div>
+  </template>
+  <script src="ve-image-preview.js"></script>
+</dom-module>

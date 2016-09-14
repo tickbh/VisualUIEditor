@@ -1,0 +1,119 @@
+:host {
+  display: block;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+
+  list-style-type: none;
+  padding: 5px;
+  padding-left: 10px;
+  overflow-x: hidden;
+  font-size: 14px;
+
+  color: #999;
+}
+
+.item.log {
+  color: #999;
+}
+.item.error {
+  color: #c80c0c;
+}
+.item.warn {
+  color: #990;
+}
+
+.item.info {
+  /*font-weight: bold;*/
+  color: #09f;
+}
+.item.failed {
+  /*font-weight: bold;*/
+  color: #c80c0c;
+}
+.item.success {
+  /*font-weight: bold;*/
+  color: #090;
+}
+
+.desc {
+  overflow: hidden;
+}
+
+.icon {
+  width: 15px;
+  min-width: 15px;
+  margin-top: 2px;
+}
+
+.fold {
+  padding: 2px;
+  margin-top: 2px;
+  width: 15px;
+  text-align: center;
+  color: #555;
+  cursor: pointer;
+}
+
+.text {
+  margin-top: 2px;
+  -webkit-user-select: initial;
+  cursor: text;
+}
+
+.text::selection {
+  background-color: #007acc;
+}
+
+.more::after {
+  content: "[...]";
+  cursor: pointer;
+  color: #555;
+  padding: 0px 4px;
+}
+
+.more:hover {
+  text-decoration: underline;
+  color: #555;
+}
+
+.detail::selection {
+  background-color: #007acc;
+}
+
+.info {
+  /*white-space: nowrap;*/
+  display: flex;
+  flex-direction: column;
+}
+
+.detail {
+  display: none;
+  margin-left: 19px;
+  white-space: pre-wrap;
+  -webkit-user-select: initial;
+  cursor: text;
+}
+
+:host[folded] .info {
+  white-space: pre-wrap;
+}
+
+:host[folded] .detail {
+  display: inline-block;
+}
+
+:host[folded] .more::after {
+  content: "";
+  display: none;
+}
+
+:host[type^="error"] .detail{
+  margin-left: 34px;
+}
+
+:host[type^="warn"] .detail{
+  margin-left: 34px;
+}

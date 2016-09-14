@@ -1,0 +1,65 @@
+<link rel="import" href="item.html">
+
+<dom-module id="ve-controlpanel">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+      }
+
+      .toolbar {
+        position: relative;
+        box-sizing: border-box;
+        height: 26px;
+
+        display: flex;
+        flex: none;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        padding: 4px 2px;
+        font-size: 1.0rem;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      #view {
+        border: 1px solid black;
+
+        box-shadow: inset 0 0 8px 2px rgba(0,0,0,0.2);
+        background: #333;
+      }
+
+      ul {
+        padding: 0px;
+        margin: 0px;
+
+        overflow: auto;
+      }
+
+      .line {
+        border-bottom: 2px solid #666;
+        margin: 0px 1px 10px 0px;
+      }
+
+    </style>
+
+    <ul id="view" class="flex-1">
+      <template is="dom-repeat" items="{{show_items}}">
+        <ve-control-item
+          icon="[[item.icon]]"
+          name="[[item.name]]"
+        >
+        </ve-control-item>
+        <div class="line"></div>
+      </template>
+    </ul>
+  </template>
+
+  <script>
+
+  </script>
+  
+  <script type="text/javascript" src="controlpanel.js"></script>
+</dom-module>

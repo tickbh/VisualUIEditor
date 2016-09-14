@@ -1,0 +1,26 @@
+<link rel="import" href="menu/menu.html">
+<link rel="import" href="option/option.html">
+
+<dom-module id="ve-select">
+  <link rel="import" type="css" href="select.css">
+
+  <template>
+    <div class="border layout horizontal flex-1">
+      <span id="text" class$="{{_textClass(text)}}">{{_text(text)}}</span>
+      <i class="fa fa-caret-down"></i>
+    </div>
+    <ve-select-menu id="menu" hidden
+      text="{{text}}"
+      value="{{value}}"
+      selected="[[value]]"
+      selected-class=""
+      selected-attribute="selected"
+      attr-for-selected="value"
+      on-selected-item-changed="_onSelectedItemChanged"
+    >
+      <content></content>
+    </ve-select-menu>
+  </template>
+
+  <script type="text/javascript" src="select.js"></script>
+</dom-module>

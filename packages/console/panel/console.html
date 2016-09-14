@@ -1,0 +1,101 @@
+<link rel="import" href="item.html">
+
+<dom-module id="ve-console">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+      }
+
+      .toolbar {
+        position: relative;
+        box-sizing: border-box;
+        height: 26px;
+
+        display: flex;
+        flex: none;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        padding: 4px 2px;
+        font-size: 1.0rem;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      #view {
+        border: 1px solid black;
+
+        box-shadow: inset 0 0 8px 2px rgba(0,0,0,0.2);
+        background: #808080;
+      }
+
+      ul {
+        padding: 0px;
+        margin: 0px;
+
+        overflow: auto;
+      }
+
+      ve-console-item {
+        background: #333;
+      }
+
+      ve-console-item:nth-child(even) {
+        background: #393939;
+      }
+    </style>
+
+    <div class="toolbar">
+      <ve-button class="red small transparent" on-confirm="clear">
+        <i class="fa fa-trash-o"></i>
+      </ve-button>
+      <!--<ve-button class="small transparent" id="openLogBtn" on-confirm="_onOpenLogFile">
+        <i class="fa fa-file-text-o"></i>
+      </ve-button>-->
+      <ve-input
+        id="input"
+        placeholder="filter"
+        value="{{filterText::change}}"
+        hidden="true"
+        cancelable
+        unnavigable
+      ></ve-input>
+      <ve-checkbox
+        hidden="true"
+        unnavigable
+        checked="{{useRegex::change}}">Regex</ve-checkbox>
+      <ve-select
+        hidden="true"
+        value="{{filterOption::confirm}}"
+        class="small"
+        unnavigable
+      >
+        <option value="All">All</option>
+        <option value="Log">Log</option>
+        <option value="Success">Success</option>
+        <option value="Failed">Failed</option>
+        <option value="Info">Info</option>
+        <option value="Warn">Warn</option>
+        <option value="Error">Error</option>
+      </ve-select>
+      <span class="flex-1"></span>
+      <ve-checkbox unnavigable checked="{{collapse::change}}">Collapse</ve-checkbox>
+    </div>
+    <ul id="view" class="flex-1">
+      <template is="dom-repeat" items="{{applyFilter(logsCount,filterText,filterOption,useRegex,collapse)}}">
+        <ve-console-item
+          type="[[item.type]]"
+          count="[[item.count]]"
+          desc="[[item.desc]]"
+          detail="[[item.detail]]"
+          show-count="[[collapse]]"
+        >
+        </ve-console-item>
+      </template>
+    </ul>
+  </template>
+
+  <script type="text/javascript" src="console.js"></script>
+</dom-module>

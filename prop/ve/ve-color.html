@@ -1,0 +1,142 @@
+<dom-module id="ve-color">
+    <style>
+        :host {
+            display:flex;
+            position:relative;
+            box-sizing:border-box;
+            min-width:60px;
+            min-height:24px;
+            border:1px solid #666;
+            cursor:default;
+            background:#232323
+        }
+        .border {
+            position:relative;
+            border:1px solid #000;
+            width:100%
+        }
+        .rgb-wrapper {
+            position:relative;
+            height:17px
+        }
+        #iconDown {
+            font-size:10px;
+            position:absolute;
+            right:5px;
+            bottom:2px;
+            color:#000
+        }
+        #previewRGB {
+            height:17px;
+            cursor:pointer
+        }
+        #alpha {
+            width:100%;
+            height:3px;
+            background-color:#fff
+        }
+        :host[focused] {
+            border:1px solid #0c70a6
+        }
+        .mask {
+            display:none;
+            opacity:.5
+        }
+    </style>
+    <template>
+        <input id="color" style="width:100%;"/>
+    </template>
+    <script>(() => {
+        "use strict";
+        Polymer({
+            properties: {
+                value: {
+                    type: Object,
+                    value: function() {
+                        return {
+                            r: 255,
+                            g: 255,
+                            b: 255,
+                            a: 255
+                        }
+                    },
+                    notify: true,
+                    observer: '_valueChanged',
+                },
+            },
+
+            convertToSpectrumColor: function() {
+                return tinycolor({
+                    r: this.value.r,
+                    g: this.value.g,
+                    b: this.value.b,
+                    a: this.value.a / 255,
+                    format: "hex3",
+                })
+            },
+
+            colorToLocal: function(color) {
+               return {
+                    r: fixFloatValue(color._r, 0),
+                    g: fixFloatValue(color._g, 0),
+                    b: fixFloatValue(color._b, 0),
+                    a: fixFloatValue(color._a * 255, 0),
+                }
+            },
+
+            ready: function() {
+                this.isReady = true;
+                let self = this;
+                function __setColor(color) {
+                    self.inputValue = self.colorToLocal(color);
+                    self.value = self.colorToLocal(color);
+                    self.async(function() {
+                        self.fire("end-editing");
+                    }, 1);
+                };
+
+                $(this.$.color).spectrum({
+                    color: this.convertToSpectrumColor(),
+                    showAlpha: true,
+                    showPalette: true,
+                    showInput: true,
+                    showInitial: true,
+                    allowEmpty: true,
+                    clickoutFiresChange: true,
+                    palette: [
+                        ["#000", "#444", "#666", "#999", "#ccc", "#eee", "#f3f3f3", "#fff"],
+                        ["#f00", "#f90", "#ff0", "#0f0", "#0ff", "#00f", "#90f", "#f0f"],
+                        ["#f4cccc", "#fce5cd", "#fff2cc", "#d9ead3", "#d0e0e3", "#cfe2f3", "#d9d2e9", "#ead1dc"],
+                        ["#ea9999", "#f9cb9c", "#ffe599", "#b6d7a8", "#a2c4c9", "#9fc5e8", "#b4a7d6", "#d5a6bd"],
+                        ["#e06666", "#f6b26b", "#ffd966", "#93c47d", "#76a5af", "#6fa8dc", "#8e7cc3", "#c27ba0"],
+                        ["#c00", "#e69138", "#f1c232", "#6aa84f", "#45818e", "#3d85c6", "#674ea7", "#a64d79"],
+                        ["#900", "#b45f06", "#bf9000", "#38761d", "#134f5c", "#0b5394", "#351c75", "#741b47"],
+                        ["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
+                    ],
+                    selectionPalette: [],
+                    maxSelectionSize: 8,
+                    localStorageKey: "theme.colors",
+                    preferredFormat: 'hex3',
+                    change: __setColor,
+                    move: function(color) {
+                    },
+                    hide: __setColor
+                });
+            },
+
+            _valueChanged () {
+                if(!this.isReady) {
+                    return;
+                }
+                if(this.inputValue && this.inputValue.r == this.value.r && this.inputValue.g == this.value.g && this.inputValue.b == this.value.b && this.inputValue.a == this.value.a) {
+                    return;
+                }
+
+                $(this.$.color).spectrum( "set", this.convertToSpectrumColor());
+
+                this.inputValue = this.value;
+            },
+        })
+    })();
+    </script>
+</dom-module>

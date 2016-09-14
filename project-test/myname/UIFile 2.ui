@@ -1,0 +1,23 @@
+{
+    "width": "800",
+    "height": "400",
+    "x": 0,
+    "y": 0,
+    "type": "Scene",
+    "children": [
+        {
+            "width": "46",
+            "height": "46",
+            "x": 606.5,
+            "y": 199,
+            "type": "Scale9"
+        },
+        {
+            "width": "46",
+            "height": "46",
+            "x": 540.5,
+            "y": 273,
+            "type": "Sprite"
+        }
+    ]
+}

@@ -1,0 +1,75 @@
+:host {
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  min-width: 60px;
+  border: 1px solid #666666;
+  cursor: default;
+  background: #232323;
+}
+:host:focus {
+  outline: none;
+}
+:host:hover {
+  border: 1px solid #848484;
+}
+:host[focused] {
+  border: 1px solid #0c70a6;
+}
+:host[invalid] {
+  border: 1px solid red;
+}
+:host[disabled] {
+  pointer-events: none;
+  background: #3a3a3a;
+}
+:host[disabled] #input {
+  color: #787878;
+}
+:host[disabled] #input {
+  pointer-events: none;
+}
+#input {
+  display: block;
+  padding: 2px 4px;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: transparent;
+  color: #ddd;
+  text-shadow:#666 1px 0 0,#666 0 1px 0,#666 -1px 0 0,#666 0 -1px 0;
+  pointer-events: auto;
+  user-select: auto;
+  cursor: auto;
+}
+#input::-webkit-input-placeholder {
+  font-style: italic;
+  color: #666;
+  text-shadow: none;
+}
+#input:focus {
+  outline: none;
+}
+#input::selection {
+  background: #007acc;
+}
+:host.mini #input {
+  font-size: 0.6rem;
+}
+:host.small #input {
+  font-size: 0.8rem;
+}
+:host #input {
+  font-size: 1.0rem;
+}
+:host.large #input {
+  font-size: 1.2rem;
+}
+:host.big #input {
+  font-size: 1.4rem;
+}
+:host[readonly] #input {
+  -webkit-user-select: text;
+  cursor: text;
+}

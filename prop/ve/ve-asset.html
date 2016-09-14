@@ -1,0 +1,113 @@
+<dom-module id="ve-asset">
+    <style>
+        :host {
+            display:flex;
+            position:relative;
+            box-sizing:border-box;
+            min-width:60px;
+            min-height:24px;
+            border:1px solid #666;
+            cursor:default;
+        }
+        .border {
+            position:relative;
+            border:1px solid #000;
+            width:100%
+        }
+        :host[focused] {
+            border:1px solid #0c70a6
+        }
+    </style>
+    <template>
+        <div id="dropArea" class="flex-1" on-dragover="_onDragOver">
+            <ve-input id="input"  placeholder="resource" class="flex-1"  value="{{inputValue}}" cancelable  unnavigable></ve-input>
+        </div>
+    </template>
+    <script>(() => {
+        "use strict";
+        Polymer({
+            hostAttributes: {
+                droppable: "asset",
+                "single-drop": true
+            },
+            listeners: {
+                "dragover": "_onDropAreaOver",
+                "drop": "_onDropAreaAccept"
+            },
+            properties: {
+                value: {
+                    type: String,
+                    value: null,
+                    notify: true,
+                    observer: "_valueChanged"
+                },
+                inputValue: {
+                    type: String,
+                    notify: true,
+                    value: '',
+                    observer: "_inputValueChanged"
+                },
+            },
+            ready: function() {
+                this._isReady = true;
+                this._oldValue = this.value;
+                // this.$.input.addEventListener("end-editing", this._onInputChanged);
+            },
+            _onDropAreaOver: function(ev) {
+                var data = ev.dataTransfer.getData("asset");
+                if(!data) {
+                    ev.dataTransfer.effectAllowed = "none";
+                    ev.dataTransfer.dropEffect = "none"; 
+                    return;
+                }
+                ev.dataTransfer.effectAllowed = "all";
+                ev.dataTransfer.dropEffect = "all"; 
+
+                ev.preventDefault();
+                ev.stopPropagation();
+            },
+            _onDropAreaAccept: function(ev) {
+                var data = ev.dataTransfer.getData("asset");
+                if(!data) {
+                    return;
+                }
+                ev.preventDefault();
+                ev.stopPropagation();
+
+                let subPath = calcRelativePath(window.projectFolder + "/", data);
+                this.set("value", subPath);
+                this.async(() => {
+                    this.fire('end-editing');
+                }, 1);
+            },
+
+            
+            _inputValueChanged: function() {
+                if(this.inputValue == this.value) {
+                    return;
+                }
+                this.value = this.inputValue;
+                this.async(() => {
+                    this.fire('end-editing');
+                }, 1);
+            },
+
+            _valueChanged: function() {
+                this.inputValue = this.value;
+
+                // if(this._oldValue == this.value) {
+                //     return;
+                // }
+                // this._oldValue = this.value;
+                // if(!this._isReady) {
+                //     return;
+                // }
+                // this.async(() => {
+                //     this.fire('end-editing');
+                // }, 1);
+            },
+
+        });
+    })();
+    </script>
+</dom-module>

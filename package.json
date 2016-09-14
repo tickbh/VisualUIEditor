@@ -1,0 +1,32 @@
+{
+  "name": "visual-ui-editor",
+  "productName": "VisualUIEditor",
+  "description": "VisualUIEditor",
+  "version": "1.1.1",
+  "author": "tickbh",
+  "main": "app.js",
+  "dependencies": {
+    "async": "^1.5.2",
+	  "FileSaver": "0.10.0",
+    "jquery": "1.11.1",
+    "jquery-contextmenu": "1.6.7"
+  },
+  "devDependencies": {
+    "devtron": "^1.1.0",
+    "electron-prebuilt": "1.2.1",
+    "less": "^2.6.1",
+	  "almond": "0.3.2",
+    "dcl": "1.1.3",
+    "dojo": "1.11.2",
+    "lodash-amd": "4.15.0",
+    "requirejs": "2.2.0",
+    "requirejs-domready": "2.0.3"
+  },
+  "hosts": {
+    "fireball-packages/package-examples": "master"
+  },
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager ./ VisualUIEditor --all --out ../Out/VisualUIEditor --version 1.3.4 --overwrite"
+  }
+}

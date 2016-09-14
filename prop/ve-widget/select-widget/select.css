@@ -1,0 +1,58 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+  font-size: 1.0rem;
+  min-width: 60px;
+  min-height: 24px;
+  border: 1px solid black;
+}
+:host[focused] {
+  border-color: #0c70a6;
+}
+:host[focused] .border {
+  border-color: #171717;
+}
+:host[disabled] {
+  border-color: rgba(29, 29, 29, 0.7);
+}
+:host[disabled] .border {
+  background-color: #393939;
+  border-color: #515151;
+  color: #555;
+  pointer-events: none;
+}
+:host[disabled] #placeholder {
+  opacity: 1;
+}
+:host[readonly] .border {
+  pointer-events: none;
+}
+.border {
+  position: relative;
+  border: 1px solid #666;
+  padding: 3px 4px;
+  font-family: Arial, sans-serif;
+  color: #bbb;
+  background-color: #555;
+  cursor: pointer;
+}
+#text {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 5px;
+  flex: 1;
+}
+#text.placeholder {
+  opacity: 0.5;
+  font-style: italic;
+}
+.fa {
+  width: 8px;
+  text-align: center;
+}
+#options {
+  display: none;
+}

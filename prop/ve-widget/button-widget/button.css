@@ -1,0 +1,34 @@
+:host {
+  display: inline-block;
+  box-sizing: border-box;
+  flex: none;
+  line-height: 12px;
+}
+.btn {
+  font-weight: bold;
+  margin: 0px;
+  min-width: 10px;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 1px;
+  overflow: hidden;
+  padding: 3px 3px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+	color:#ddd;
+  text-shadow:#666 1px 0 0,#666 0 1px 0,#666 -1px 0 0,#666 0 -1px 0;
+  background-image: linear-gradient(#333, #444);
+}
+.btn:hover {
+  background-image: linear-gradient(#888, #4e4e4e);
+}
+.btn:focus {
+  outline: none;
+}
+:host[pressed] .btn {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+	color:#ddd;
+  text-shadow:#666 1px 0 0,#666 0 1px 0,#666 -1px 0 0,#666 0 -1px 0;
+  background-image: linear-gradient(#464646, #303030);
+}

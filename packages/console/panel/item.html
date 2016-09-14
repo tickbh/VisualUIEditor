@@ -1,0 +1,19 @@
+<dom-module id="ve-console-item">
+  <link rel="import" type="css" href="item.css">
+
+  <template>
+    <div class$="{{_typeClass(type)}}">
+      <div class="desc layout horizontal center">
+        <i class$="{{_iconClass(type)}}"></i>
+        <i class$="{{_foldClass(detail,folded)}}" on-click="_onFoldClick"></i>
+        <span class="flex-1 info">
+          <span class="text">{{desc}}<span class$="{{_textClass(detail)}}" on-click="_onFoldClick"></span></span>
+        </span>
+        <ve-label class="mini orange" hidden="{{!_showCount(showCount,count)}}">{{_computedCount(count)}}</ve-label>
+      </div>
+      <span class="detail">{{detail}}</span>
+    </div>
+  </template>
+
+  <script type="text/javascript" src="item.js"></script>
+</dom-module>

@@ -1,0 +1,16 @@
+<!-- NOTE: the .btn element is important, it will make sure we can focus the button  -->
+<!-- and still click to get active state                       -->
+
+<link rel="import" href="app://bower_components/iron-behaviors/iron-button-state.html">
+
+<dom-module id="ve-button">
+  <link rel="import" type="css" href="button.css">
+
+  <template>
+    <div class="btn">
+      <content></content>
+    </div>
+  </template>
+
+  <script type="text/javascript" src="button.js"></script>
+</dom-module>

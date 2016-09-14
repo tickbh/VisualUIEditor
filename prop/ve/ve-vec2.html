@@ -1,0 +1,48 @@
+<dom-module id="ve-vec2">
+    <style>
+        :host {
+            display:flex;
+            flex-direction:column;
+            align-items:center
+        }
+        span.space {
+            flex:none;
+            height:6px
+        }
+    </style>
+    <template>
+        <div class="flex-1" >
+            <ve-unit-input id="x" class="flex-1" 
+                                disabled="{{disabled}}" readonly="{{readonly}}"
+                                path="{{path}}.x" input-value="{{value.x}}"
+                                step="{{attrs.step}}" precision="{{attrs.precision}}"
+                                min="{{attrs.min}}" max="{{attrs.max}}"
+                                hint="X"></ve-unit-input>
+            <span class="space"></span>
+            <ve-unit-input id="y" class="flex-1" 
+                                disabled="{{disabled}}" readonly="{{readonly}}" 
+                                path="{{path}}.y" input-value="{{value.y}}" 
+                                step="{{attrs.step}}" precision="{{attrs.precision}}"
+                                min="{{attrs.min}}" max="{{attrs.max}}"
+                                hint="Y"></ve-unit-input>
+        </div>
+    </template>
+    <script>(() => {
+        'use strict';
+        Polymer({
+            properties: {
+                value: {
+                    type: Object,
+                    value: function() {
+                        return {
+                            x: 0,
+                            y: 0
+                        }
+                    },
+                    notify: true
+                },
+            }
+        });
+    })();
+    </script>
+</dom-module>
