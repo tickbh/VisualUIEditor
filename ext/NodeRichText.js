@@ -1,11 +1,12 @@
 
-NodeRichText = ccui.RichText.extend({
+let NodeRichText = ccui.RichText.extend({
     _originConfig : null,
     _curConfig : null,
     _text: "",
     _font: "",
     ctor: function (text, size, config) {
         ccui.RichText.prototype.ctor.call(this);
+        this.initWithConfig(config || {});
         this.setContentSize(size.width || 100, size.height || 100)
         this.ignoreContentAdaptWithSize(false);
         this.setText(text)
@@ -13,14 +14,17 @@ NodeRichText = ccui.RichText.extend({
 
     initWithConfig: function(config) {
         this._originConfig = merge({color: cc.color.WHITE, fontSize: 20, ocolor: cc.color.BLACK, osize: 0}, config);
-        this._curConfig = dup(self._originConfig);
+        this._curConfig = dup(this._originConfig);
     },
 
     setText: function(text) {
-        this.clearAllElement();
-        this._curConfig = dup(self._originConfig);
-        this.text = text || "";
-        this.parseText(this.text);
+        this._elementRenderersContainer.removeAllChildren();
+        this._elementRenders.length = 0;
+        this._richElements = [];
+
+        this._curConfig = dup(this._originConfig);
+        this._text = text || "";
+        this.parseText(this._text);
     },
 
     addRichElement: function(str) {
@@ -28,18 +32,9 @@ NodeRichText = ccui.RichText.extend({
         this.pushBackElement(re);
     },
 
-// -- "c200:200:200"
-// function UI_RICHTEXT_CLASS:richTextGetRGB(value)
-//     local r, g, b = string.match(value, "(%d+):(%d+):(%d+)")
-//     --print("richTextGetRGB", value, r, g, b)
-//     local function checkNum(ss)
-//         if not is_number(ss) then
-//             return 0
-//         end
-//         return math.max(math.min(ss, 255), 0)
-//     end
-//     return cc.c3b(checkNum(tonumber(r)), checkNum(tonumber(g)), checkNum(tonumber(b)))
-// end
+    forceUpdate: function() {
+        this.setText(this._text)
+    },
 
     //"c200:200:200"
     richTextGetRGB: function(value) {
@@ -90,10 +85,10 @@ NodeRichText = ccui.RichText.extend({
             if(color) {
                 this._curConfig.color = color;
             }
-        } else if(value == "f") {
+        } else if(value.indexOf("f") == 0) {
             this._curConfig.fontSize = parseInt(value.substring(1));
-        } else if(value == "of") {
-            this._curConfig.osize = parseInt(value.substring(1));
+        } else if(value.indexOf("of") == 0) {
+            this._curConfig.osize = parseInt(value.substring(2));
         } else if(value == "/f") {
             this._curConfig.fontSize = this._originConfig.fontSize;
         } else if(value == "/of") {
@@ -109,21 +104,28 @@ NodeRichText = ccui.RichText.extend({
             let preIsConvert = idx > 0 && text.charAt(idx - 1) == '\\';
             if(char == '[' && !preIsConvert) {
                 if(idx > pre) {
-                    this.addRichElement(text.substring(pre, idx - 1))
+                    this.addRichElement(text.substring(pre, idx))
                     pre = idx
                 }
-            }
-            inSerch = true
-            let findNext = function(str, index) {
-                index = text.indexOf("]", index)
-                while(index > 0 && text.charAt(index - 1) == '\\') {
+                inSerch = true
+                let findNext = function(str, index) {
                     index = text.indexOf("]", index)
+                    while(index > 0 && text.charAt(index - 1) == '\\') {
+                        index = text.indexOf("]", index)
+                    }
+                    return index
                 }
-                return index
+                let index = findNext(text, idx + 1);
+                if(index < 0) {
+                    break;
+                }
+                this.parseConfig(text.substring(idx + 1, index));
+                idx = index;
+                pre = index + 1;
+                inSerch = false;
             }
-            this.parseConfig(text.substring(i + 1, index - 1))
-            let index = findNext(text, i + 1);
-            inSerch = false;
+            inSerch = false
+            idx = idx + 1
         }
 
         if(!inSerch) {
