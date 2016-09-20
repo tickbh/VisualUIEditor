@@ -308,6 +308,27 @@ function fixFloatValue(value, precision) {
     return parseFloat(parseFloat(value).toFixed(precision || 0));
 }
 
+
+function merge(src, t) {
+    if(typeof src != "object" || typeof t != "object") {
+        return src
+    }
+    for (k in t) {
+        src[k] = t[k]
+    }
+    return src
+}
+
+function dup(t) {
+    if(typeof t != "object") {
+        return t
+    }
+    let src = {};
+    for (k in t) {
+        src[k] = t[k]
+    }
+    return src
+}
  
 // 动态插入script标签 
 function createScript(url, callback){ 
