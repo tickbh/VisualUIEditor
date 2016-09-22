@@ -19,7 +19,7 @@ $(document).ready(function() {
       faicon: 'cubes',
       onCreate: function(myPanel) {
         myPanel.initSize(200, 400);
-        myPanel.maxSize(250, Infinity);
+        myPanel.maxSize(500, Infinity);
         var $node = $('<ve-nodeorder id="NodePanel" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-nodeorder>');
         myPanel._main = $node[0];
         myPanel.layout().addItem($node).stretch('', '100%');

@@ -426,6 +426,6 @@ function ensureLangExist(langFolder) {
 }
 
 function saveLangData(langPath, data) {
-    AddOrModifyConfig("modify:" + langPath, true);
+    AddOrModifyConfig("modify:langPath", true);
     fs.writeFileSync(langPath, JSON.stringify(data, null, 4));
 }

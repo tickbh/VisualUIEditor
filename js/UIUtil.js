@@ -1,5 +1,7 @@
 const ipcRenderer = Electron.ipcRenderer;
 
+let projectLangData = null
+
 function ChangeProjectFolder() {
     let newFolder = Electron.remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory']});
     if(newFolder) {
@@ -199,4 +201,19 @@ function CustomAddListener(elem, type, callback) {
 function OpenLangInfo(langPath) {
     AddOrModifyConfig("langPath", langPath);
     Ipc.sendToMainDirect("ipc-showgrid", langPath);
+}
+
+function getProjectLangData() {
+    if(!window.projectFolder) {
+        return data;
+    }
+    
+    if(GetConfigValueByKey("modify:langPath")) {
+        projectLangData = null;
+        AddOrModifyConfig("modify:langPath", null);
+    }
+    if(projectLangData == null) {
+        projectLangData = GetFileToData(window.projectFolder + "/lang/lang.txt");
+    }
+    return projectLangData;
 }
