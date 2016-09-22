@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>多语言编辑</title>
+    <link rel="stylesheet" type="text/css" href="demos.css" />
+    <script src="db.js"></script>
+
+    <script src="app://node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <link rel="stylesheet" type="text/css" href="app://js/jsgrid.css" />     
+    <script type="text/javascript" src="app://js/jsgrid.js"></script>
+    <link rel="stylesheet" type="text/css" href="app://js/jsgrid-theme.css" /> 
+
+    <link rel="stylesheet" type="text/css" href="demos.css" />  
+</head>
+<body>
+    <h1>多语言编辑</h1>
+    <div id="jsGrid"></div>
+
+    <script>
+        $(function() {
+
+            $("#jsGrid").jsGrid({
+                height: "80%",
+                width: "100%",
+                filtering: true,
+                editing: true,
+                inserting: true,
+                sorting: true,
+                paging: true,
+                autoload: true,
+                pageSize: 15,
+                pageButtonCount: 5,
+                deleteConfirm: "确认是否删除？",
+                controller: db,
+                fields: [
+                    { name: "Key", type: "text", width: 150 },
+                    { name: "Ch", type: "text", width: 300 },
+                    { name: "En", type: "text", width: 250 },
+                    { type: "control" }
+                ]
+            });
+
+        });
+    </script>
+</body>
+</html>

@@ -377,3 +377,15 @@ function AddLinkToScripte(url, callback) {
     }
     head.appendChild(linkTag);
 }
+
+var configFile = "ProgramConfig.json";
+function GetConfigData() {
+    let content = fs.readFileSync(configFile);
+    return JSON.parse(content || "{}");
+}
+
+function AddOrModifyConfig(key, value) {
+    let data = GetConfigData();
+    data[key] = value;
+    fs.writeFileSync(configFile, JSON.stringify(data, null, 4));
+}

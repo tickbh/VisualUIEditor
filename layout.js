@@ -94,6 +94,18 @@ $(document).ready(function() {
       },
     });
 
+    // myDocker.registerPanelType('GridPanel', {
+    //   faicon: 'cubes',
+    //   onCreate: function(myPanel) {
+
+    //     var $node = $('<ve-gridpanel style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-gridpanel>');
+    //     myPanel.initSize(600, Infinity);
+    //     myPanel.minSize(200, Infinity);
+    //     myPanel._main = $node[0];
+    //     myPanel.layout().addItem($node).stretch('', '100%');
+    //   },
+    // });
+
     myDocker.registerPanelType('Theme Builder', {
       faicon: 'map',
       onCreate: wcThemeBuilder
@@ -110,6 +122,7 @@ $(document).ready(function() {
       var propPanel = myDocker.addPanel('PropPanel', wcDocker.DOCK.RIGHT, null, {w:"200px"});
       var consolePanel = myDocker.addPanel('ConsolePanel', wcDocker.DOCK.BOTTOM, wcDocker.COLLAPSED, {h: '20%'});
       var resourcePanel = myDocker.addPanel('ResourcePanel', wcDocker.DOCK.BOTTOM, nodePanel, {h: '60%'});
+      // var gridPanel = myDocker.addPanel('GridPanel', wcDocker.DOCK.LEFT, wcDocker.COLLAPSED, {h: '20%'});
     }
 
     if(window.localStorage["saveLayout"]) {
