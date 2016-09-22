@@ -54,12 +54,12 @@
                 // this.$.input.addEventListener("end-editing", this._onInputChanged);
             },
             _onDropAreaOver: function(ev) {
-                var data = ev.dataTransfer.getData("asset");
-                if(!data) {
-                    ev.dataTransfer.effectAllowed = "none";
-                    ev.dataTransfer.dropEffect = "none"; 
-                    return;
-                }
+                // var data = ev.dataTransfer.getData("asset");
+                // if(!data) {
+                //     ev.dataTransfer.effectAllowed = "none";
+                //     ev.dataTransfer.dropEffect = "none"; 
+                //     return;
+                // }
                 ev.dataTransfer.effectAllowed = "all";
                 ev.dataTransfer.dropEffect = "all"; 
 

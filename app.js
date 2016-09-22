@@ -49,9 +49,12 @@ app.on('ready', function() {
             {
               label: '关于',
               click () {
+                var menu = Menu.buildFromTemplate([]);
+                Menu.setApplicationMenu(menu);
                 let win = new BrowserWindow({ width: 700, height: 500 })
                 win.on('closed', function () { win = null })
-                win.loadURL("app://html/about.html")//指定渲染的页面
+                // win.loadURL("app://html/about.html")//指定渲染的页面
+                win.loadURL("app://html/grid.html")//指定渲染的页面
                 win.show()//打开一个窗口
                 
               }

@@ -13,36 +13,16 @@
     <link rel="stylesheet" type="text/css" href="app://js/jsgrid-theme.css" /> 
 
     <link rel="stylesheet" type="text/css" href="demos.css" />  
+    <script src="app://js/util.js"></script>
+    <script src="grid.js"></script>
+    
 </head>
-<body>
+<body onload="load()">
     <h1>多语言编辑</h1>
+    <button type="button" onclick="onSaveData()">保存</button>
     <div id="jsGrid"></div>
 
     <script>
-        $(function() {
-
-            $("#jsGrid").jsGrid({
-                height: "80%",
-                width: "100%",
-                filtering: true,
-                editing: true,
-                inserting: true,
-                sorting: true,
-                paging: true,
-                autoload: true,
-                pageSize: 15,
-                pageButtonCount: 5,
-                deleteConfirm: "确认是否删除？",
-                controller: db,
-                fields: [
-                    { name: "Key", type: "text", width: 150 },
-                    { name: "Ch", type: "text", width: 300 },
-                    { name: "En", type: "text", width: 250 },
-                    { type: "control" }
-                ]
-            });
-
-        });
     </script>
 </body>
 </html>
