@@ -432,6 +432,9 @@ function GetConfigValueByKey(key, isDirect) {
 function mkdirPath(dirpath, mode) {
     if (!fs.existsSync(dirpath)) {
         if (!fs.mkdirSync(dirpath, mode)) {
+            if(fs.existsSync(dirpath)) {
+                return true;
+            }
             return false;
         }
     }
