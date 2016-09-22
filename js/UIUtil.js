@@ -195,3 +195,8 @@ function CustomAddListener(elem, type, callback) {
         elem.attachEvent("on" + type, wrapper);
     }
 };
+
+function OpenLangInfo(langPath) {
+    AddOrModifyConfig("langPath", langPath);
+    Ipc.sendToMainDirect("ipc-showgrid", langPath);
+}

@@ -363,7 +363,7 @@ function createScript(url, callback){
 
 
 function AddLinkToScripte(url, callback) {
-    if(!isFileExist(url)) {
+    if(!fs.existsSync(url)) {
         callback();
         return;
     }
@@ -385,6 +385,9 @@ function GetFileToData(file) {
 
 var configFile = "ProgramConfig.json";
 function GetConfigData() {
+    if(!fs.existsSync(configFile)) {
+        return {}; 
+    }
     let content = fs.readFileSync(configFile);
     return JSON.parse(content || "{}");
 }
@@ -398,4 +401,31 @@ function AddOrModifyConfig(key, value) {
 function GetConfigValueByKey(key) {
     let data = GetConfigData();
     return data[key];
+}
+
+function mkdirPath(dirpath, mode) {
+    if (!fs.existsSync(dirpath)) {
+        if (!fs.mkdirSync(dirpath, mode)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function ensureLangExist(langFolder) {
+    if(!mkdirPath(langFolder)) {
+        return false;
+    }
+
+    let langPath = langFolder + "/lang.txt";
+    if (!fs.existsSync(langPath)) {
+        let test = {test: {Zh:"测试", En:"test"}};
+        fs.writeFileSync(langPath, JSON.stringify(test, null, 4));
+    }
+    return true;
+}
+
+function saveLangData(langPath, data) {
+    AddOrModifyConfig("modify:" + langPath, true);
+    fs.writeFileSync(langPath, JSON.stringify(data, null, 4));
 }

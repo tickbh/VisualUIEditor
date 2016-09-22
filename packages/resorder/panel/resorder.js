@@ -171,7 +171,11 @@
             if(e.currentTarget.doselect) {
                 e.currentTarget.doselect(e);
             }
-            Ipc.sendToAll("ui:open_file", {path: e.currentTarget.path});
+            if(endWith(e.currentTarget.path, "lang.txt")) {
+                OpenLangInfo(e.currentTarget.path);
+            } else {
+                Ipc.sendToAll("ui:open_file", {path: e.currentTarget.path});
+            }
         }
         e.stopPropagation();
         e.preventDefault();
@@ -359,8 +363,10 @@
 
     messages: {
       'ui:project_floder_change'(event, message) {
-          this.showFolderTree(message.folder)
-
+          let langPath = message.folder + "/lang";
+          ensureLangExist(langPath);
+            
+          this.showFolderTree(message.folder);
       },
       'ui:create_folder'(event, message) {
           

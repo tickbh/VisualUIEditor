@@ -7,11 +7,12 @@
 
         loadData: function(filter) {
             return $.grep(this.clients, function(client) {
-                return (!filter.Name || client.Name.indexOf(filter.Name) > -1)
-                    && (!filter.Age || client.Age === filter.Age)
-                    && (!filter.Address || client.Address.indexOf(filter.Address) > -1)
-                    && (!filter.Country || client.Country === filter.Country)
-                    && (filter.Married === undefined || client.Married === filter.Married);
+                for(var k in client) {
+                    if(filter[k] && client[k].indexOf(filter[k]) < 0) {
+                        return false;
+                    }
+                }
+                return true;
             });
         },
 
@@ -19,7 +20,8 @@
             this.clients.push(insertingClient);
         },
 
-        updateItem: function(updatingClient) { },
+        updateItem: function(updatingClient) { 
+        },
 
         deleteItem: function(deletingClient) {
             var clientIndex = $.inArray(deletingClient, this.clients);
@@ -34,6 +36,20 @@
 
 }());
 
+
+function checkKeyValidator(key) {
+    if(!key || key.length == 0) {
+        return false;
+    }
+    for(var i = 0; i < db.clients.length; i++) {
+        if(db.clients[i].Key == key) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 function initFromPath() {
     let path = GetConfigValueByKey("langPath");
     if(path == null) {
@@ -41,31 +57,36 @@ function initFromPath() {
     }
 
     let allDatas = GetFileToData(path);
-    let clients = {};
+    let clients = [];
     let fields = [
-        { name: "Key", type: "text", width: 150 },
-        { name: "Ch", type: "text", width: 300 },
+        { name: "Key", type: "text", width: 150,
+            validate: { 
+                message: "Key Can't Repeat or Empty!!!", 
+                validator: checkKeyValidator
+            }
+        },
+        { name: "Zh", type: "text", width: 300 },
         { name: "En", type: "text", width: 250 },
     ]
 
-    let allReadyAdd = {Key: true, Ch:true, En: true};
+    let allReadyAdd = {Key: true, Zh:true, En: true};
     window.allReadyAdd = allReadyAdd
     for(var k in allDatas) {
         let data = allDatas[k];
         let format = {Key: k};
-        for(dk in data) {
+        for(var dk in data) {
             if(!allReadyAdd[dk]) {
-                fields.push({name: dk, type: "text": width: 200});
+                fields.push({name: dk, type: "text", width: 200});
                 allReadyAdd[dk] = true;
             }
-            foramt[dk] = data[dk];
+            format[dk] = data[dk];
         }
-        clients.push(foramt);
+        clients.push(format);
     }
 
     db.clients = clients;
 
-    fields.push({ type: "control" });
+    fields.push({ type: "control", modeSwitchButton: false, editButton: false});
 
     return {fields: fields};
 }
@@ -73,18 +94,19 @@ function initFromPath() {
 $(function() {
 
     let ret = initFromPath();
+    console.log(ret)
     if(!ret) {
         return null;
     }
 
     $("#jsGrid").jsGrid({
-        height: "80%",
+        height: "90%",
         width: "100%",
         filtering: true,
         editing: true,
         inserting: true,
         sorting: true,
-        paging: true,
+        paging: false,
         autoload: true,
         pageSize: 15,
         pageButtonCount: 5,
@@ -96,5 +118,9 @@ $(function() {
 });
 
 function onSaveData() {
-
+    let langPath = GetConfigValueByKey("langPath");
+    if(langPath == null) {
+        return;
+    }
+    saveLangData(langPath, db.clients);
 }

@@ -5,6 +5,7 @@ const Ipc = require("./main/ipc");
 const MenuUtil = require("./js/MenuUtil");
 
 let mainWindow;
+let gridWindow;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -260,6 +261,20 @@ app.on('ready', function() {
       y = Math.floor(y);
       editorMenu.popup(BrowserWindow.fromWebContents(event.sender), x, y);
     }
+  });
+
+  ipcMain.on('ipc-showgrid', function(event, message, a, b, c) {
+
+      if(gridWindow) {
+        gridWindow.loadURL("app://html/grid.html");
+      } else {
+        gridWindow = new BrowserWindow({ width: 1280, height: 800 })
+        // gridWindow.setMenuBarVisibility(false);
+        gridWindow.setAutoHideMenuBar(true);
+        gridWindow.on('closed', function () { gridWindow = null })
+        gridWindow.loadURL("app://html/grid.html")//指定渲染的页面
+        gridWindow.show()//打开一个窗口
+      }
   });
 
   var menu = Menu.buildFromTemplate(getMenu());
