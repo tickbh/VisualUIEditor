@@ -363,8 +363,7 @@
 
     messages: {
       'ui:project_floder_change'(event, message) {
-          let langPath = message.folder + "/lang";
-          ensureLangExist(langPath);
+          ensureLangExist();
             
           this.showFolderTree(message.folder);
       },

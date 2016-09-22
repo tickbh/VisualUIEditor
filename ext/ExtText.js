@@ -15,8 +15,21 @@ ExtText.GenNodeByData = function(data, parent) {
     return this.GenEmptyNode();
 };
 
+ExtText.SetNodeString = function(node, string) {
+    if(!string) {
+        return;
+    }
+    let analyse = tryAnalyseLang(string);
+    if(analyse.isKey) {
+        node.string = analyse.value;
+        node._key = analyse.key;
+    } else {
+        node.string = string;
+    }
+};
+
 ExtText.SetNodePropByData = function(node, data, parent) {
-    data.string && (node.string = data.string);
+    ExtText.SetNodeString(node, data.string);
     data.textAlign && (node.textAlign = data.textAlign);
     data.verticalAlign && (node.verticalAlign = data.verticalAlign);
     data.fontSize && (node.fontSize = data.fontSize);
@@ -31,7 +44,7 @@ ExtText.SetNodePropByData = function(node, data, parent) {
 };
 
 ExtText.ExportNodeData = function(node, data) {
-    data["string"] = node.string;
+    data["string"] = node._key ? ("@" + node._key) : node.string;
     node.textAlign != cc.TEXT_ALIGNMENT_LEFT && (data["textAlign"] = node.textAlign);
     node.verticalAlign != cc.VERTICAL_TEXT_ALIGNMENT_TOP && (data["verticalAlign"] = node.verticalAlign);
     data["fontSize"] = node.fontSize;
@@ -47,7 +60,7 @@ ExtText.ExportNodeData = function(node, data) {
 ExtText.SetPropChange = function(control, path, value) {
     let node = control._node;
     if(path == "string") {
-       node.string = value;
+       ExtText.SetNodeString(node, value);
     } else if(path == "textAlign") {
         node.textAlign = parseFloat(value);
     } else if(path == "verticalAlign") {
@@ -90,7 +103,7 @@ TextData.prototype = {
             name: "string",
             attrs: {
             },
-            value: this._node.string,
+            value: this._node._key ? ("@" + this._node._key) : this._node.string,
         };
     },
 

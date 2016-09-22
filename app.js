@@ -263,7 +263,7 @@ app.on('ready', function() {
     }
   });
 
-  ipcMain.on('ipc-showgrid', function(event, message, a, b, c) {
+  ipcMain.on('ipc-showgrid', function(event, folder) {
 
       if(gridWindow) {
         gridWindow.loadURL("app://html/grid.html");

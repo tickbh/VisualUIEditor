@@ -1,6 +1,8 @@
 const ipcRenderer = Electron.ipcRenderer;
 
 let projectLangData = null
+let currentLangSet = null
+let projectLangReadTime = 0;
 
 function ChangeProjectFolder() {
     let newFolder = Electron.remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory']});
@@ -199,21 +201,50 @@ function CustomAddListener(elem, type, callback) {
 };
 
 function OpenLangInfo(langPath) {
-    AddOrModifyConfig("langPath", langPath);
-    Ipc.sendToMainDirect("ipc-showgrid", langPath);
+    AddOrModifyConfig("currentLangOpenPath", langPath, true);
+    Ipc.sendToMainDirect("ipc-showgrid", window.projectFolder);
 }
 
 function getProjectLangData() {
     if(!window.projectFolder) {
-        return data;
+        return {};
     }
     
-    if(GetConfigValueByKey("modify:langPath")) {
-        projectLangData = null;
-        AddOrModifyConfig("modify:langPath", null);
+    let file = getLangPath() + "/" + getLangFileName();
+    if(!fs.existsSync(file)) {
+        return {}; 
     }
+    var stat = fs.statSync(file);
+    if(stat.mtime.getTime() != projectLangReadTime) {
+        projectLangData = null;
+    }
+
     if(projectLangData == null) {
-        projectLangData = GetFileToData(window.projectFolder + "/lang/lang.txt");
+        projectLangData = GetFileToData(file);
+        currentLangSet = getCurLangSet();
+        projectLangReadTime = stat.mtime.getTime();
     }
     return projectLangData;
+}
+
+function getLangFromConfig(key) {
+    let data = getProjectLangData();
+    if(data[key] == null) {
+        return null;
+    }
+    return projectLangData[key][currentLangSet] || "";
+}
+
+function tryAnalyseLang(value) {
+    let data = {isKey : false};
+    if(value.indexOf("@") == 0) {
+        let key = value.substring(1);
+        let lang = getLangFromConfig(key);
+        if(lang != null) {
+            data.value = lang;
+            data.isKey = true;
+            data.key = key;
+        } 
+    }
+    return data;
 }

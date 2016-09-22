@@ -37,9 +37,12 @@
 }());
 
 
-function checkKeyValidator(key) {
+function checkKeyValidator(key, item) {
     if(!key || key.length == 0) {
         return false;
+    }
+    if(key == item.Key) {
+        return true;
     }
     for(var i = 0; i < db.clients.length; i++) {
         if(db.clients[i].Key == key) {
@@ -51,7 +54,7 @@ function checkKeyValidator(key) {
 
 
 function initFromPath() {
-    let path = GetConfigValueByKey("langPath");
+    let path = GetConfigValueByKey("currentLangOpenPath", true);
     if(path == null) {
         return;
     }
@@ -118,9 +121,20 @@ $(function() {
 });
 
 function onSaveData() {
-    let langPath = GetConfigValueByKey("langPath");
+    let langPath = GetConfigValueByKey("currentLangOpenPath", true);
     if(langPath == null) {
         return;
     }
-    saveLangData(langPath, db.clients);
+    let saveData = {};
+    for(var i = 0; i < db.clients.length; i++) {
+        let data = db.clients[i];
+        let newData = {};
+        for(var k in data) {
+            if(k != "Key") {
+                newData[k] = data[k]
+            }
+        }
+        saveData[data.Key] = newData;
+    }
+    saveLangData(langPath, saveData);
 }

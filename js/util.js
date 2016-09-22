@@ -380,26 +380,52 @@ function AddLinkToScripte(url, callback) {
 
 function GetFileToData(file) {
     let content = fs.readFileSync(file);
-    return JSON.parse(content || "{}");
+    try 
+    { 
+        return JSON.parse(content || "{}")
+    } 
+    catch (e) 
+    { 
+        return {};
+    } 
 }
 
 var configFile = "ProgramConfig.json";
-function GetConfigData() {
-    if(!fs.existsSync(configFile)) {
+var cacheFile = "CahceConfig.json";
+var cacheConfigData = {};
+var cacheReadTime = 0;
+function GetConfigData(isDirect) {
+    if(!isDirect && !window.projectFolder) {
+        return {};
+    }
+    let file = isDirect ? cacheFile : window.projectFolder + "/" + configFile;
+    if(!fs.existsSync(file)) {
         return {}; 
     }
-    let content = fs.readFileSync(configFile);
-    return JSON.parse(content || "{}");
+    if(isDirect) {
+        return GetFileToData(file);
+    }
+    var stat = fs.statSync(file);
+    if(stat.mtime.getTime() == cacheReadTime) {
+        return cacheConfigData;
+    }
+    cacheConfigData = GetFileToData(file);
+    cacheReadTime = stat.mtime.getTime();
+    return cacheConfigData;
 }
 
-function AddOrModifyConfig(key, value) {
-    let data = GetConfigData();
+function AddOrModifyConfig(key, value, isDirect) {
+    if(!isDirect && !window.projectFolder) {
+        return {};
+    }
+    let data = GetConfigData(isDirect);
     data[key] = value;
-    fs.writeFileSync(configFile, JSON.stringify(data, null, 4));
+    let file = isDirect ? cacheFile : window.projectFolder + "/" + configFile;
+    fs.writeFileSync(file, JSON.stringify(data, null, 4));
 }
 
-function GetConfigValueByKey(key) {
-    let data = GetConfigData();
+function GetConfigValueByKey(key, isDirect) {
+    let data = GetConfigData(isDirect);
     return data[key];
 }
 
@@ -412,12 +438,50 @@ function mkdirPath(dirpath, mode) {
     return true;
 }
 
-function ensureLangExist(langFolder) {
+function getLangPath() {
+    if(!window.projectFolder) {
+        return null;
+    }
+    let langPath = GetConfigValueByKey("langPath");
+    if(langPath == null) {
+        langPath = window.projectFolder + "/lang";
+    }
+    return langPath;
+}
+
+function getLangFileName() {
+    if(!window.projectFolder) {
+        return null;
+    }
+    let langFileName = GetConfigValueByKey("langFileName");
+    if(langFileName == null) {
+        langFileName = "lang.txt";
+    }
+    return langFileName;
+}
+
+function getCurLangSet() {
+    if(!window.projectFolder) {
+        return null;
+    }
+    let langSet = GetConfigValueByKey("langSet");
+    if(langSet == null) {
+        langSet = "Zh";
+    }
+    return langSet;
+}
+
+
+function ensureLangExist() {
+    let langFolder = getLangPath();
+    if(!langFolder) {
+        return false;
+    }
     if(!mkdirPath(langFolder)) {
         return false;
     }
 
-    let langPath = langFolder + "/lang.txt";
+    let langPath = langFolder + "/" + getLangFileName();
     if (!fs.existsSync(langPath)) {
         let test = {test: {Zh:"测试", En:"test"}};
         fs.writeFileSync(langPath, JSON.stringify(test, null, 4));
