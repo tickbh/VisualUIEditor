@@ -2,7 +2,7 @@
   "name": "visual-ui-editor",
   "productName": "VisualUIEditor",
   "description": "VisualUIEditor",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": "tickbh",
   "main": "app.js",
   "dependencies": {
