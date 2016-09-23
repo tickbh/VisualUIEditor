@@ -25,6 +25,7 @@ ExtText.SetNodeString = function(node, string) {
         node._key = analyse.key;
     } else {
         node.string = string;
+        node._key = undefined;
     }
 };
 

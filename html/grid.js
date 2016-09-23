@@ -18,14 +18,17 @@
 
         insertItem: function(insertingClient) {
             this.clients.push(insertingClient);
+            onSaveData();
         },
 
         updateItem: function(updatingClient) { 
+            onSaveData();
         },
 
         deleteItem: function(deletingClient) {
             var clientIndex = $.inArray(deletingClient, this.clients);
             this.clients.splice(clientIndex, 1);
+            onSaveData();
         }
 
     };
@@ -103,7 +106,7 @@ $(function() {
     }
 
     $("#jsGrid").jsGrid({
-        height: "90%",
+        height: "100%",
         width: "100%",
         filtering: true,
         editing: true,
