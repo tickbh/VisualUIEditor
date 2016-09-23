@@ -447,9 +447,10 @@ function getLangPath() {
     }
     let langPath = GetConfigValueByKey("langPath");
     if(langPath == null) {
-        langPath = window.projectFolder + "/lang";
+        AddOrModifyConfig("langPath", "/lang")
+        langPath = "/lang";
     }
-    return langPath;
+    return window.projectFolder + langPath;
 }
 
 function getLangFileName() {
@@ -458,6 +459,7 @@ function getLangFileName() {
     }
     let langFileName = GetConfigValueByKey("langFileName");
     if(langFileName == null) {
+        AddOrModifyConfig("langFileName", "lang.txt")
         langFileName = "lang.txt";
     }
     return langFileName;
@@ -469,6 +471,7 @@ function getCurLangSet() {
     }
     let langSet = GetConfigValueByKey("langSet");
     if(langSet == null) {
+        AddOrModifyConfig("langSet", "Zh")
         langSet = "Zh";
     }
     return langSet;
