@@ -9715,6 +9715,7 @@ cc.Sprite = cc.Node.extend({
     },
     initWithFile:function (filename, rect) {
         cc.assert(filename, cc._LogInfos.Sprite_initWithFile);
+        this.setNodeDirty(true);
         var tex = cc.textureCache.getTextureForKey(filename);
         if (!tex) {
             tex = cc.textureCache.addImage(filename);
@@ -51886,6 +51887,8 @@ ccui.LoadingBar = ccui.Widget.extend({
             default:
                 break;
         }
+
+        // barRenderer.setNodeDirty(true);
         var bz = barRenderer.getContentSize();
         this._barRendererTextureSize.width = bz.width;
         this._barRendererTextureSize.height = bz.height;

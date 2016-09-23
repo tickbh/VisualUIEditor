@@ -45,12 +45,20 @@ ExtSlider.SetPropChange = function(control, path, value) {
         control._node.fontColor = new cc.Color(value.r, value.g, value.b, value.a);
     } else if(path == "placeholderFontColor") {
         control._node.placeholderFontColor = new cc.Color(value.r, value.g, value.b, value.a);
-    } else if(path == "spriteBg") {
-        ExtSlider.SetSpriteFrame(control._node, value);
+    } else if(path == "barBg") {
+        setNodeSpriteFrame("barBg", value, control._node, control._node.loadBarTexture);
+    } else if(path == "barProgress") {
+        setNodeSpriteFrame("barProgress", value, control._node, control._node.loadProgressBarTexture);
+    } else if(path == "barNormalBall") {
+        setNodeSpriteFrame("barNormalBall", value, control._node, control._node.loadSlidBallTextureNormal);
+    } else if(path == "barSelectBall") {
+        setNodeSpriteFrame("barSelectBall", value, control._node, control._node.loadSlidBallTexturePressed);
+    } else if(path == "barDisableBall") {
+        setNodeSpriteFrame("barDisableBall", value, control._node, control._node.loadSlidBallTextureDisabled);
     } else {
         control._node[path] = value;
     }
-};
+ };
 
 ExtSlider.ExportData = function(node) {
     this._node = node;
