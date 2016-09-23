@@ -51,42 +51,46 @@
     <div class="toolbar">
       <ve-buttons selected="{{modeSelected}}">
         <ve-buttons-item>
-          <i class="fa fa-play"></i>
+          <i title="设计示图" class="fa fa-play"></i>
         </ve-buttons-item>
         <ve-buttons-item>
-          <i class="fa fa-code"></i>
+          <i title="源代码" class="fa fa-code"></i>
         </ve-buttons-item>
       </ve-buttons>
 
       <ve-button class="black small transparent" on-confirm="_realignPosition">
-        <i class="fa fa-adjust"></i>
+        <i title="居中排列" class="fa fa-adjust"></i>
+      </ve-button>
+
+      <ve-button class="black small transparent" on-confirm="_onRefreshScene">
+        <i title="强制刷新" class="fa fa-refresh"></i>
       </ve-button>
 
       <div style="height:100px; width:1px; border-left:1px #000 solid"></div>
 
-      <ve-button class="black small transparent" on-confirm="_alignLeft">
+      <ve-button title="水平居左对齐" class="black small transparent" on-confirm="_alignLeft">
         <img src="app://res/align-left.png"></img>
       </ve-button>
 
-      <ve-button class="black small transparent" on-confirm="_alignHCenter">
+      <ve-button title="水平居中对齐" class="black small transparent" on-confirm="_alignHCenter">
         <img src="app://res/align-h-center.png"></img>
       </ve-button>
 
-      <ve-button class="black small transparent" on-confirm="_alignRight">
+      <ve-button title="水平居右对齐" class="black small transparent" on-confirm="_alignRight">
         <img src="app://res/align-right.png"></img>
       </ve-button>
       
       <div style="height:100px; width:1px; border-left:1px #000 solid"></div>
 
-      <ve-button class="black small transparent" on-confirm="_alignTop">
+      <ve-button title="竖直居上对齐" class="black small transparent" on-confirm="_alignTop">
         <img src="app://res/align-top.png"></img>
       </ve-button>
 
-      <ve-button class="black small transparent" on-confirm="_alignVCenter">
+      <ve-button title="竖直居中对齐" class="black small transparent" on-confirm="_alignVCenter">
         <img src="app://res/align-v-center.png"></img>
       </ve-button>
 
-      <ve-button class="black small transparent" on-confirm="_alignBottom">
+      <ve-button title="竖直居下对齐" class="black small transparent" on-confirm="_alignBottom">
         <img src="app://res/align-bottom.png"></img>
       </ve-button>
       

@@ -9,9 +9,8 @@ ExtSlider.defNormalBall = "res/default/SliderNodeNormal.png";
 ExtSlider.defBarProgress = "res/default/SliderBar.png";
 
 ExtSlider.GenEmptyNode = function() {
-    node = new ccui.Slider(getFullPathForName(ExtSlider.defBack), getFullPathForName(ExtSlider.defNormalBall));
+    node = new ccui.Slider(getFullPathForName(ExtSlider.defBack));
     node._barBg = ExtSlider.defBack;
-    node._barNormalBall = ExtSlider.defNormalBall;
 
     setNodeSpriteFrame("barProgress", ExtSlider.defBarProgress, node, node.loadProgressBarTexture)
     node._className = ExtSlider.name;

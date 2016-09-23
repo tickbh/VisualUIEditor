@@ -44,8 +44,12 @@ function isBaseType(node) {
 }
 
 function setNodeSpriteFrame(path, value, node, fn) {
-    if(!value)
+    if(!value) {
+        let newPath = "_" + path;
+        node[newPath] = "";
+        fn.call(node, "");
         return;
+    }
     let url = getFullPathForName(value);
     let exist = checkTextureExist(url);
     if(!exist) {

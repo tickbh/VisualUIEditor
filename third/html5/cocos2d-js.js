@@ -9715,7 +9715,7 @@ cc.Sprite = cc.Node.extend({
     },
     initWithFile:function (filename, rect) {
         cc.assert(filename, cc._LogInfos.Sprite_initWithFile);
-        this.setNodeDirty(true);
+        // this.setNodeDirty(true);
         var tex = cc.textureCache.getTextureForKey(filename);
         if (!tex) {
             tex = cc.textureCache.addImage(filename);
@@ -52151,8 +52151,11 @@ ccui.Slider = ccui.Widget.extend({
     },
     loadBarTexture: function (fileName, texType) {
         if (!fileName) {
+            this._barRenderer.setVisible(false);
             return;
         }
+        this._barRenderer.setVisible(true);
+
         texType = texType || ccui.Widget.LOCAL_TEXTURE;
         this._textureFile = fileName;
         this._barTexType = texType;
@@ -52182,8 +52185,11 @@ ccui.Slider = ccui.Widget.extend({
     },
     loadProgressBarTexture: function (fileName, texType) {
         if (!fileName) {
+            this._progressBarRenderer.setVisible(false);
             return;
         }
+        this._progressBarRenderer.setVisible(true);
+
         texType = texType || ccui.Widget.LOCAL_TEXTURE;
         this._progressBarTextureFile = fileName;
         this._progressBarTexType = texType;
@@ -52292,11 +52298,14 @@ ccui.Slider = ccui.Widget.extend({
     },
     loadSlidBallTextureNormal: function (normal, texType) {
         if (!normal) {
+            this._slidBallNormalRenderer.setVisible(false);
             return;
         }
+        this._slidBallNormalRenderer.setVisible(true);
         texType = texType || ccui.Widget.LOCAL_TEXTURE;
         this._slidBallNormalTextureFile = normal;
         this._ballNTexType = texType;
+        
         var self = this;
         if(!this._slidBallNormalRenderer._textureLoaded){
             this._slidBallNormalRenderer.addEventListener("load", function(){
@@ -52318,8 +52327,10 @@ ccui.Slider = ccui.Widget.extend({
     },
     loadSlidBallTexturePressed: function (pressed, texType) {
         if (!pressed) {
+            this._slidBallPressedRenderer.setVisible(false);
             return;
         }
+        this._slidBallPressedRenderer.setVisible(true);
         texType = texType || ccui.Widget.LOCAL_TEXTURE;
         this._slidBallPressedTextureFile = pressed;
         this._ballPTexType = texType;
@@ -52344,8 +52355,11 @@ ccui.Slider = ccui.Widget.extend({
     },
     loadSlidBallTextureDisabled: function (disabled, texType) {
         if (!disabled) {
+            this._slidBallDisabledRenderer.setVisible(false);
             return;
         }
+        this._slidBallDisabledRenderer.setVisible(true);
+
         texType = texType || ccui.Widget.LOCAL_TEXTURE;
         this._slidBallDisabledTextureFile = disabled;
         this._ballDTexType = texType;

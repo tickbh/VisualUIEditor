@@ -187,6 +187,17 @@
         this._resizeGameCanvasCenter();
     },
 
+    _onRefreshScene: function() {
+        if(this.modeSelected == 0) {
+            let data = cocosExportNodeData(this.$.scene.getRunScene());
+            let scene = cocosGenNodeByData(data, null);
+            if(scene && (scene._className == "Scene")) {
+                this.sceneChange(scene);
+            }
+        }
+        
+    },
+
     _modeSelectedChange: function() {
         if(!this._isReady) {
             return
@@ -201,8 +212,8 @@
                 let data = this._editor.getValue();
                 if(data && data.length > 0) {
                     let json = JSON.parse(data);
-                        let scene = cocosGenNodeByData(json, null);
-                        if(scene && (scene._className == "Scene")) {
+                    let scene = cocosGenNodeByData(json, null);
+                    if(scene && (scene._className == "Scene")) {
                         this.sceneChange(scene);
                     } else {
                         failed = true;
