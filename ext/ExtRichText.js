@@ -16,6 +16,21 @@ ExtRichText.GenNodeByData = function(data, parent) {
     return this.GenEmptyNode();
 };
 
+
+ExtRichText.SetNodeString = function(node, string) {
+    if(!string) {
+        return;
+    }
+    let analyse = tryAnalyseLang(string);
+    if(analyse.isKey) {
+        node._text = analyse.value;
+        node._key = analyse.key;
+    } else {
+        node._text = string;
+        node._key = undefined;
+    }
+};
+
 ExtRichText.SetNodePropByData = function(node, data, parent) {
     data.textAlign && (node.setTextHorizontalAlignment(data.textAlign));
     data.verticalAlign && (node.setTextVerticalAlignment(data.verticalAlign));
@@ -29,7 +44,7 @@ ExtRichText.SetNodePropByData = function(node, data, parent) {
     }
     data.oriFontSize && (node._originConfig.oriFontSize = data.oriFontSize);
     data.oriOSize && (node._originConfig.osize = data.oriOSize);
-    node._text = data.text;
+    ExtRichText.SetNodeString(node, data.text);
     node.forceUpdate();
 };
 
@@ -45,13 +60,14 @@ ExtRichText.ExportNodeData = function(node, data) {
     if(!cc.colorEqual(node._originConfig.ocolor, cc.color.BLACK)) {
         data["oriOColor"] = [node._originConfig.ocolor.r, node._originConfig.ocolor.g, node._originConfig.ocolor.b, node._originConfig.ocolor.a]
     }
-    node._text && (data["text"] = node._text);
+    data["text"] = node._key ? ("@" + node._key) : node._text;
 };
 
 ExtRichText.SetPropChange = function(control, path, value) {
     let node = control._node;
     if(path == "text") {
-        node.setText(value);
+        ExtRichText.SetNodeString(node, value);
+        node.forceUpdate();
     } else if(path == "textAlign") {
         node.setTextHorizontalAlignment(parseFloat(value));
     } else if(path == "verticalAlign") {
@@ -90,7 +106,7 @@ RichTextData.prototype = {
             name: "text",
             attrs: {
             },
-            value: this._node._text,
+            value: this._node._key ? ("@" + this._node._key) : this._node._text,
         };
     },
 
