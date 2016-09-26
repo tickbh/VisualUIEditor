@@ -42,6 +42,7 @@ ExtWidget.ExportData.prototype = {
 
 ExtWidget.PropComps = function(node) {
     let datas = [ new WidgetData(node) ];
+    datas.push(new TouchData(node));
     return datas;
 };
 
