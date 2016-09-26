@@ -22,11 +22,9 @@
     "requirejs": "2.2.0",
     "requirejs-domready": "2.0.3"
   },
-  "hosts": {
-    "fireball-packages/package-examples": "master"
-  },
   "scripts": {
-    "start": "electron .",
+    "start": "electron .",    
+    "package-china-win32": "electron-packager ./ VisualUIEditor --asar --platform=win32 --arch=all --out ../Out/VisualUIEditor --version 1.3.4 --overwrite --download.mirror=https://npm.taobao.org/mirrors/electron/",
     "package-china": "electron-packager ./ VisualUIEditor --asar --all --out ../Out/VisualUIEditor --version 1.3.4 --overwrite --download.mirror=https://npm.taobao.org/mirrors/electron/",
     "package": "electron-packager ./ VisualUIEditor --asar --all --out ../Out/VisualUIEditor --version 1.3.4 --overwrite"
   }
