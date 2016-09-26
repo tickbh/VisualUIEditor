@@ -6,31 +6,17 @@
     "type": "Scene",
     "children": [
         {
-            "width": "40",
-            "height": "40",
-            "x": 226,
-            "y": 51,
-            "id": "check",
-            "type": "UICheckBox",
+            "width": "200",
+            "height": "14",
+            "x": 149,
+            "y": 54,
+            "type": "Slider",
             "touchEnabled": true,
-            "back": "res/default/CheckBoxNormal.png",
-            "backSelect": "res/default/CheckBoxSelect.png",
-            "active": "res/default/CheckBoxNodeNormal.png",
-            "backDisable": "res/default/CheckBoxDisable.png",
-            "activeDisable": "res/default/CheckBoxNodeDisable.png",
-            "select": true
-        },
-        {
-            "width": "57",
-            "height": "28",
-            "x": 56,
-            "y": 59,
-            "id": "text",
-            "type": "UIText",
-            "touchEnabled": false,
-            "string": "I'dfds",
-            "fontSize": 24,
-            "fontName": "Arial"
+            "touchListener": "sub1listener",
+            "percent": 37.5,
+            "barBg": "res/default/SliderBack.png",
+            "barProgress": "res/default/SliderBar.png",
+            "barNormalBall": "res/default/SliderNodeNormal.png"
         }
     ]
 }

@@ -1,0 +1,16 @@
+{
+    "test": {
+        "Zh": "测试",
+        "En": "this is Englist test",
+        "Tw": "测试tw"
+    },
+    "testRich": {
+        "Zh": "V[cr]i[f30]su[/c]al[/f]UI",
+        "En": "V[cr]i[f30]su[/c]al[/f]UI"
+    },
+    "gf": {
+        "Zh": "fdsafdsa",
+        "En": "fdsafdsafdsa",
+        "Tw": ""
+    }
+}

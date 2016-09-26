@@ -1,0 +1,146 @@
+{
+    "width": "800",
+    "height": "400",
+    "x": 0,
+    "y": 0,
+    "type": "Scene",
+    "children": [
+        {
+            "width": "89",
+            "height": "28",
+            "x": 464,
+            "y": 239,
+            "type": "UIText",
+            "touchEnabled": false,
+            "string": "VisualUI",
+            "fontSize": 24,
+            "fontName": "Arial"
+        },
+        {
+            "width": "228",
+            "height": "74",
+            "x": 618,
+            "y": 135,
+            "type": "UIButton",
+            "touchEnabled": true,
+            "scale9Enable": true,
+            "bgNormal": "uires/button.png",
+            "titleText": "fdsfds",
+            "fontName": "Arial",
+            "fontSize": 16
+        },
+        {
+            "width": "40",
+            "height": "40",
+            "x": 499,
+            "y": 106,
+            "type": "UICheckBox",
+            "touchEnabled": true,
+            "back": "res/default/CheckBoxNormal.png",
+            "backSelect": "res/default/CheckBoxSelect.png",
+            "active": "res/default/CheckBoxNodeNormal.png",
+            "backDisable": "res/default/CheckBoxDisable.png",
+            "activeDisable": "res/default/CheckBoxNodeDisable.png",
+            "select": true
+        },
+        {
+            "width": "200",
+            "height": "14",
+            "x": 714,
+            "y": 260,
+            "type": "UISlider",
+            "touchEnabled": true,
+            "barBg": "res/default/SliderBack.png",
+            "barProgress": "res/default/SliderBar.png",
+            "barNormalBall": "res/default/SliderNodeNormal.png"
+        },
+        {
+            "width": "40",
+            "height": "40",
+            "x": 105,
+            "y": 287,
+            "type": "UIWidget",
+            "touchEnabled": false,
+            "children": [
+                {
+                    "width": "46",
+                    "height": "46",
+                    "x": 0,
+                    "y": 0,
+                    "type": "UIImage",
+                    "touchEnabled": false,
+                    "spriteFrame": "res/default/Sprite.png"
+                }
+            ]
+        },
+        {
+            "width": "46",
+            "height": "46",
+            "x": 295,
+            "y": 161,
+            "type": "UIScale9",
+            "spriteFrame": "res/default/Scale9.png"
+        },
+        {
+            "width": "100",
+            "height": "34",
+            "x": 292,
+            "y": 88,
+            "type": "UIInput",
+            "fontName": "Arial",
+            "fontColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "placeHolder": "VisualUI",
+            "spriteFrame": "res/default/shurukuang.png"
+        },
+        {
+            "width": "46",
+            "height": "36",
+            "x": 204,
+            "y": 143,
+            "type": "UIButton",
+            "touchEnabled": true,
+            "bgNormal": "res/default/ButtonNormal.png",
+            "titleText": "Button",
+            "fontName": "Arial",
+            "fontSize": 16,
+            "fontColor": [
+                21,
+                42,
+                66,
+                255
+            ]
+        },
+        {
+            "width": "40",
+            "height": "40",
+            "x": 699,
+            "y": 67,
+            "type": "UICheckBox",
+            "touchEnabled": true,
+            "back": "res/default/CheckBoxNormal.png",
+            "backSelect": "res/default/CheckBoxSelect.png",
+            "active": "res/default/CheckBoxNodeNormal.png",
+            "backDisable": "res/default/CheckBoxDisable.png",
+            "activeDisable": "res/default/CheckBoxNodeDisable.png",
+            "select": true
+        },
+        {
+            "width": "140",
+            "height": "27",
+            "x": 401,
+            "y": 331,
+            "type": "UITextAtlas",
+            "touchEnabled": false,
+            "string": "4532246",
+            "charMapFile": "res/default/AltasNum.png",
+            "itemWidth": 20,
+            "itemHeight": 27,
+            "mapStartChar": "0"
+        }
+    ]
+}
