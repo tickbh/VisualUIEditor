@@ -278,12 +278,11 @@ NodeData.prototype = {
             return extControl.PropComps(this._node);
         }
         let datas = [ new WidgetData(this._node) ];
+        datas.push(new TouchData(this._node));
         if(this._node._path) {
             extControl = GetExtNodeControl(this._node._path);
             if(extControl) {
                 return extControl.PropComps(this._node);
-            } else {
-                datas.push(new TouchData(this._node));
             }
         }
         return datas;
