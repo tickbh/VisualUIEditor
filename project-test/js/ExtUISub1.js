@@ -60,6 +60,7 @@ ExtUISub1.ExportData.prototype = {
 
 ExtUISub1.PropComps = function(node) {
     let datas = [ new WidgetData(node) ];
+    datas.push(new TouchData(node));
     datas.push(new ExtUISub1.ExportData(node));
     return datas;
 };

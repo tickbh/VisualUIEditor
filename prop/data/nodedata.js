@@ -277,14 +277,16 @@ NodeData.prototype = {
         if(extControl) {
             return extControl.PropComps(this._node);
         }
+        let datas = [ new WidgetData(this._node) ];
         if(this._node._path) {
             extControl = GetExtNodeControl(this._node._path);
             if(extControl) {
                 return extControl.PropComps(this._node);
+            } else {
+                datas.push(new TouchData(this._node));
             }
         }
-        let node = [ new WidgetData(this._node) ];
-        return node;
+        return datas;
     },
 
     setSpriteFrame(path, value, defRes, fn) {
