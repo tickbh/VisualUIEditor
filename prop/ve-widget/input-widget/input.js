@@ -5,6 +5,7 @@ Polymer({
 
   listeners: {
     'focused-changed': '_onFocusedChanged',
+    
   },
 
   properties: {
@@ -79,6 +80,10 @@ Polymer({
     this.async(() => {
       this.fire('end-editing', {cancel: true});
     },1);
+  },
+
+  _onBlur() {
+    this.confirm();
   },
 
   select ( start, end ) {

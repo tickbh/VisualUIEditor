@@ -126,6 +126,10 @@ Polymer({
     },1);
   },
 
+  _onBlur() {
+    this.confirm();
+  },
+
   _onKeyDown (event) {
     // keydown 'enter'
     if (event.keyCode === 13) {
