@@ -39,6 +39,11 @@
     ready: function() {
         this.fabricCanvas = new fabric.Canvas(this.$.forgeCanvas);
         this.runScene = null;
+        this.reinitRender();
+    },
+
+    reinitRender: function() {
+        ClearCurrentGameStatus();
         cc.game.run({
             "debugMode"     : 0,
             "showFPS"       : false,
@@ -47,7 +52,6 @@
             "renderMode"    : 1,
         }, function() {
         }.bind(this));
-
     },
 
     attached: function() {

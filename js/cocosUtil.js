@@ -495,3 +495,9 @@ function InsertAfterUUID(node, parent, uuid) {
         parent.addChild(afterNode[i]);
     }
 }
+
+function ClearCurrentGameStatus() {
+    cc.game._prepareCalled = false;
+    cc.game._rendererInitialized = false;
+    cc.game._renderContext = null;
+}

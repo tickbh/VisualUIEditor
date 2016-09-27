@@ -674,15 +674,11 @@
        this['ondrop'] = this.dragDrop.bind(this);
        this['ondragleave'] = this.dragLeave.bind(this);
 
-       global.setTimeout(() => {
-            if(window.localStorage["projectFolder"]) {
-                let path = window.localStorage["projectFolder"];
-                window["projectFolder"] = path;
-                Ipc.sendToAll("ui:project_floder_change", {folder: path});
-            }
-
-
-       },1000);
+        this._openPath = null;
+        let node = new cc.Scene();
+        node.width = 800;
+        node.height = 400;
+        this.sceneChange(node);
     },
 
     sceneChange: function(newScene) {
@@ -972,24 +968,41 @@
         Ipc.sendToAll("ui:select_items_change", {select_items : select_items});
     },
 
+    _ensureExitCurRender: function() {
+        let runScene = this.$.scene.getRunScene();
+        let self = this;
+        let isModify = false;
+        var closeCurRender = function() {
+            Ipc.sendToAllPanel("ui:closeCurRender", {});
+        };
+
+        if(runScene._undo && !runScene._undo.isSaved()) {
+            isModify = true;
+            let dialog = Electron.remote.dialog;
+            dialog.showMessageBox({
+                type:"question",
+                buttons:["取消", "确定", "不保存"],
+                title:"是否保存",
+                message:"您已进行修改，尚未保存，是否保存？",
+            }, function (buttonIndex) {
+                if(buttonIndex == 0) {
+                    return;
+                }
+                if(buttonIndex == 1) {
+                    self._doSaveFunc();
+                }
+                closeCurRender();
+            })
+        }
+
+        if(!isModify) {
+            closeCurRender();
+        }
+    },
+
     messages: {
         "ui:project_floder_change"(event, message) {
-            let last_open_ui = window.localStorage["last_open_ui"];
-            if(!startWith(last_open_ui, message.folder)) {
-                last_open_ui = null;
-                window.localStorage["last_open_ui"] = null;
-            }
-            AddLinkToScripte(message.folder + "/js/init.html", function() {
-                if(last_open_ui) {
-                    Ipc.sendToAll("ui:open_file", {path: last_open_ui});
-                }
-            });
 
-            this._openPath = null;
-            let node = new cc.Scene();
-            node.width = 800;
-            node.height = 400;
-            this.sceneChange(node);
         },
         "ui:change_item_position" (event, message) {
             this.changeItemPosition(message.sourceUUID, message.compareUUID, message.mode);
@@ -1013,10 +1026,9 @@
         "ui:has_item_change"(event, message) {
             this.updateForgeCanvas();
         },
-        "ui:open_file"(event, message) {
+        "ui:open_scene_file"(event, message) {
             let path = message.path;
             if(endWith(path, ".ui")) {
-                let dialog = Electron.remote.dialog;
                 let runScene = this.$.scene.getRunScene();
                 let self = this;
                 var openScene = function() {
@@ -1027,31 +1039,20 @@
                         self.sceneChange(scene);
                     }
                 };
-                let isModify = false;
-                if(runScene._undo && !runScene._undo.isSaved()) {
-                    isModify = true;
-                    dialog.showMessageBox({
-                        type:"question",
-                        buttons:["取消", "确定", "不保存"],
-                        title:"是否保存",
-                        message:"您已进行修改，尚未保存，是否保存？",
-                    }, function (buttonIndex) {
-                        if(buttonIndex == 0) {
-                            return;
-                        }
-                        if(buttonIndex == 1) {
-                            self._doSaveFunc();
-                        }
-                        openScene();
-                    })
-                }
 
-                if(!isModify) {
-                    openScene();
-                }
-
+                openScene();
                 
             }
+
+            this.resize();
+        },
+
+        "ui:cur_tab_select"(event, message) {
+            if(!this._isReady) {
+                return
+            }
+            this.$.scene.reinitRender();
+            this.sceneChange(this.$.scene.getRunScene());
         },
         'ui:scene_prop_change'(event, message) {
             let runScene = this.$.scene.getRunScene();
@@ -1109,6 +1110,8 @@
                this._doPasteFunc();
            } else if(event.keyCode == KeyCodes('a') && event.ctrlKey) {
                this._doSelectAll();
+           } else if(event.keyCode == KeyCodes('w') && event.ctrlKey) {
+               this._ensureExitCurRender();
            } else if(event.keyCode == KeyCodes('esc')) {
                this.$.scene.getFabricCanvas().clear();
                this._firstSelectItem = null;

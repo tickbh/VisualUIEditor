@@ -2,7 +2,7 @@
 let ExtListView = {};
 
 ExtListView.name = "UIListView";
-ExtListView.icon = "app://res/control/Button.png";
+ExtListView.icon = "app://res/control/listview.png";
 ExtListView.tag = 9;
 
 ExtListView.GenEmptyNode = function() {

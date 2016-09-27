@@ -2,7 +2,7 @@
 let ExtScrollView = {};
 
 ExtScrollView.name = "UIScrollView";
-ExtScrollView.icon = "app://res/control/Button.png";
+ExtScrollView.icon = "app://res/control/scrollview.png";
 ExtScrollView.tag = 9;
 
 ExtScrollView.GenEmptyNode = function() {

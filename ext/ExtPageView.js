@@ -2,7 +2,7 @@
 let ExtPageView = {};
 
 ExtPageView.name = "UIPageView";
-ExtPageView.icon = "app://res/control/Button.png";
+ExtPageView.icon = "app://res/control/pageview.png";
 ExtPageView.tag = 9;
 
 ExtPageView.GenEmptyNode = function() {

@@ -61,24 +61,60 @@ $(document).ready(function() {
       isPersistent: true,
       faicon: 'cubes',
       onCreate: function(myPanel) {
+        
+        var $tabArea = $('<div style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;">');
+        myPanel.layout().addItem($tabArea);
+        var tabFrame = new wcTabFrame($tabArea, myPanel);
 
-        var $node = $('<ve-renderpanel id="render" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-renderpanel>');
-        myPanel._main = $node[0];
-        myPanel.layout().addItem($node).stretch('', '100%');
+        // var $node = $('<ve-renderpanel id="render" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-renderpanel>');
+        // tabFrame.addTab('Unknow', -1, wcDocker.LAYOUT.SIMPLE).addItem($node);
+        // myPanel._main = $node[0];
+
+        // tabFrame.closeable(0, true); // 0 based index 3 is actually Custom Tab 4
+        // tabFrame.faicon(0, 'gears')
         myPanel.on(wcDocker.EVENT.RESIZED, function(data) {
-
-          
           Ipc.sendToAll("panelResized")
         });
-        
-        myPanel.on(wcDocker.EVENT.GAIN_FOCUS, function(data) {
-          myPanel._main.focus();
-          console.log("RenderPanel GAIN_FOCUS");
-        });
 
-        myPanel.on(wcDocker.EVENT.LOST_FOCUS, function(data) {
-          console.log("RenderPanel lose focus");
+        myPanel.messages = {};
+        myPanel.messages["ui:open_file"] = function(event, message){
+            var $node = $('<ve-renderpanel id="render" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-renderpanel>');
+            let newLayout = tabFrame.addTab(message.path, 0, wcDocker.LAYOUT.SIMPLE);
+            newLayout.addItem($node);
+            tabFrame.tab(0, true);
+            newLayout._main = $node[0];
+            myPanel._main = $node[0];
+            Ipc.sendToAll("ui:open_scene_file", message);
+
+        };
+
+        let tabChanged = function(index) {
+            let layout = tabFrame.layout(index);
+            if(!layout) {
+                return;
+            }
+            myPanel._main = layout._main;
+            Ipc.sendToAll("ui:cur_tab_select", {index: index});
+        };
+
+        myPanel.messages["ui:closeCurRender"] = function(event, message){
+            tabFrame.removeTab(tabFrame._curTab);
+            tabChanged(tabFrame._curTab);
+        };
+
+
+        myPanel.on(wcDocker.EVENT.CUSTOM_TAB_CHANGED, function(data) {
+            tabChanged(data.index);
         });
+          
+        // myPanel.on(wcDocker.EVENT.GAIN_FOCUS, function(data) {
+        //   myPanel._main.focus();
+        //   console.log("RenderPanel GAIN_FOCUS");
+        // });
+
+        // myPanel.on(wcDocker.EVENT.LOST_FOCUS, function(data) {
+        //   console.log("RenderPanel lose focus");
+        // });
         
       },
     });

@@ -39,6 +39,13 @@
           }
       });
 
+      global.setTimeout(() => {
+            if(window.localStorage["projectFolder"]) {
+                let path = window.localStorage["projectFolder"];
+                window["projectFolder"] = path;
+                Ipc.sendToAll("ui:project_floder_change", {folder: path});
+            }
+      },1000);
     },
 
     _refreshAll: function() {
@@ -174,7 +181,7 @@
             if(endWith(e.currentTarget.path, "lang.txt")) {
                 OpenLangInfo(e.currentTarget.path);
             } else {
-                Ipc.sendToAll("ui:open_file", {path: e.currentTarget.path});
+                Ipc.sendToAllPanel("ui:open_file", {path: e.currentTarget.path});
             }
         }
         e.stopPropagation();
@@ -363,9 +370,20 @@
 
     messages: {
       'ui:project_floder_change'(event, message) {
-          ensureLangExist();
-            
-          this.showFolderTree(message.folder);
+            ensureLangExist();
+
+            let last_open_ui = window.localStorage["last_open_ui"];
+            if(!startWith(last_open_ui, message.folder)) {
+                last_open_ui = null;
+                window.localStorage["last_open_ui"] = null;
+            }
+            AddLinkToScripte(message.folder + "/js/init.html", function() {
+                if(last_open_ui) {
+                    Ipc.sendToAllPanel("ui:open_file", {path: last_open_ui});
+                }
+            });
+
+            this.showFolderTree(message.folder);
       },
       'ui:create_folder'(event, message) {
           
