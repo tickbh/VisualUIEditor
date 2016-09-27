@@ -78,8 +78,18 @@ $(document).ready(function() {
 
         myPanel.messages = {};
         myPanel.messages["ui:open_file"] = function(event, message){
+
+            let subPath = calcRelativePath(window.projectFolder + "/", message.path);
+            for(var i = 0; i < tabFrame.tabCount(); i++) {
+                let layout = tabFrame.layout(i);
+                if(layout.name == subPath || layout.name == subPath + "*") {
+                    tabFrame.tab(i, true);
+                    return;
+                }
+            }
+
             var $node = $('<ve-renderpanel id="render" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-renderpanel>');
-            let newLayout = tabFrame.addTab(message.path, 0, wcDocker.LAYOUT.SIMPLE);
+            let newLayout = tabFrame.addTab(subPath, 0, wcDocker.LAYOUT.SIMPLE);
             newLayout.addItem($node);
             tabFrame.tab(0, true);
             newLayout._main = $node[0];
