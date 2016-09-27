@@ -1,30 +1,10 @@
-#VisualUIEditor
+#VisualUIEditor项目讲解之项目介绍
+------------------------
+VisualUIEditor项目是一款开源游戏UI编辑器，它基于electron跨平台，wcDocker的dock组件，及cocos-html5的渲染层
 
-An UIEditor for Game, base on electron.
-
-![](./screenshot/screenprint.jpg)
-
-#install
-> install node.js first
-
-> npm install -g electron-prebuilt
-
-> npm install -g bower
-
-> bower install
-
-> npm install
-
-#run
-open shell in project root and run
-> electron .
-
-#start with project
-菜单->文件->打开项目(选择目录底下的project-test)即可进行测试
-
-#基于项目
-基本electron跨平台，wcDocker的dock组件，及cocos-html5的渲染层
-
+#跨平台
+------------------------
+支持Windows，Linux，MacOs等相关平台
 
 #已实现的功能
 ------------------------
@@ -47,11 +27,15 @@ open shell in project root and run
 * 属性布局，您可以选中某个节点，这里将显示节点的具体属性，您可以通过它快速的修改节点属性
 * 渲染布局，这里为编辑器的核心布局，这里每个页签下对应着一个Scene，这里将显示您的整体展示图，这也是您在游戏中将显示的效果图，当然做为程序猿的我们也可以快速的通常源码模式快修的修改我们的布局，然后再切换成设计模式预览效果
 
-Runtime
--------------
+#Runtime相关
+----------------------
 支持cocos2dx的应用(当前支持Lua及CPP)
 [cocos2dx runtime](https://github.com/tickbh/VisualUIEditor_2dx_runtime "cocos2dx runtime")
 
-其它信息
------------------------
+#项目地址
+----------------------
+[GitHub](https://github.com/tickbh/VisualUIEditor "VisualUIEditor")
+
+#其它信息
+----------------------
 **VisualUIEditor开发QQ群欢迎您的加入: 453224679**
