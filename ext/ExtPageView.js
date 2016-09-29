@@ -1,55 +1,53 @@
+let ExtPageView = {}
 
-let ExtPageView = {};
+ExtPageView.name = 'UIPageView'
+ExtPageView.icon = 'app://res/control/pageview.png'
+ExtPageView.tag = 9
 
-ExtPageView.name = "UIPageView";
-ExtPageView.icon = "app://res/control/pageview.png";
-ExtPageView.tag = 9;
+ExtPageView.GenEmptyNode = function () {
+  node = new ccui.PageView()
+  node.setContentSize(cc.size(200, 100))
+  node._className = ExtPageView.name
+  return node
+}
 
-ExtPageView.GenEmptyNode = function() {
-    node = new ccui.PageView();
-    node.setContentSize(cc.size(200, 100));
-    node._className = ExtPageView.name;
-    return node;
-};
+ExtPageView.GenNodeByData = function (data, parent) {
+  return this.GenEmptyNode()
+}
 
-ExtPageView.GenNodeByData = function(data, parent) {
-    return this.GenEmptyNode();
-};
+ExtPageView.SetNodePropByData = function (node, data, parent) {
+  ExtListView.SetNodePropByData(node, data, parent)
+}
 
-ExtPageView.SetNodePropByData = function(node, data, parent) {
-    ExtListView.SetNodePropByData(node, data, parent);
-};
+ExtPageView.ExportNodeData = function (node, data) {
+  ExtListView.ExportNodeData(node, data)
+}
 
-ExtPageView.ExportNodeData = function(node, data) {
-    ExtListView.ExportNodeData(node, data);
-};
+ExtPageView.SetPropChange = function (control, path, value) {
+  ExtListView.SetPropChange(control, path, value)
+}
 
-ExtPageView.SetPropChange = function(control, path, value) {
-    ExtListView.SetPropChange(control, path, value);
-};
-
-ExtPageView.ExportData = function(node) {
-    this._node = node;
+ExtPageView.ExportData = function (node) {
+  this._node = node
 }
 
 ExtPageView.ExportData.prototype = {
-    __displayName__: "PageView",
+  __displayName__: 'PageView',
 
-    get __props__() {
-        return [
-        ];
-    }
+  get __props__() {
+    return []
+  }
 }
 
-ExtPageView.PropComps = function(node) {
-    let datas = [ new WidgetData(node) ];
-    datas.push(new TouchData(node));
-    datas.push(new ExtPageView.ExportData(node));
-    datas.push(new ExtListView.ExportData(node));
-    datas.push(new ExtScrollView.ExportData(node));
-    return datas;
-};
+ExtPageView.PropComps = function (node) {
+  let datas = [ new WidgetData(node) ]
+  datas.push(new TouchData(node))
+  datas.push(new ExtPageView.ExportData(node))
+  datas.push(new ExtListView.ExportData(node))
+  datas.push(new ExtScrollView.ExportData(node))
+  return datas
+}
 
-module.exports = ExtPageView;
+module.exports = ExtPageView
 
-RegisterExtNodeControl(ExtPageView.name, ExtPageView);
+RegisterExtNodeControl(ExtPageView.name, ExtPageView)

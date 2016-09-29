@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const Electron = require('electron');
-const EventEmitter = require('events');
+const Electron = require('electron')
+const EventEmitter = require('events')
 
 // ==========================
 // Internal
@@ -11,74 +11,74 @@ const EventEmitter = require('events');
  * @class Command
  */
 class Command {
-  //{op=xx,scene=xx,uuid=xx,prop=xx,oldValue=xx,newValue=xx,time=xx}
-  constructor ( info ) {
-    this.info = info;
+  // {op=xx,scene=xx,uuid=xx,prop=xx,oldValue=xx,newValue=xx,time=xx}
+  constructor (info) {
+    this.info = info
   }
   undo () {
-    let node = cocosGetItemByUUID(this.info.scene, this.info.uuid);
-    if(this.info.op == "prop") {
-      if(!node) {
-        return false;
+    let node = cocosGetItemByUUID(this.info.scene, this.info.uuid)
+    if (this.info.op == 'prop') {
+      if (!node) {
+        return false
       }
-      if(this.info.doPropChange) {
-        this.info.doPropChange(node, this.info.prop, this.info.oldValue);
+      if (this.info.doPropChange) {
+        this.info.doPropChange(node, this.info.prop, this.info.oldValue)
       } else {
-        NodePropChange(node, this.info.prop, this.info.oldValue);
+        NodePropChange(node, this.info.prop, this.info.oldValue)
       }
-      
-      
-      return true;
+
+
+      return true
     }
-    console.warn('Please implement undo function in your command'); 
+    console.warn('Please implement undo function in your command')
   }
   redo () {
-      let node = cocosGetItemByUUID(this.info.scene, this.info.uuid);
-      if(this.info.op == "prop") {
-        if(!node) {
-          return false;
-        }
-        
-      if(this.info.doPropChange) {
-        this.info.doPropChange(node, this.info.prop, this.info.newValue);
+    let node = cocosGetItemByUUID(this.info.scene, this.info.uuid)
+    if (this.info.op == 'prop') {
+      if (!node) {
+        return false
+      }
+
+      if (this.info.doPropChange) {
+        this.info.doPropChange(node, this.info.prop, this.info.newValue)
       } else {
-        NodePropChange(node, this.info.prop, this.info.newValue);
+        NodePropChange(node, this.info.prop, this.info.newValue)
       }
-        return true;
-      }
-    console.warn('Please implement redo function in your command'); 
+      return true
+    }
+    console.warn('Please implement redo function in your command')
   }
 
-  isCanCombine(other) {
-    if(!this.info || !other.info) {
-      return false;
+  isCanCombine (other) {
+    if (!this.info || !other.info) {
+      return false
     }
 
-    if(this.info.op != other.info.op) {
-      return false;
+    if (this.info.op != other.info.op) {
+      return false
     }
 
-    if(this.info.uuid != other.info.uuid) {
-      return false;
+    if (this.info.uuid != other.info.uuid) {
+      return false
     }
 
-    if(this.info.op == "prop" && (this.info.prop != other.info.prop)) {
-      return false;
+    if (this.info.op == 'prop' && (this.info.prop != other.info.prop)) {
+      return false
     }
-    
-    if(Math.abs(this.info.time - other.info.time) >= 1000 ) {
-      return false;
+
+    if (Math.abs(this.info.time - other.info.time) >= 1000) {
+      return false
     }
-    return true;
+    return true
   }
 
-  combineCommand(other) {
-    if(!this.isCanCombine(other)) {
-      return false;
+  combineCommand (other) {
+    if (!this.isCanCombine(other)) {
+      return false
     }
-    this.info.time = Math.max(this.info.time, other.info.time);
-    this.info.newValue = other.info.newValue;
-    return true;
+    this.info.time = Math.max(this.info.time, other.info.time)
+    this.info.newValue = other.info.newValue
+    return true
   }
 
   dirty () { return true; }
@@ -89,77 +89,77 @@ class Command {
  */
 class CommandGroup {
   constructor () {
-    this._commands = [];
-    this._time = null;
-    this.desc = '';
+    this._commands = []
+    this._time = null
+    this.desc = ''
   }
 
   undo () {
-    for ( let i = this._commands.length-1; i >= 0; --i ) {
-      this._commands[i].undo();
+    for ( let i = this._commands.length - 1; i >= 0; --i) {
+      this._commands[i].undo()
     }
   }
 
   redo () {
-    for ( let i = 0; i < this._commands.length; ++i ) {
-      this._commands[i].redo();
+    for ( let i = 0; i < this._commands.length; ++i) {
+      this._commands[i].redo()
     }
   }
 
   dirty () {
-    for ( let i = 0; i < this._commands.length; ++i ) {
-      if ( this._commands[i].dirty() ) {
-        return true;
+    for ( let i = 0; i < this._commands.length; ++i) {
+      if (this._commands[i].dirty()) {
+        return true
       }
     }
-    return false;
+    return false
   }
 
-  add ( cmd ) {
-    this._commands.push(cmd);
-    this._time = cmd.info.time;
+  add (cmd) {
+    this._commands.push(cmd)
+    this._time = cmd.info.time
   }
 
   clear () {
-    this._commands = [];
+    this._commands = []
   }
 
   canCommit () {
-    return this._commands.length;
+    return this._commands.length
   }
 
-  isCanCombine(other) {
-    if(this._commands.length == 0) {
-      return true;
+  isCanCombine (other) {
+    if (this._commands.length == 0) {
+      return true
     }
-    for ( let i = 0; i < this._commands.length; ++i ) {
-      if ( this._commands[i].isCanCombine(other) ) {
-        return true;
+    for ( let i = 0; i < this._commands.length; ++i) {
+      if (this._commands[i].isCanCombine(other)) {
+        return true
       }
     }
     if (this._time && Math.abs(this._time - other.info.time) < 1000) {
-      return true;
+      return true
     }
-    return false;
+    return false
   }
 
-  combineCommand(other) {
-    if(this._commands.length == 0) {
+  combineCommand (other) {
+    if (this._commands.length == 0) {
       this.add(other)
-      return true;
+      return true
     }
-    for ( let i = 0; i < this._commands.length; ++i ) {
-      if ( this._commands[i].isCanCombine(other) && this._commands[i].combineCommand(other) ) {
-        this._time = other.info.time;
-        return true;
+    for ( let i = 0; i < this._commands.length; ++i) {
+      if (this._commands[i].isCanCombine(other) && this._commands[i].combineCommand(other)) {
+        this._time = other.info.time
+        return true
       }
     }
 
     if (this._time && Math.abs(this._time - other.info.time) < 1000) {
-      this.add(other);
-      return true;
+      this.add(other)
+      return true
     }
-    return false;
+    return false
   }
 
 }
@@ -169,144 +169,144 @@ class CommandGroup {
  */
 class UndoList extends EventEmitter {
   constructor (type) {
-    super();
+    super()
 
-    this._silent = false;
-    this._type = type;
-    
-    this._curGroup = new CommandGroup();
-    this._groups = [];
-    this._position = -1;
-    this._savePosition = -1;
+    this._silent = false
+    this._type = type
+
+    this._curGroup = new CommandGroup()
+    this._groups = []
+    this._position = -1
+    this._savePosition = -1
   }
 
   reset () {
-    this.clear();
+    this.clear()
   }
 
   undo () {
     // check if we have un-commit group
-    if ( this._curGroup.canCommit() ) {
-      this._curGroup.undo();
-      this._changed('undo-cache');
-      this._groups.push(this._curGroup);
-      this._curGroup = new CommandGroup();
-      return true;
+    if (this._curGroup.canCommit()) {
+      this._curGroup.undo()
+      this._changed('undo-cache')
+      this._groups.push(this._curGroup)
+      this._curGroup = new CommandGroup()
+      return true
     }
 
     // check if can undo
-    if ( this._position < 0 ) {
-      return false;
+    if (this._position < 0) {
+      return false
     }
 
-    let group = this._groups[this._position];
-    group.undo();
-    this._position--;
-    this._changed('undo');
-    return true;
+    let group = this._groups[this._position]
+    group.undo()
+    this._position--
+    this._changed('undo')
+    return true
   }
 
   redo () {
     // check if can redo
-    if ( this._position >= this._groups.length-1 ) {
-      return false;
+    if (this._position >= this._groups.length - 1) {
+      return false
     }
 
-    this._position++;
-    let group = this._groups[this._position];
-    group.redo();
+    this._position++
+    let group = this._groups[this._position]
+    group.redo()
 
-    this._changed('redo');
-    return true;
+    this._changed('redo')
+    return true
   }
 
-  add ( cmd ) {
-    this._clearRedo();
-    if(this._curGroup.isCanCombine(cmd)) {
-      this._curGroup.combineCommand(cmd);
+  add (cmd) {
+    this._clearRedo()
+    if (this._curGroup.isCanCombine(cmd)) {
+      this._curGroup.combineCommand(cmd)
     } else {
-      this.commit();
-      this._curGroup.add(cmd);
+      this.commit()
+      this._curGroup.add(cmd)
     }
-    this._changed('add-command');
+    this._changed('add-command')
   }
 
   commit () {
-    if ( this._curGroup.canCommit() ) {
-      this._groups.push(this._curGroup);
-      this._position++;
-      this._changed('commit');
+    if (this._curGroup.canCommit()) {
+      this._groups.push(this._curGroup)
+      this._position++
+      this._changed('commit')
     }
-    this._curGroup = new CommandGroup();
+    this._curGroup = new CommandGroup()
   }
 
   cancel () {
-    this._curGroup.clear();
+    this._curGroup.clear()
   }
 
   save () {
-    this.commit();
-    this._savePosition = this._position;
-    this._changed('save');
+    this.commit()
+    this._savePosition = this._position
+    this._changed('save')
   }
 
-  isSaved() {
-    return this._savePosition == this._position && !this._curGroup.canCommit();
+  isSaved () {
+    return this._savePosition == this._position && !this._curGroup.canCommit()
   }
 
   clear () {
-    this._curGroup = new CommandGroup();
-    this._groups = [];
-    this._position = -1;
-    this._savePosition = -1;
+    this._curGroup = new CommandGroup()
+    this._groups = []
+    this._position = -1
+    this._savePosition = -1
 
-    this._changed('clear');
+    this._changed('clear')
   }
 
   dirty () {
-    if ( this._savePosition !== this._position ) {
-      let min = Math.min(this._position, this._savePosition);
-      let max = Math.max(this._position, this._savePosition);
+    if (this._savePosition !== this._position) {
+      let min = Math.min(this._position, this._savePosition)
+      let max = Math.max(this._position, this._savePosition)
 
-      for ( let i=min+1; i <= max; i++ ) {
-        if ( this._groups[i].dirty() ) {
-          return true;
+      for ( let i = min + 1; i <= max; i++) {
+        if (this._groups[i].dirty()) {
+          return true
         }
       }
     }
 
-    return false;
+    return false
   }
 
-  setCurrentDescription ( desc ) {
-    this._curGroup.desc = desc;
+  setCurrentDescription (desc) {
+    this._curGroup.desc = desc
   }
 
   _clearRedo () {
-    if ( this._position+1 === this._groups.length ) {
-      return;
+    if (this._position + 1 === this._groups.length) {
+      return
     }
 
-    this._groups = this._groups.slice(0, this._position+1);
-    this._curGroup.clear();
+    this._groups = this._groups.slice(0, this._position + 1)
+    this._curGroup.clear()
 
-    if ( this._savePosition > this._position ) {
-      this._savePosition = this._position;
+    if (this._savePosition > this._position) {
+      this._savePosition = this._position
     }
-    this._changed('clear-redo');
+    this._changed('clear-redo')
   }
 
-  _changed ( type ) {
-    if ( this._silent ) {
-      return;
+  _changed (type) {
+    if (this._silent) {
+      return
     }
 
-    if ( this._type === 'local' ) {
-      this.emit('changed', type);
-      return;
+    if (this._type === 'local') {
+      this.emit('changed', type)
+      return
     }
 
-    Ipc.sendToAll('undo:changed', type);
+    Ipc.sendToAll('undo:changed', type)
   }
 }
 
@@ -316,85 +316,84 @@ class UndoList extends EventEmitter {
 
 class UndoObj {
   constructor () {
-    this._undoList = new UndoList("local");
+    this._undoList = new UndoList('local')
   }
   undo () {
-    if(this._undoList.undo()) {
-      Ipc.sendToAll("ui:has_item_change", {});
+    if (this._undoList.undo()) {
+      Ipc.sendToAll('ui:has_item_change', {})
     }
   }
 
   redo () {
-    if(this._undoList.redo()){
-      Ipc.sendToAll("ui:has_item_change", {});
+    if (this._undoList.redo()) {
+      Ipc.sendToAll('ui:has_item_change', {})
     }
   }
 
-  add ( cmd ) {
-    this._undoList.add(cmd);
+  add (cmd) {
+    this._undoList.add(cmd)
   }
 
   commit () {
-    this._undoList.commit();
+    this._undoList.commit()
   }
 
   cancel () {
-    this._undoList.cancel();
+    this._undoList.cancel()
   }
 
-  collapseTo ( index ) {
-    this._undoList.collapseTo(index);
+  collapseTo (index) {
+    this._undoList.collapseTo(index)
   }
 
   save () {
-    this._undoList.save();
+    this._undoList.save()
   }
 
-  isSaved() {
-    return this._undoList.isSaved();
+  isSaved () {
+    return this._undoList.isSaved()
   }
 
   clear () {
-    this._undoList.clear();
+    this._undoList.clear()
   }
 
   reset () {
-    return this._undoList.reset();
+    return this._undoList.reset()
   }
 
   dirty () {
-    return this._undoList.dirty();
+    return this._undoList.dirty()
   }
 
-  setCurrentDescription ( desc ) {
-    return this._undoList.setCurrentDescription( desc );
+  setCurrentDescription (desc) {
+    return this._undoList.setCurrentDescription(desc)
   }
 
   local () {
-    return new UndoList('local');
+    return new UndoList('local')
   }
 
-};
-
-  //{op=xx,scene=xx,uuid=xx,prop=xx,oldValue=xx,newValue=xx,time=xx, doPropChange=fn}
-function newPropCommandChange(scene, uuid, prop, oldValue, newValue, doPropChange) {
-  return new Command({op:"prop", scene:getRootNode(scene), uuid:uuid, prop:prop, oldValue:oldValue, newValue: newValue, doPropChange:doPropChange, time : new Date().getTime()})
 }
 
-function tryAddCommand(undo, command) {
-  //no change don't add
-  if(command.info.oldValue == command.info.newValue) {
-    return;
-  }
-  undo.add(command);
+// {op=xx,scene=xx,uuid=xx,prop=xx,oldValue=xx,newValue=xx,time=xx, doPropChange=fn}
+function newPropCommandChange (scene, uuid, prop, oldValue, newValue, doPropChange) {
+  return new Command({op: 'prop', scene: getRootNode(scene), uuid: uuid, prop: prop, oldValue: oldValue, newValue: newValue, doPropChange: doPropChange, time: new Date().getTime()})
 }
 
+function tryAddCommand (undo, command) {
+  // no change don't add
+  if (command.info.oldValue == command.info.newValue) {
+    return
+  }
+  undo.add(command)
+}
 
-function addNodeCommand(node, prop, oldValue, newValue, doPropChange) {
-  let scene = getRootNode(node);
-  if(!scene._undo) {
-    return;
+function addNodeCommand (node, prop, oldValue, newValue, doPropChange) {
+  let scene = getRootNode(node)
+  if (!scene._undo) {
+    return
   }
 
-  tryAddCommand(scene._undo, newPropCommandChange(scene, node.uuid, prop, oldValue, newValue, doPropChange));
+  tryAddCommand(scene._undo, newPropCommandChange(scene, node.uuid, prop, oldValue, newValue, doPropChange))
 }

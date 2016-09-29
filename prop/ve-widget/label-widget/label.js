@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 Polymer({
   properties: {
@@ -6,7 +6,7 @@ Polymer({
       type: Boolean,
       notify: true,
       value: false,
-      reflectToAttribute: true,
-    },
-  },
-});
+      reflectToAttribute: true
+    }
+  }
+})

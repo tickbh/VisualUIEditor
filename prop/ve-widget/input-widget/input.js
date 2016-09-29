@@ -1,12 +1,7 @@
-'use strict';
+'use strict'
 
 Polymer({
   behaviors: [Polymer.IronValidatableBehavior],
-
-  listeners: {
-    'focused-changed': '_onFocusedChanged',
-    
-  },
 
   properties: {
     placeholder: {
@@ -18,7 +13,7 @@ Polymer({
     inputValue: {
       type: String,
       notify: true,
-      value: '',
+      value: ''
     },
 
     value: {
@@ -40,103 +35,89 @@ Polymer({
     }
   },
 
-  created () {
-    this._inited = false;
+  created() {
+    this._inited = false
   },
 
-  ready () {
-    this._inited = true;
+  ready() {
+    this._inited = true
   },
 
-  _valueChanged () {
-    this.inputValue = this.value;
+  _valueChanged() {
+    this.inputValue = this.value
   },
 
-  clear () {
-    this.value = '';
-    this.inputValue = '';
-    this.confirm();
+  clear() {
+    this.value = ''
+    this.inputValue = ''
+    this.confirm()
   },
 
-  confirm ( pressEnter ) {
-    this.value = this.inputValue;
+  confirm(pressEnter) {
+    this.value = this.inputValue
     this.fire('confirm', {
-      confirmByEnter: pressEnter,
+      confirmByEnter: pressEnter
     }, {
       bubbles: false
-    });
-    if(!this._inited) {
-      return;
+    })
+    if (!this._inited) {
+      return
     }
     this.async(() => {
-      this.fire('end-editing');
-    },1);
+      this.fire('end-editing')
+    }, 1)
   },
 
   cancel() {
-    this.inputValue = this.value;
-    this.fire('cancel', null, {bubbles: false} );
+    this.inputValue = this.value
+    this.fire('cancel', null, {bubbles: false})
 
     this.async(() => {
-      this.fire('end-editing', {cancel: true});
-    },1);
+      this.fire('end-editing', {cancel: true})
+    }, 1)
   },
 
   _onBlur() {
-    this.confirm();
+    this.confirm()
   },
 
-  select ( start, end ) {
-    if ( typeof start === 'number' && typeof end === 'number' ) {
-      this.$.input.setSelectionRange( start, end );
-    }
-    else {
-      this.$.input.select();
+  select(start, end) {
+    if (typeof start === 'number' && typeof end === 'number') {
+      this.$.input.setSelectionRange(start, end)
+    }else {
+      this.$.input.select()
     }
   },
 
-  _onKeyDown (event) {
+  _onKeyDown(event) {
     // keydown 'enter'
     if (event.keyCode === 13) {
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault()
+      event.stopPropagation()
 
-      this.confirm(true);
-      FocusParent(this);
+      this.confirm(true)
+      FocusParent(this)
     }
     // keydown 'esc'
     else if (event.keyCode === 27) {
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault()
+      event.stopPropagation()
 
-      this.cancel();
-      FocusParent(this);
+      this.cancel()
+      FocusParent(this)
     }
   },
 
-  _onFocusedChanged ( event ) {
-    if(!this._inited) {
-      return;
-    }
-    this._lastFocused = event.detail.value;
-
-    setTimeout(() => {
-      if ( !this._lastFocused ) {
-        this.confirm();
-      }
-    },1);
+  _checkCancelable(inputValue) {
+    return this.cancelable && inputValue
   },
 
-  _checkCancelable (inputValue) {
-    return this.cancelable && inputValue;
-  },
-
-  _onClear ( event ) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.fire('clear', null, {bubbles: false} );
-    this.inputValue = '';
-    this.confirm();
+  _onClear(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    this.fire('clear', null, {bubbles: false})
+    this.inputValue = ''
+    this.confirm()
   }
 
-});
+})

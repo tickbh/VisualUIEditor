@@ -4,13 +4,8 @@
   <link rel="import" type="css" href="input.css">
 
   <template>
-    <input is="iron-input" id="input" bind-value="{{inputValue}}"
-      type="{{type}}"
-      readonly$="{{readonly}}"
-      placeholder="{{placeholder}}"
-      on-keydown="_onKeyDown"
-      on-blur="_onBlur"
-    >
+    <input is="iron-input" id="input" bind-value="{{inputValue}}" type="{{type}}" readonly$="{{readonly}}" placeholder="{{placeholder}}"
+      on-keydown="_onKeyDown" on-blur="_onBlur">
     </input>
 
     <template is="dom-if" if="{{_checkCancelable(inputValue)}}">
