@@ -6,6 +6,14 @@
     "type": "Scene",
     "children": [
         {
+            "width": "228",
+            "height": "74",
+            "x": 455,
+            "y": 239,
+            "type": "UIScale9",
+            "spriteFrame": "uires/xinxikuang.png"
+        },
+        {
             "width": "252",
             "height": "48",
             "x": 401,
@@ -17,14 +25,6 @@
             "itemWidth": 36,
             "itemHeight": 48,
             "mapStartChar": "0"
-        },
-        {
-            "width": "228",
-            "height": "74",
-            "x": 455,
-            "y": 239,
-            "type": "UIScale9",
-            "spriteFrame": "uires/xinxikuang.png"
         },
         {
             "width": "141",
@@ -64,17 +64,6 @@
             ]
         },
         {
-            "width": "195",
-            "height": "270",
-            "x": 873,
-            "y": 345,
-            "type": "UISlider",
-            "touchEnabled": true,
-            "percent": 64,
-            "barBg": "HelloWorld.png",
-            "barProgress": "res/default/SliderBar.png"
-        },
-        {
             "width": "40",
             "height": "40",
             "x": 153,
@@ -83,13 +72,13 @@
             "touchEnabled": false,
             "children": [
                 {
-                    "width": "200",
-                    "height": "27",
+                    "width": "46",
+                    "height": "46",
                     "x": 72,
                     "y": 1,
                     "type": "UIImage",
                     "touchEnabled": true,
-                    "spriteFrame": "uires/gold_num.png"
+                    "spriteFrame": "res/default/Sprite.png"
                 }
             ]
         },

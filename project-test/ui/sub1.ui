@@ -6,17 +6,42 @@
     "type": "Scene",
     "children": [
         {
-            "width": "200",
-            "height": "14",
-            "x": 149,
-            "y": 54,
-            "type": "Slider",
+            "width": "40",
+            "height": "40",
+            "x": 226,
+            "y": 51,
+            "id": "check",
+            "type": "UICheckBox",
             "touchEnabled": true,
-            "touchListener": "sub1listener",
-            "percent": 37.5,
-            "barBg": "res/default/SliderBack.png",
-            "barProgress": "res/default/SliderBar.png",
-            "barNormalBall": "res/default/SliderNodeNormal.png"
+            "back": "res/default/CheckBoxNormal.png",
+            "backSelect": "res/default/CheckBoxSelect.png",
+            "active": "res/default/CheckBoxNodeNormal.png",
+            "backDisable": "res/default/CheckBoxDisable.png",
+            "activeDisable": "res/default/CheckBoxNodeDisable.png",
+            "select": true
+        },
+        {
+            "width": "89",
+            "height": "28",
+            "x": 56,
+            "y": 59,
+            "id": "text",
+            "type": "UIText",
+            "touchEnabled": false,
+            "string": "VisualUI",
+            "fontSize": 24,
+            "fontName": "Arial"
+        },
+        {
+            "width": "46",
+            "height": "36",
+            "x": 132,
+            "y": 40,
+            "type": "UIButton",
+            "touchEnabled": true,
+            "bgNormal": "res/default/ButtonNormal.png",
+            "fontName": "Arial",
+            "fontSize": 16
         }
     ]
 }
