@@ -47,11 +47,13 @@ open shell in project root and run
 * 属性布局，您可以选中某个节点，这里将显示节点的具体属性，您可以通过它快速的修改节点属性
 * 渲染布局，这里为编辑器的核心布局，这里每个页签下对应着一个Scene，这里将显示您的整体展示图，这也是您在游戏中将显示的效果图，当然做为程序猿的我们也可以快速的通常源码模式快修的修改我们的布局，然后再切换成设计模式预览效果
 
-Runtime
--------------
+#文档信息
+[如何使用](./doc/howtouse.md "如何使用")
+[UI文件详解](./doc/uidetail.md "UI文件详解")
+
+#Runtime
 支持cocos2dx的应用(当前支持Lua及CPP)
 [cocos2dx runtime](https://github.com/tickbh/VisualUIEditor_2dx_runtime "cocos2dx runtime")
 
-其它信息
------------------------
+#其它信息
 **VisualUIEditor开发QQ群欢迎您的加入: 453224679**
