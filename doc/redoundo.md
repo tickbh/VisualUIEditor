@@ -149,8 +149,6 @@ add (cmd) {
       } else {
         NodePropChange(node, this.info.prop, this.info.oldValue)
       }
-
-
       return true
     }
     console.warn('Please implement undo function in your command')
@@ -195,7 +193,6 @@ add (cmd) {
     }
     console.warn('Please implement redo function in your command')
   }
-
 ```
 每个命令列表，首先会先尝试获取节点，然后根据节点的属性变更，进行新旧值的设置
 
