@@ -170,13 +170,18 @@ class CommandGroup {
 class UndoList extends EventEmitter {
   constructor (type) {
     super()
-
+    //是否变化时发送事件的变化
     this._silent = false
+    //分为local和global类型, local类型事件变化只会通知本地, global则会通常整个编辑器
     this._type = type
 
+    //当前的命令列表
     this._curGroup = new CommandGroup()
+    //操作过程的命令列表
     this._groups = []
+    //记录当前的位置信息
     this._position = -1
+    //上一次保存时的位置信息
     this._savePosition = -1
   }
 

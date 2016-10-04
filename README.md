@@ -49,7 +49,10 @@ open shell in project root and run
 
 #文档信息
 [如何使用](./doc/howtouse.md "如何使用")
+
 [UI文件详解](./doc/uidetail.md "UI文件详解")
+
+[撤消反撤消](./doc/redoundo.md "撤消反撤消实现细节")
 
 #Runtime
 支持cocos2dx的应用(当前支持Lua及CPP)
