@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
 Polymer({
   behaviors: [ Polymer.IronValidatableBehavior],
 
   listeners: {
-    'focused-changed': '_onFocusedChanged',
+    'focused-changed': '_onFocusedChanged'
   },
 
   properties: {
@@ -22,7 +22,7 @@ Polymer({
     inputValue: {
       type: String,
       notify: true,
-      value: '',
+      value: ''
     },
 
     value: {
@@ -35,86 +35,83 @@ Polymer({
     readonly: {
       type: Boolean,
       value: false,
-      reflectToAttribute: true,
-    },
+      reflectToAttribute: true
+    }
 
   },
 
-  ready () {
+  ready() {},
+
+  _valueChanged() {
+    this.inputValue = this.value
   },
 
-  _valueChanged () {
-    this.inputValue = this.value;
+  clear() {
+    this.value = ''
+    this.inputValue = ''
   },
 
-  clear () {
-    this.value = '';
-    this.inputValue = '';
-  },
-
-  confirm ( pressEnter ) {
-    this.value = this.inputValue;
+  confirm(pressEnter) {
+    this.value = this.inputValue
     this.fire('confirm', {
-      confirmByEnter: pressEnter,
+      confirmByEnter: pressEnter
     }, {
       bubbles: false
-    });
+    })
 
     this.async(() => {
-      this.fire('end-editing');
-    },1);
+      this.fire('end-editing')
+    }, 1)
   },
 
   cancel() {
-    this.inputValue = this.value;
-    this.fire('cancel', null, {bubbles: false} );
+    this.inputValue = this.value
+    this.fire('cancel', null, {bubbles: false})
 
     this.async(() => {
-      this.fire('end-editing', {cancel: true});
-    },1);
+      this.fire('end-editing', {cancel: true})
+    }, 1)
   },
 
-  select ( start, end ) {
-    if ( typeof start === 'number' && typeof end === 'number' ) {
-      this.$.input.setSelectionRange( start, end );
-    }
-    else {
-      this.$.input.select();
+  select(start, end) {
+    if (typeof start === 'number' && typeof end === 'number') {
+      this.$.input.setSelectionRange(start, end)
+    }else {
+      this.$.input.select()
     }
   },
-
 
   _onBlur() {
-    this.confirm();
+    this.confirm()
   },
 
-  _onKeyDown (event) {
+  _onKeyDown(event) {
     // keydown 'enter'
     if (event.keyCode === 13) {
-      // event.preventDefault();
-      event.stopPropagation();
+      // event.preventDefault()
+      event.stopPropagation()
 
-      this.confirm(true);
-      // this.setBlur();
-      // FocusParent(this);
+      this.confirm(true)
+    // this.setBlur()
+    // FocusParent(this)
     }
     // keydown 'esc'
     else if (event.keyCode === 27) {
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault()
+      event.stopPropagation()
 
-      this.cancel();
-      this.setBlur();
-      FocusParent(this);
+      this.cancel()
+      this.setBlur()
+      FocusParent(this)
     }
   },
 
-  _onFocusedChanged ( event ) {
-    if ( event.detail.value ) {
-      this.value = this.inputValue;
+  _onFocusedChanged(event) {
+    if (event.detail.value) {
+      this.value = this.inputValue
     } else {
-      this.confirm();
+      this.confirm()
     }
-  },
+  }
 
-});
+})

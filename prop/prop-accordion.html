@@ -7,37 +7,34 @@
         align-items: center;
         padding: 4px 0px 4px 6px;
         font-weight: 700;
-
         border-bottom: 1px solid #666;
         margin-bottom: 5px;
-
         font-weight: bold;
         padding-bottom: 0px;
-
-        background-color:#696969;
+        background-color: #696969;
       }
-
+      
       .content {
         display: flex;
         flex-flow: column nowrap;
         padding: 5px 0px 5px 3px;
       }
-
-      :host[folded] .content{
+      
+      :host[folded] .content {
         display: none;
       }
-
-      :host[focused] .fold{
+      
+      :host[focused] .fold {
         color: #6495ED;
       }
-
-      :host[focused] .title{
+      
+      :host[focused] .title {
         color: #6495ED;
       }
-
+      
       span.space {
-          flex:none;
-          width:6px
+        flex: none;
+        width: 6px
       }
     </style>
     <div class="header" id="header" on-click="_onFoldClick" on-keydown="_onKeyDown">
@@ -48,16 +45,16 @@
       </div>
     </div>
     <div class="content" id="content">
-        <template is="dom-repeat" items="{{target.__props__}}">
-          <ve-prop prop="{{item}}"></ve-prop>
-          <div style="margin:0;padding:0; width:100%;height:1px;background-color:#aaa;overflow:hidden;margin-top: 0px;"></div>
-        </template>
+      <template is="dom-repeat" items="{{target.__props__}}">
+        <ve-prop prop="{{item}}"></ve-prop>
+        <div style="margin:0;padding:0; width:100%;height:1px;background-color:#aaa;overflow:hidden;margin-top: 0px;"></div>
+      </template>
     </div>
-    
+
     <div class="content" id="extend">
-        <template is="dom-repeat" items="{{target.__comps__}}">
-            <prop-accordion target="{{item}}" folded="{{item.folded}}"></prop-accordion>
-        </template>
+      <template is="dom-repeat" items="{{target.__comps__}}">
+        <prop-accordion target="{{item}}" folded="{{item.folded}}"></prop-accordion>
+      </template>
     </div>
   </template>
   <script>(() => {

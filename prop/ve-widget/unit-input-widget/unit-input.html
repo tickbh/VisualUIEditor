@@ -4,39 +4,18 @@
   <link rel="import" type="css" href="unit-input.css">
 
   <template>
-    <div class="border flex-1 layout horizontal center" >
+    <div class="border flex-1 layout horizontal center">
       <span id="hint" on-mousedown="_onHintMounseDown">{{hint}}</span>
-      <input is="iron-input" id="input"
-        type="text"
-        readonly$="{{readonly}}"
-        on-bind-value-changed="_onBindValueChanged"
-        placeholder="-"
-        on-focus="_onFocus"
-        on-blur="_onBlur"
-        on-keydown="_onInputKeyDown"
-        >
+      <input is="iron-input" id="input" type="text" readonly$="{{readonly}}" on-bind-value-changed="_onBindValueChanged" placeholder="-"
+        on-focus="_onFocus" on-blur="_onBlur" on-keydown="_onInputKeyDown">
       </input>
       <div class="btngroup">
-        <span class="btn"
-          tabindex="-1"
-          on-focus="_onFocus"
-          on-blur="_onBlur"
-          on-click="_onIncreaseClick"
-          on-mousedown="_onIncrease"
-          on-mouseup="_onStopRoll"
-          on-mouseleave="_onMouseLeave"
-          >
+        <span class="btn" tabindex="-1" on-focus="_onFocus" on-blur="_onBlur" on-click="_onIncreaseClick" on-mousedown="_onIncrease"
+          on-mouseup="_onStopRoll" on-mouseleave="_onMouseLeave">
           <i class="fa fa-caret-up"></i>
         </span>
-        <span class="btn"
-          tabindex="-1"
-          on-focus="_onFocus"
-          on-blur="_onBlur"
-          on-click="_onDecreaseClick"
-          on-mousedown="_onDecrease"
-          on-mouseup="_onStopRoll"
-          on-mouseleave="_onMouseLeave"
-          >
+        <span class="btn" tabindex="-1" on-focus="_onFocus" on-blur="_onBlur" on-click="_onDecreaseClick" on-mousedown="_onDecrease"
+          on-mouseup="_onStopRoll" on-mouseleave="_onMouseLeave">
           <i class="fa fa-caret-down"></i>
         </span>
       </div>

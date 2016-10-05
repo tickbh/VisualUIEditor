@@ -186,7 +186,6 @@ function cocosExportNodeData (node, ext) {
     }
   }
 
-
   return data
 }
 

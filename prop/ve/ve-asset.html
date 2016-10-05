@@ -1,26 +1,28 @@
 <dom-module id="ve-asset">
     <style>
         :host {
-            display:flex;
-            position:relative;
-            box-sizing:border-box;
-            min-width:60px;
-            min-height:24px;
-            border:1px solid #666;
-            cursor:default;
+            display: flex;
+            position: relative;
+            box-sizing: border-box;
+            min-width: 60px;
+            min-height: 24px;
+            border: 1px solid #666;
+            cursor: default;
         }
+        
         .border {
-            position:relative;
-            border:1px solid #000;
-            width:100%
+            position: relative;
+            border: 1px solid #000;
+            width: 100%
         }
+        
         :host[focused] {
-            border:1px solid #0c70a6
+            border: 1px solid #0c70a6
         }
     </style>
     <template>
         <div id="dropArea" class="flex-1" on-dragover="_onDragOver">
-            <ve-input id="input"  placeholder="resource" class="flex-1"  value="{{inputValue}}" cancelable  unnavigable></ve-input>
+            <ve-input id="input" placeholder="resource" class="flex-1" value="{{inputValue}}" cancelable unnavigable></ve-input>
         </div>
     </template>
     <script>(() => {

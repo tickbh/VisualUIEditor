@@ -1,88 +1,87 @@
-(() => {
-  'use strict';
+;(() => {
+  'use strict'
 
   Polymer({
     properties: {
       type: {
         type: String,
         value: 'log',
-        reflectToAttribute: true,
+        reflectToAttribute: true
       },
 
       count: {
         type: Number,
-        value: 0,
+        value: 0
       },
 
       desc: {
         type: String,
-        value: '',
+        value: ''
       },
 
       detail: {
         type: String,
-        value: '',
+        value: ''
       },
 
       showCount: {
         type: Boolean,
-        value: false,
+        value: false
       },
 
       folded: {
         type: Boolean,
         value: false,
-        reflectToAttribute: true,
-      },
+        reflectToAttribute: true
+      }
     },
 
-    ready () {
+    ready() {},
+
+    _typeClass(type) {
+      return 'item layout vertical ' + type
     },
 
-    _typeClass ( type ) {
-      return 'item layout vertical ' + type;
-    },
-
-    _iconClass (type) {
+    _iconClass(type) {
       switch (type) {
         case 'error':
-          return 'fa fa-times-circle icon';
+          return 'fa fa-times-circle icon'
 
         case 'warn':
-          return 'fa fa-warning icon';
+          return 'fa fa-warning icon'
 
         default:
-          return '';
+          return ''
       }
     },
 
-    _textClass (detail) {
+    _textClass(detail) {
       if (detail) {
-        return 'more';
+        return 'more'
       }
     },
 
-    _showCount ( showCount, count ) {
-      if ( showCount && count > 0 ) {
-        return true;
+    _showCount(showCount, count) {
+      if (showCount && count > 0) {
+        return true
       }
 
-      return false;
+      return false
     },
 
-    _computedCount ( count ) {
-      return count + 1;
+    _computedCount(count) {
+      return count + 1
     },
 
-    _onFoldClick () {
-      this.set( 'folded', !this.folded );
+    _onFoldClick() {
+      this.set('folded', !this.folded)
     },
 
-    _foldClass ( detail, folded ) {
+    _foldClass(detail, folded) {
       if (!detail) {
-        return;
+        return
       }
-      return folded ? 'fa fold fa-caret-down' : 'fa fold fa-caret-right';
-    },
-  });
-})();
+      return folded ? 'fa fold fa-caret-down' : 'fa fold fa-caret-right'
+    }
+  })
+})()

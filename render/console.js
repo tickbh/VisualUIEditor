@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-let Console = {};
-module.exports = Console;
+let Console = {}
+module.exports = Console
 
 // requires
-var Util = require('util');
+var Util = require('util')
 
 // ==========================
 // exports
@@ -18,22 +18,22 @@ var Util = require('util');
  * Trace the log
  */
 Console.trace = function (level, text, ...args) {
-  if ( args.length ) {
-    text = Util.format.apply(Util, [text,...args]);
+  if (args.length) {
+    text = Util.format.apply(Util, [text, ...args])
   } else {
-    text = '' + text;
+    text = '' + text
   }
-  console.trace(text);
+  console.trace(text)
 
-  let e = new Error('dummy');
-  let lines = e.stack.split('\n');
+  let e = new Error('dummy')
+  let lines = e.stack.split('\n')
 
-  lines.shift();
-  lines[0] = text;
-  text = lines.join('\n');
+  lines.shift()
+  lines[0] = text
+  text = lines.join('\n')
 
-  Ipc.sendToMainDirect('ui:renderer-console-trace',level,text);
-};
+  Ipc.sendToMainDirect('ui:renderer-console-trace', level, text)
+}
 
 /**
  * @method log
@@ -43,14 +43,14 @@ Console.trace = function (level, text, ...args) {
  * The method will send ipc message `ui:renderer-console-log` to the main process.
  */
 Console.log = function (text, ...args) {
-  if ( args.length ) {
-    text = Util.format.apply(Util, arguments);
+  if (args.length) {
+    text = Util.format.apply(Util, arguments)
   } else {
-    text = '' + text;
+    text = '' + text
   }
-  console.log(text);
-  Ipc.sendToMainDirect('ui:renderer-console-log', text);
-};
+  console.log(text)
+  Ipc.sendToMainDirect('ui:renderer-console-log', text)
+}
 
 /**
  * @method success
@@ -60,14 +60,14 @@ Console.log = function (text, ...args) {
  * The method will send ipc message `ui:renderer-console-success` to the main process.
  */
 Console.success = function (text, ...args) {
-  if ( args.length ) {
-    text = Util.format.apply(Util, arguments);
+  if (args.length) {
+    text = Util.format.apply(Util, arguments)
   } else {
-    text = '' + text;
+    text = '' + text
   }
-  console.log('%c' + text, 'color: green');
-  Ipc.sendToMainDirect('ui:renderer-console-success', text);
-};
+  console.log('%c' + text, 'color: green')
+  Ipc.sendToMainDirect('ui:renderer-console-success', text)
+}
 
 /**
  * @method failed
@@ -77,14 +77,14 @@ Console.success = function (text, ...args) {
  * The method will send ipc message `ui:renderer-console-failed` to the main process.
  */
 Console.failed = function (text, ...args) {
-  if ( args.length ) {
-    text = Util.format.apply(Util, arguments);
+  if (args.length) {
+    text = Util.format.apply(Util, arguments)
   } else {
-    text = '' + text;
+    text = '' + text
   }
-  console.log('%c' + text, 'color: red');
-  Ipc.sendToMainDirect('ui:renderer-console-failed', text);
-};
+  console.log('%c' + text, 'color: red')
+  Ipc.sendToMainDirect('ui:renderer-console-failed', text)
+}
 
 /**
  * @method info
@@ -94,14 +94,14 @@ Console.failed = function (text, ...args) {
  * The method will send ipc message `ui:renderer-console-info` to the main process.
  */
 Console.info = function (text, ...args) {
-  if ( args.length ) {
-    text = Util.format.apply(Util, arguments);
+  if (args.length) {
+    text = Util.format.apply(Util, arguments)
   } else {
-    text = '' + text;
+    text = '' + text
   }
-  console.info(text);
-  Ipc.sendToMainDirect('ui:renderer-console-info', text);
-};
+  console.info(text)
+  Ipc.sendToMainDirect('ui:renderer-console-info', text)
+}
 
 /**
  * @method warn
@@ -111,14 +111,14 @@ Console.info = function (text, ...args) {
  * The method will send ipc message `ui:renderer-console-warn` to the main process.
  */
 Console.warn = function (text, ...args) {
-  if ( args.length ) {
-    text = Util.format.apply(Util, arguments);
+  if (args.length) {
+    text = Util.format.apply(Util, arguments)
   } else {
-    text = '' + text;
+    text = '' + text
   }
-  console.warn(text);
-  Ipc.sendToMainDirect('ui:renderer-console-warn', text);
-};
+  console.warn(text)
+  Ipc.sendToMainDirect('ui:renderer-console-warn', text)
+}
 
 /**
  * @method error
@@ -128,19 +128,19 @@ Console.warn = function (text, ...args) {
  * The method will send ipc message `ui:renderer-console-error` to the main process.
  */
 Console.error = function (text, ...args) {
-  if ( args.length ) {
-    text = Util.format.apply(Util, arguments);
+  if (args.length) {
+    text = Util.format.apply(Util, arguments)
   } else {
-    text = '' + text;
+    text = '' + text
   }
-  console.error(text);
+  console.error(text)
 
-  let e = new Error('dummy');
-  let lines = e.stack.split('\n');
+  let e = new Error('dummy')
+  let lines = e.stack.split('\n')
 
-  lines.shift();
-  lines[0] = text;
-  text = lines.join('\n');
+  lines.shift()
+  lines[0] = text
+  text = lines.join('\n')
 
-  Ipc.sendToMainDirect('ui:renderer-console-error',text);
-};
+  Ipc.sendToMainDirect('ui:renderer-console-error', text)
+}

@@ -4,16 +4,8 @@
   <link rel="import" type="css" href="textarea.css">
 
   <template>
-    <iron-autogrow-textarea id="input"
-      bind-value="{{inputValue}}"
-      rows=4
-      max-rows=20
-      readonly$="{{readonly}}"
-      placeholder="{{placeholder}}"
-      on-focus="_onFocus"
-      on-blur="_onBlur"
-      on-keydown="_onKeyDown"
-    >
+    <iron-autogrow-textarea id="input" bind-value="{{inputValue}}" rows=4 max-rows=20 readonly$="{{readonly}}" placeholder="{{placeholder}}"
+      on-focus="_onFocus" on-blur="_onBlur" on-keydown="_onKeyDown">
     </iron-autogrow-textarea>
 
   </template>

@@ -2,34 +2,33 @@
     <template>
         <style>
             :host {
-                display:flex;
-                flex-direction:column;
-                align-items:center
+                display: flex;
+                flex-direction: column;
+                align-items: center
             }
+            
             span.space {
-                flex:none;
-                width:6px
+                flex: none;
+                width: 6px
             }
         </style>
         <div class="layout horizontal center">
             <ve-checkbox id="check_w" value="{{value.isWidthPer}}" path="{{path}}.isWidthPer" disabled="{{!attrs.hasParent}}"></ve-checkbox>
             <span class="space"></span>
-            <ve-unit-input id="w" class="flex-1" disabled="{{disabled}}" readonly="{{readonly}}" 
-                                    path="{{path}}.width" input-value="{{value.width}}"
-                                    step="{{attrs.step}}" precision="{{attrs.precision}}"
-                                    min="{{attrs.min}}" max="{{attrs.max}}"
-                                    hidden="{{value.isWidthPer}}" hint="W"></ve-unit-input>
-            <ve-unit-input id="wper" class="flex-1" disabled="{{disabled}}" readonly="{{readonly}}" path="{{path}}.widthPer" input-value="{{value.widthPer}}" hidden="{{!value.isWidthPer}}" hint="W%" step="1" precision="1" max="1000" min="0"></ve-unit-input>
+            <ve-unit-input id="w" class="flex-1" disabled="{{disabled}}" readonly="{{readonly}}" path="{{path}}.width" input-value="{{value.width}}"
+                step="{{attrs.step}}" precision="{{attrs.precision}}" min="{{attrs.min}}" max="{{attrs.max}}" hidden="{{value.isWidthPer}}"
+                hint="W"></ve-unit-input>
+            <ve-unit-input id="wper" class="flex-1" disabled="{{disabled}}" readonly="{{readonly}}" path="{{path}}.widthPer" input-value="{{value.widthPer}}"
+                hidden="{{!value.isWidthPer}}" hint="W%" step="1" precision="1" max="1000" min="0"></ve-unit-input>
         </div>
         <div class="layout horizontal center">
             <ve-checkbox id="check_h" value="{{value.isHeightPer}}" path="{{path}}.isHeightPer" disabled="{{!attrs.hasParent}}"></ve-checkbox>
             <span class="space"></span>
-            <ve-unit-input id="h" class="flex-1" disabled="{{disabled}}" readonly="{{readonly}}" 
-                                    path="{{path}}.height" input-value="{{value.height}}"
-                                    step="{{attrs.step}}" precision="{{attrs.precision}}"
-                                    min="{{attrs.min}}" max="{{attrs.max}}"
-                                    hidden="{{value.isHeightPer}}" hint="H"></ve-unit-input>
-            <ve-unit-input id="hper" class="flex-1" disabled="{{disabled}}" readonly="{{readonly}}" path="{{path}}.heightPer" input-value="{{value.heightPer}}" hidden="{{!value.isHeightPer}}" hint="H%" step="1" precision="1" max="1000" min="0"></ve-unit-input>
+            <ve-unit-input id="h" class="flex-1" disabled="{{disabled}}" readonly="{{readonly}}" path="{{path}}.height" input-value="{{value.height}}"
+                step="{{attrs.step}}" precision="{{attrs.precision}}" min="{{attrs.min}}" max="{{attrs.max}}" hidden="{{value.isHeightPer}}"
+                hint="H"></ve-unit-input>
+            <ve-unit-input id="hper" class="flex-1" disabled="{{disabled}}" readonly="{{readonly}}" path="{{path}}.heightPer" input-value="{{value.heightPer}}"
+                hidden="{{!value.isHeightPer}}" hint="H%" step="1" precision="1" max="1000" min="0"></ve-unit-input>
         </div>
     </template>
     <script>(() => {

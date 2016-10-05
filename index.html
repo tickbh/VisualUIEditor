@@ -1,82 +1,87 @@
 <html>
-  <head>
-    <meta charset="utf-8">
 
-    <style>
-      #mainDock {
-        position: relative;
-      }
-      h2 {
-        margin: auto;
-      }
-      h2 span {
-        color: #090;
-      }
-      body {
-        margin: 3px;
-      }
-    </style>
-    <link rel="import" href="app://bower_components/polymer/polymer.html">
-    <link rel="import" href="app://bower_components/iron-flex-layout/iron-flex-layout.html">
-    <link rel="stylesheet" href="app://bower_components/fontawesome/css/font-awesome.min.css">
+<head>
+  <meta charset="utf-8">
+
+  <style>
+    #mainDock {
+      position: relative;
+    }
     
-    <link rel="stylesheet" type="text/css" href="app://js/layout.css"/>
-  
-    <link rel="stylesheet" type="text/css" href="app://node_modules/jQuery-contextMenu/src/jquery.contextMenu.css"/>
-    <script src="app://node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
-
-    <!--<script src="app://js/jquery.js" onload="window.$ = window.jQuery = module.exports;"></script>-->
-
-    <!--<script src="app://js/jquery-1.8.3.js" ></script>-->
-
-    <script src="app://node_modules/jquery-contextmenu/src/jquery.contextMenu.js"></script>
-    <script src="app://node_modules/jquery-contextmenu/src/jquery.ui.position.js"></script>
-    <script src="app://node_modules/FileSaver/FileSaver.js"></script>
-    <script type="text/javascript" src="app://third/html5/cocos2d-js.js" charset="UTF-8"></script>
-
-    <link rel="stylesheet" type="text/css" href="app://js/jsgrid.min.css" />     
-    <script type="text/javascript" src="app://js/jsgrid.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="app://js/jsgrid-theme.min.css" /> 
-
-    <script src="app://js/util.js"></script>
-    <script src="app://js/keycode.js"></script>
-    <script src="app://js/renderUndo.js"></script>
-    <script src="app://js/cocosUtil.js"></script>
-    <script src="app://js/UIUtil.js"></script>
-    <script src="app://js/fabric.js"></script>
+    h2 {
+      margin: auto;
+    }
     
-    <script src="app://render/ipc.js"></script>
-    <script src="app://render/console.js"></script>
+    h2 span {
+      color: #090;
+    }
+    
+    body {
+      margin: 3px;
+    }
+  </style>
+  <link rel="import" href="app://bower_components/polymer/polymer.html">
+  <link rel="import" href="app://bower_components/iron-flex-layout/iron-flex-layout.html">
+  <link rel="stylesheet" href="app://bower_components/fontawesome/css/font-awesome.min.css">
 
-    <link rel="import" href="app://ext/init.html">
-    <link rel="import" href="app://prop/index.html">
+  <link rel="stylesheet" type="text/css" href="app://js/layout.css" />
 
-    <link rel="import" href="app://packages/td-tree-view/widget/td-tree-view.html">
-    <link rel="import" href="app://packages/td-tree-view/widget/td-tree-item.html">
+  <link rel="stylesheet" type="text/css" href="app://node_modules/jQuery-contextMenu/src/jquery.contextMenu.css" />
+  <script src="app://node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
 
-    <link rel="import" href="app://packages/nodeorder/panel/nodeorder.html">
-    <link rel="import" href="app://packages/resorder/panel/resorder.html">
-    <link rel="import" href="app://packages/controlpanel/panel/controlpanel.html">
-    <link rel="import" href="app://packages/console/panel/console.html">
-    <link rel="import" href="app://packages/renderpanel/panel/renderpanel.html">
-    <link rel="import" href="app://packages/proppanel/panel/proppanel.html">
+  <!--<script src="app://js/jquery.js" onload="window.$ = window.jQuery = module.exports;"></script>-->
 
-    <!-- Core Modules -->
-    <link rel="stylesheet" type="text/css" href="app://js/wcDocker.min.css"/>
-    <script src="app://js/wcDocker.min.js"></script>
+  <!--<script src="app://js/jquery-1.8.3.js" ></script>-->
 
-    <!-- Demo specific files -->
-    <link rel='stylesheet' href='app://js/spectrum.css'/>
-    <script src='app://js/spectrum.js'></script>
-    <script src="app://layout.js"></script>
+  <script src="app://node_modules/jquery-contextmenu/src/jquery.contextMenu.js"></script>
+  <script src="app://node_modules/jquery-contextmenu/src/jquery.ui.position.js"></script>
+  <script src="app://node_modules/FileSaver/FileSaver.js"></script>
+  <script type="text/javascript" src="app://third/html5/cocos2d-js.js" charset="UTF-8"></script>
 
-  </head>
+  <link rel="stylesheet" type="text/css" href="app://js/jsgrid.min.css" />
+  <script type="text/javascript" src="app://js/jsgrid.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="app://js/jsgrid-theme.min.css" />
 
-  <body >
-      
-    <div class="dockerContainer" style="position:absolute;left:0px;right:0px;top:0px;bottom:0px;border:3px solid black"></div>
-    <script>
+  <script src="app://js/util.js"></script>
+  <script src="app://js/keycode.js"></script>
+  <script src="app://js/renderUndo.js"></script>
+  <script src="app://js/cocosUtil.js"></script>
+  <script src="app://js/UIUtil.js"></script>
+  <script src="app://js/fabric.js"></script>
+
+  <script src="app://render/ipc.js"></script>
+  <script src="app://render/console.js"></script>
+
+  <link rel="import" href="app://ext/init.html">
+  <link rel="import" href="app://prop/index.html">
+
+  <link rel="import" href="app://packages/td-tree-view/widget/td-tree-view.html">
+  <link rel="import" href="app://packages/td-tree-view/widget/td-tree-item.html">
+
+  <link rel="import" href="app://packages/nodeorder/panel/nodeorder.html">
+  <link rel="import" href="app://packages/resorder/panel/resorder.html">
+  <link rel="import" href="app://packages/controlpanel/panel/controlpanel.html">
+  <link rel="import" href="app://packages/console/panel/console.html">
+  <link rel="import" href="app://packages/renderpanel/panel/renderpanel.html">
+  <link rel="import" href="app://packages/proppanel/panel/proppanel.html">
+
+  <!-- Core Modules -->
+  <link rel="stylesheet" type="text/css" href="app://js/wcDocker.min.css" />
+  <script src="app://js/wcDocker.min.js"></script>
+
+  <!-- Demo specific files -->
+  <link rel='stylesheet' href='app://js/spectrum.css' />
+  <script src='app://js/spectrum.js'></script>
+  <script src="app://layout.js"></script>
+
+</head>
+
+<body>
+
+  <div class="dockerContainer" style="position:absolute;left:0px;right:0px;top:0px;bottom:0px;border:3px solid black"></div>
+  <script>
       
     </script>
-  </body>
+</body>
+
 </html>

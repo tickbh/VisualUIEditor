@@ -1,25 +1,25 @@
-
 <dom-module id="ve-relative">
     <template>
         <style>
-
             /* set width and min-width at the same time to make size unchanged */
+            
             ve-input {
                 flex: "1";
             }
+            
             ve-input::shadow #input {
                 padding: 2px;
             }
+            
             span.space {
-                flex:none;
-                height:6px
+                flex: none;
+                height: 6px
             }
-
+            
             h-checkbox {
-                min-width:30px;
-                max-width:30px;
+                min-width: 30px;
+                max-width: 30px;
             }
-
         </style>
 
         <div class="layout horizontal center">
@@ -28,7 +28,7 @@
         </div>
 
         <div class="layout horizontal center">
-            <ve-checkbox value="{{value.isAlignVerticalCenter}}"  path="{{path}}.checkVertical" on-value-changed="_onVerticalCenterChecked">VCenter</ve-checkbox>
+            <ve-checkbox value="{{value.isAlignVerticalCenter}}" path="{{path}}.checkVertical" on-value-changed="_onVerticalCenterChecked">VCenter</ve-checkbox>
             <ve-input id="vertical_input" class="bottom-input flex-1" value="{{value.vertical}}" path="{{path}}.vertical" hidden="{{!_is(value.isAlignVerticalCenter)}}"></ve-input>
         </div>
 
@@ -36,7 +36,7 @@
             <ve-checkbox class="h-checkbox" path="{{path}}.checkBottom" value="{{value.isAlignBottom}}" on-value-changed="_onBottomChecked">Bottom</ve-checkbox>
             <ve-input id="bottom_input" value="{{value.bottom}}" path="{{path}}.bottom" hidden="{{!_is(value.isAlignBottom)}}"></ve-input>
         </div>
-        
+
         <span class="space"></span>
 
         <div class="layout horizontal center">

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 Polymer({
   behaviors: [Polymer.IronButtonState],
@@ -6,7 +6,7 @@ Polymer({
   listeners: {
     'focus': '_onFocus',
     'blur': '_onBlur',
-    'click': '_onEndEditing',
+    'click': '_onEndEditing'
   },
 
   properties: {
@@ -14,23 +14,23 @@ Polymer({
       type: Boolean,
       value: false,
       notify: true,
-      reflectToAttribute: true,
-    },
+      reflectToAttribute: true
+    }
   },
 
-  ready () {
-    this.noNavigate = this.nofocus;
+  ready() {
+    this.noNavigate = this.nofocus
   },
 
-  _onEndEditing () {
+  _onEndEditing() {
     this.fire('confirm', {
-      confirmByEnter: true,
+      confirmByEnter: true
     }, {
       bubbles: false
-    });
+    })
 
     this.async(() => {
-      this.fire('end-editing');
-    },1);
-  },
-});
+      this.fire('end-editing')
+    }, 1)
+  }
+})
