@@ -60,3 +60,7 @@ open shell in project root and run
 
 #其它信息
 **VisualUIEditor开发QQ群欢迎您的加入: 453224679**
+
+# Copyright & License
+
+© 2015-2016 tickbh (tickdream125@hotmail.com) - Released under the [MIT license](LICENSE).
