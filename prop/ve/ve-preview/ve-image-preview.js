@@ -31,7 +31,7 @@ Polymer({
       var size = self._getSize()
       self.info = size.width + ' x ' + size.height, self.resize()
     }
-    this._image.src = this.path
+    this._image.src = fullPath(this.path)
   },
 
   fitSize: function (srcWidth, srcHeight, destWidth, destHeight) {

@@ -478,3 +478,7 @@ function saveLangData (langPath, data) {
   AddOrModifyConfig('modify:langPath', true)
   fs.writeFileSync(langPath, JSON.stringify(data, null, 4))
 }
+
+function fullPath(path) {
+  return "file://" + path;
+}

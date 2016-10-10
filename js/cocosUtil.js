@@ -358,7 +358,7 @@ function getPathData (path) {
   if (!path || !getFullPathForName(path)) {
     return JSON.parse('{}')
   }
-  let content = fs.readFileSync(getFullPathForName(path))
+  let content = fs.readFileSync(getFullRealPathForName(path))
   return JSON.parse(content || '{}')
 }
 
@@ -369,7 +369,7 @@ function loadSceneFromFile (filename) {
   return cocosGenNodeByData(data, null)
 }
 
-function getFullPathForName (name) {
+function getFullRealPathForName (name) {
   let url = window.projectFolder + '/' + name
   if (fs.existsSync(url)) {
     return url
@@ -377,6 +377,15 @@ function getFullPathForName (name) {
   url = __dirname + '/' + name
   if (fs.existsSync(url)) {
     return url
+  }
+  return null
+}
+
+
+function getFullPathForName (name) {
+  let url = getFullRealPathForName(name)
+  if (url) {
+    return fullPath(url)
   }
   return null
 }
