@@ -21,7 +21,8 @@ ExtSlider.GenNodeByData = function (data, parent) {
 }
 
 ExtSlider.SetNodePropByData = function (node, data, parent) {
-  (data['percent']) && (node.percent = data['percent'])
+  (data['scale9Enable']) && (node.setScale9Enabled(data['scale9Enable']));
+  (data['percent']) && (node.percent = data['percent']);
   setNodeSpriteFrame('barBg', data['barBg'], node, node.loadBarTexture)
   setNodeSpriteFrame('barProgress', data['barProgress'], node, node.loadProgressBarTexture)
   setNodeSpriteFrame('barNormalBall', data['barNormalBall'], node, node.loadSlidBallTextureNormal)
@@ -30,16 +31,19 @@ ExtSlider.SetNodePropByData = function (node, data, parent) {
 }
 
 ExtSlider.ExportNodeData = function (node, data) {
-  (node.percent) && (data['percent'] = node.percent)
-  ;(node._barBg) && (data['barBg'] = node._barBg)
-  ;(node._barProgress) && (data['barProgress'] = node._barProgress)
-  ;(node._barNormalBall) && (data['barNormalBall'] = node._barNormalBall)
-  ;(node._barSelectBall) && (data['barSelectBall'] = node._barSelectBall)
-  ;(node._barDisableBall) && (data['barDisableBall'] = node._barDisableBall)
+  (node.isScale9Enabled()) && (data['scale9Enable'] = node.isScale9Enabled());
+  (node.percent) && (data['percent'] = node.percent);
+  (node._barBg) && (data['barBg'] = node._barBg);
+  (node._barProgress) && (data['barProgress'] = node._barProgress);
+  (node._barNormalBall) && (data['barNormalBall'] = node._barNormalBall);
+  (node._barSelectBall) && (data['barSelectBall'] = node._barSelectBall);
+  (node._barDisableBall) && (data['barDisableBall'] = node._barDisableBall);
 }
 
 ExtSlider.SetPropChange = function (control, path, value) {
-  if (path == 'fontColor') {
+  if (path == 'isScale9Enabled') {
+    control._node.setScale9Enabled(value)
+  } else if (path == 'fontColor') {
     control._node.fontColor = new cc.Color(value.r, value.g, value.b, value.a)
   } else if (path == 'placeholderFontColor') {
     control._node.placeholderFontColor = new cc.Color(value.r, value.g, value.b, value.a)
@@ -90,6 +94,17 @@ ExtSlider.ExportData.prototype = {
         max: 100
       },
       value: this._node.percent
+    }
+  },
+
+  get isScale9Enabled() {
+    return {
+      path: 'isScale9Enabled',
+      type: 'checkbox',
+      name: 'isScale9Enabled',
+      attrs: {
+      },
+      value: this._node.isScale9Enabled()
     }
   },
 
@@ -168,6 +183,7 @@ ExtSlider.ExportData.prototype = {
     return [
       // this.totalLength,
       this.percent,
+      this.isScale9Enabled,
       // this.mode,
       this.barBg,
       this.barProgress,

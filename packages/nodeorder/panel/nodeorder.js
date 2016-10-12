@@ -29,6 +29,13 @@
         }
       })
 
+      let self = this;
+      this.$.input.addEventListener("end-editing", function(e) {
+          if (e.detail.cancel) {
+            return
+          }
+          self.filterText = e.target.value;
+      })
 
       this.addEventListener('keydown', function (event) {
 

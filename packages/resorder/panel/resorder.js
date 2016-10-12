@@ -39,6 +39,14 @@
         }
       })
 
+      let self = this;
+      this.$.input.addEventListener("end-editing", function(e) {
+          if (e.detail.cancel) {
+            return
+          }
+          self.filterText = e.target.value;
+      })
+
       global.setTimeout(() => {
         if (window.localStorage['projectFolder']) {
           let path = window.localStorage['projectFolder']
