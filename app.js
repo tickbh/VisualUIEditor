@@ -1,8 +1,11 @@
-const {app, BrowserWindow, Menu, ipcMain} = require('electron')
+const {dialog, app, BrowserWindow, Menu, ipcMain} = require('electron')
 
 const Protocol = require('./main/protocol')
 const Ipc = require('./main/ipc')
 const MenuUtil = require('./js/MenuUtil')
+
+var fs = require("fs");
+var unzip = require("unzip");
 
 let mainWindow
 let gridWindow
@@ -26,6 +29,24 @@ app.on('ready', function () {
 
   function getMenu () {
     let fileSubMenu = [
+      {
+        label: '新建项目',
+        click() {
+          let newFolder = dialog.showOpenDialog({ properties: ['openFile', 'openDirectory'] })
+          if (newFolder) {
+            var unzipExtractor = unzip.Extract({ path: newFolder[0] });
+            unzipExtractor.on('error', function (err) {
+              throw err;
+            });
+            unzipExtractor.on('close', function () {
+              Ipc.sendToWinsDirect('ui:new-project', newFolder[0])
+            });
+
+            fs.createReadStream("package-zip/helloword.zip").pipe(unzipExtractor);
+
+          }
+        }
+      },
       {
         label: '打开项目',
         click() {

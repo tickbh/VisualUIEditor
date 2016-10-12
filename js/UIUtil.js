@@ -13,6 +13,12 @@ function ChangeProjectFolder () {
   }
 }
 
+ipcRenderer.on("ui:new-project", (event, project) => {
+    window.projectFolder = project
+    window.localStorage['projectFolder'] = project
+    Ipc.sendToAll('ui:project_floder_change', {folder: project})
+})
+
 ipcRenderer.on('ui:open-project-folder', (event, message, ...args) => {
   ChangeProjectFolder()
 })
