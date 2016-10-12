@@ -1,0 +1,57 @@
+<dom-module id="ve-asset-editor">
+	<style>
+		:host {
+			display: flex;
+			position: relative;
+			box-sizing: border-box;
+			min-width: 60px;
+			min-height: 24px;
+			border: 1px solid #666;
+			cursor: default;
+		}
+		
+		.border {
+			position: relative;
+			border: 1px solid #000;
+			width: 100%
+		}
+		
+		:host[focused] {
+			border: 1px solid #0c70a6
+		}
+	</style>
+	<template>
+		<ve-button id="editor" on-confirm="_onAssetEditor">编辑</ve-button>
+		<ve-button id="reader" on-confirm="_onAssetReader">读取</ve-button>
+	</template>
+	<script>(() => {
+        "use strict";
+        Polymer({
+            properties: {
+                value: {
+                    type: String,
+                    value: null,
+                    notify: true,
+                },
+            },
+            ready: function() {
+                this._mode = "editor";
+            },
+            _onAssetEditor: function() {
+                this._mode = "editor";
+                this.async(() => {
+                    this.fire('end-editing')
+                }, 1)
+            },
+
+            _onAssetReader: function() {
+                this._mode = "reader";
+                this.async(() => {
+                    this.fire('end-editing')
+                }, 1)
+            },
+
+        });
+    })();
+    </script>
+</dom-module>

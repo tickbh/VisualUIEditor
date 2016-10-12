@@ -43,7 +43,7 @@ ExtScale9.ResetPropByData = function (control, data, parent) {
 }
 
 ExtScale9.SetNodePropByData = function (node, data, parent) {
-  ExtScale9.ResetPropByData({_node: node}, data, parent)
+  ExtScale9.ResetPropByData({ _node: node }, data, parent)
 }
 
 ExtScale9.ExportNodeData = function (node, data) {
@@ -54,13 +54,26 @@ ExtScale9.ExportNodeData = function (node, data) {
   node.insetBottom && (data.insetBottom = node.insetBottom)
 }
 
-ExtScale9.SetPropChange = function (control, path, value) {
-  let data = cocosExportNodeData(control._node, {uuid: true})
-  data[path] = value
+ExtScale9.SetPropChange = function (control, path, value, target) {
+  let data = cocosExportNodeData(control._node, { uuid: true })
+  if(path == "editor") {
+    if(target._mode == "editor") {
+      Ipc.sendToAll('ui:item_path_click', {path: getFullRealPathForName(value)})
+      return;
+    } else {
+      let metaData = getMetaData(value);
+      if(Object.keys(metaData).length == 0) {
+        return;
+      }
+      merge(data, metaData);
+    }
+  } else {
+    data[path] = value
+  }
   ExtScale9.ResetPropByData(control, data)
 }
 
-function Scale9Data (node) {
+function Scale9Data(node) {
   this._node = node
 }
 
@@ -79,9 +92,71 @@ Scale9Data.prototype = {
     }
   },
 
+  get editor() {
+    return {
+      path: 'editor',
+      type: 'asset-editor',
+      name: 'editor',
+      attrs: {
+      },
+      value: this._node._spriteFrame
+    }
+  },
+
+  get insetLeft() {
+    return {
+      path: 'insetLeft',
+      type: 'unit-input',
+      name: 'insetLeft',
+      attrs: {
+      },
+      value: this._node.insetLeft
+    }
+  },
+
+  get insetTop() {
+    return {
+      path: 'insetTop',
+      type: 'unit-input',
+      name: 'insetTop',
+      attrs: {
+      },
+      value: this._node.insetTop
+    }
+  },
+
+
+  get insetRight() {
+    return {
+      path: 'insetRight',
+      type: 'unit-input',
+      name: 'insetRight',
+      attrs: {
+      },
+      value: this._node.insetRight
+    }
+  },
+
+  get insetBottom() {
+    return {
+      path: 'insetBottom',
+      type: 'unit-input',
+      name: 'insetBottom',
+      attrs: {
+      },
+      value: this._node.insetBottom
+    }
+  },
+
+
   get __props__() {
     return [
-      this.spriteFrame
+      this.spriteFrame,
+      this.editor,
+      this.insetLeft,
+      this.insetTop,
+      this.insetRight,
+      this.insetBottom,
     ]
   }
 }
@@ -89,7 +164,7 @@ Scale9Data.prototype = {
 ExtScale9.Scale9Data = Scale9Data
 
 ExtScale9.PropComps = function (node) {
-  let datas = [ new WidgetData(node) ]
+  let datas = [new WidgetData(node)]
   datas.push(new TouchData(node))
   datas.push(new Scale9Data(node))
   return datas

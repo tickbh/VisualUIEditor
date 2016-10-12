@@ -73,6 +73,9 @@ $(document).ready(function () {
 
         myPanel.messages = {}
         myPanel.messages['ui:open_file'] = function (event, message) {
+          if(!endWith(message.path, ".ui")) {
+            return;
+          }
           let subPath = calcRelativePath(window.projectFolder + '/', message.path)
           for (var i = 0; i < tabFrame.tabCount(); i++) {
             let layout = tabFrame.layout(i)

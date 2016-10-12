@@ -23,7 +23,7 @@
         if (!path) {
           return
         }
-        this._opnode.setAttrib(path, value)
+        this._opnode.setAttrib(path, value, e.target)
       })
     },
 

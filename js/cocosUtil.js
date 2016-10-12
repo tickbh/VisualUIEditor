@@ -362,6 +362,11 @@ function getPathData (path) {
   return JSON.parse(content || '{}')
 }
 
+function getMetaData(path) {
+  let metaPath = path + ".meta";
+  return getPathData(metaPath);
+}
+
 function loadSceneFromFile (filename) {
   let content = fs.readFileSync(filename)
   let data = JSON.parse(content || '{}')

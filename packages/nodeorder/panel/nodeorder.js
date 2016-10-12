@@ -31,43 +31,9 @@
 
 
       this.addEventListener('keydown', function (event) {
-        //    if(event.keyCode == KeyCodes('z') && event.ctrlKey) {
-        //        this.undoScene()
-        //    } else if(event.keyCode == KeyCodes('y') && event.ctrlKey) {
-        //        this.redoScene()
-        //    } else if(event.keyCode == KeyCodes('c') && event.ctrlKey) {
-        //        this._doCopyFunc()
-        //    } else if(event.keyCode == KeyCodes('v') && event.ctrlKey) {
-        //        this._doPasteFunc()
-        //    } else 
 
-        if (event.keyCode == KeyCodes('c') && event.ctrlKey) {
-          this._doCopyFunc()
-          event.stopPropagation()
-          event.preventDefault()
-        } else if (event.keyCode == KeyCodes('v') && event.ctrlKey) {
-          this._doPasteFunc()
-          event.stopPropagation()
-          event.preventDefault()
-        } else if (event.keyCode == KeyCodes('a') && event.ctrlKey) {
-          this._doSelectAll()
-          event.stopPropagation()
-          event.preventDefault()
-        } else if (event.keyCode == KeyCodes('esc')) {
-          this.$.scene.getFabricCanvas().clear()
-          this._firstSelectItem = null
-        } else if (event.keyCode == KeyCodes('left') || event.keyCode == KeyCodes('right') || event.keyCode == KeyCodes('up') || event.keyCode == KeyCodes('down')) {
+        if (event.keyCode == KeyCodes('left') || event.keyCode == KeyCodes('right') || event.keyCode == KeyCodes('up') || event.keyCode == KeyCodes('down')) {
           this._doItemMove(event)
-          event.stopPropagation()
-          event.preventDefault()
-        }
-
-        if (event.keyCode == KeyCodes('s') && event.ctrlKey && this._openPath) {
-          this._doSaveFunc()
-          event.stopPropagation()
-          event.preventDefault()
-        } else if (event.keyCode == KeyCodes('delete')) {
-          this._doDeleteFunc()
           event.stopPropagation()
           event.preventDefault()
         }

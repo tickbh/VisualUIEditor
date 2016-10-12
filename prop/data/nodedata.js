@@ -296,7 +296,7 @@ NodeData.prototype = {
     fn.call(this._node, getFullPathForName(value))
   },
 
-  setAttrib(path, value) {
+  setAttrib(path, value, target) {
     let extControl = GetExtNodeControl(this._node._className)
     if (this._node._path && !extControl) {
       extControl = GetExtNodeControl(this._node._path)
@@ -453,7 +453,7 @@ NodeData.prototype = {
       addNodeCommand(this._node, 'touchListener', this._node.touchListener, value)
       this._node.touchListener = value
     } else if (extControl) {
-      extControl.SetPropChange(this, path, value)
+      extControl.SetPropChange(this, path, value, target)
     } else {
       return
     }
