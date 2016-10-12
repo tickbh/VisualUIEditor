@@ -7,6 +7,7 @@ ExtScale9.defRes = 'res/default/Scale9.png'
 
 ExtScale9.GenEmptyNode = function () {
   node = new ccui.Scale9Sprite(getFullPathForName(ExtScale9.defRes))
+  node.setScale9Enabled(true)
   node._spriteFrame = ExtScale9.defRes
   node._className = ExtScale9.name
   return node
@@ -15,6 +16,7 @@ ExtScale9.GenEmptyNode = function () {
 ExtScale9.GenNodeByData = function (data, parent) {
   let fullpath = getFullPathForName(data.spriteFrame)
   node = new ccui.Scale9Sprite(fullpath)
+  node.setScale9Enabled(true)
   node._className = ExtScale9.name
   node._spriteFrame = data.spriteFrame
   data.insetLeft && (node.insetLeft = data.insetLeft)
