@@ -455,6 +455,9 @@ function ReplaceNode (node, newNode, parent) {
   let afterNode = []
   let children = parent.getChildren()
   let index = children.indexOf(node)
+  if(index < 0) {
+    index = children.length;
+  }
   for (var i = index + 1; i < children.length; i++) {
     afterNode.push(children[i])
   }

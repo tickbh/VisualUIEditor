@@ -64,7 +64,7 @@ function AddPropChange (node, uuid, newValue) {
     let subNode = cocosGenNodeByData(newValue, node)
     if (subNode) {
       InsertAfterUUID(subNode, node, newValue['preuuid'])
-      Ipc.sendToAll('ui:scene_item_add', {uuid: uuid})
+      Ipc.sendToAll('ui:scene_items_change', {})
     }
   }
 }
