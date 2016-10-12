@@ -285,7 +285,7 @@ function cocosGenNodeByData (data, parent, isSetParent) {
   }
   node._name = ''
 
-  node.uuid = data.uuid || gen_uuid()
+  node.uuid = data.uuid || gen_uuid();
 
   (data.id) && (node._name = data.id)
   if (!isNull(data.width) || !isNull(data.height)) {
