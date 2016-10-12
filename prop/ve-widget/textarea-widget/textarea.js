@@ -92,7 +92,6 @@ Polymer({
       event.stopPropagation()
 
       this.confirm(true)
-    // this.setBlur()
     // FocusParent(this)
     }
     // keydown 'esc'
@@ -101,7 +100,6 @@ Polymer({
       event.stopPropagation()
 
       this.cancel()
-      this.setBlur()
       FocusParent(this)
     }
   },

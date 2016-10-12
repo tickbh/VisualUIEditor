@@ -1,0 +1,18 @@
+<dom-module id="ve-image-editor">
+  <style>
+    :host {
+      @apply(--layout-vertical);
+    }
+  </style>
+  <template>
+    
+    <ve-prop id="insetLeft"></ve-prop>
+    <ve-prop id="insetTop"></ve-prop>
+    <ve-prop id="insetRight"></ve-prop>
+    <ve-prop id="insetBottom"></ve-prop>
+		<ve-button id="save" on-confirm="_onSaveEditor">保存</ve-button>
+    
+    <ve-image-preview id="preview"></ve-image-preview>
+  </template>
+  <script src="ve-image-editor.js"></script>
+</dom-module>

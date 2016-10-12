@@ -21,6 +21,10 @@ Polymer({
       height: this._image.height
     }
   },
+
+  ready: function () {
+
+  },
   _pathChanged: function () {
     if (!this.path) {
       return
@@ -32,6 +36,7 @@ Polymer({
       self.info = size.width + ' x ' + size.height, self.resize()
     }
     this._image.src = fullPath(this.path)
+
   },
 
   fitSize: function (srcWidth, srcHeight, destWidth, destHeight) {

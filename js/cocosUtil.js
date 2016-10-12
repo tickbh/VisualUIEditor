@@ -194,7 +194,7 @@ function saveSceneToFile (filename, scene, ext) {
   fs.writeFileSync(filename, JSON.stringify(data, null, 4))
 }
 
-function saveFileByContent (filename, content, ext) {
+function saveFileByContent (filename, content) {
   fs.writeFileSync(filename, content)
 }
 
@@ -287,7 +287,7 @@ function cocosGenNodeByData (data, parent, isSetParent) {
 
   node.uuid = data.uuid || gen_uuid()
 
-  ;(data.id) && (node._name = data.id)
+  (data.id) && (node._name = data.id)
   if (!isNull(data.width) || !isNull(data.height)) {
     let setFn = node.setPreferredSize ? node.setPreferredSize : node.setContentSize
     let widthRet = calcWidth(node, data.width, parent)
@@ -365,6 +365,11 @@ function getPathData (path) {
 function getMetaData(path) {
   let metaPath = path + ".meta";
   return getPathData(metaPath);
+}
+
+function setMetaData(path, data) {
+  let metaPath = path + ".meta";
+  fs.writeFileSync(metaPath, JSON.stringify(data, null, 4))
 }
 
 function loadSceneFromFile (filename) {

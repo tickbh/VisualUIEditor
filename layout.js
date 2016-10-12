@@ -175,7 +175,7 @@ $(document).ready(function () {
     })
 
     document.body.addEventListener('keydown', function (event) {
-      Ipc.sendToAll('ui:keydownEvent', {keyCode: event.keyCode, ctrlKey: event.ctrlKey, shiftKey: event.shiftKey, altKey: event.altKey})
+      Ipc.sendToAll('ui:keydownEvent', {keyCode: event.keyCode, ctrlKey: event.ctrlKey || event.metaKey, shiftKey: event.shiftKey, altKey: event.altKey})
     })
   }
 })

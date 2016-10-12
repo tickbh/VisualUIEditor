@@ -5,7 +5,6 @@ ExtRichText.icon = 'app://res/control/Label.png'
 ExtRichText.tag = 2
 
 ExtRichText.GenEmptyNode = function () {
-  let str = '整个游戏周期，仅需花费￥' + '[c240:237:0]6[/c](原价￥100)即可获得[c240:237:0]稀有英雄-炮姐[/c]和丰厚返利哦~好划算有木有~~'
   let node = new NodeRichText('V[cr]i[f30]su[/c]al[/f]UI', {}, {})
   node._className = ExtRichText.name
   return node

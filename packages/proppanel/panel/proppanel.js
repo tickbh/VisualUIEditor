@@ -20,7 +20,7 @@
           return
         }
         let path = e.target.path, value = e.target.value
-        if (!path) {
+        if (!path || !this._opnode) {
           return
         }
         this._opnode.setAttrib(path, value, e.target)
