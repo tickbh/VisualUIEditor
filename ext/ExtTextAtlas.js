@@ -57,6 +57,9 @@ ExtTextAtlas.ExportNodeData = function (node, data) {
     data['itemHeight'] = node._itemHeight || 0
     data['mapStartChar'] = node._startCharMap || '0'
   }
+
+  data['anchorX'] = node.anchorX
+  data['anchorY'] = node.anchorY
 }
 
 ExtTextAtlas.SetPropChange = function (control, path, value) {

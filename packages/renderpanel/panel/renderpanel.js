@@ -492,6 +492,18 @@
 
     addFunc: function (data) {},
 
+    _doEnterSubPath: function() {
+      let canvas = this.$.scene.getFabricCanvas()
+      let objects = canvas.getObjects()
+
+      for (var i = 0; i < objects.length; i++) {
+        let child = objects[i]._innerItem
+        if(child._path) {
+          Ipc.sendToAllPanel('ui:open_file', {path: getFullRealPathForName(child._path)})
+        }
+      }
+    },
+
     _doDeleteFunc: function () {
       let runScene = this.$.scene.getRunScene()
       let select_items = this.getSelectItems()
@@ -1094,6 +1106,8 @@
           this._doSaveFunc()
         } else if ((event.keyCode == KeyCodes('delete') || event.keyCode == KeyCodes('backspace')) && isCtrlKey(event)) {
           this._doDeleteFunc()
+        } else if ((event.keyCode == KeyCodes('g')) && event.altKey) {
+          this._doEnterSubPath()
         }
       },
       'ui:store-layout'(event, data) {
