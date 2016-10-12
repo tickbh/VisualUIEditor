@@ -16,16 +16,16 @@ Polymer({
 
     this._isReseting = false;
 
-    this.$.insetLeft.prop = {
+    this._leftProp = {
       path: 'insetLeft',
       type: 'unit-input',
       name: 'insetLeft',
       attrs: {
       },
       value: 0
-    }
+    };
 
-    this.$.insetTop.prop = {
+    this._topProp = {
       path: 'insetTop',
       type: 'unit-input',
       name: 'insetTop',
@@ -33,8 +33,8 @@ Polymer({
       },
       value: 0
     }
-
-    this.$.insetRight.prop = {
+    
+    this._rightProp = {
       path: 'insetRight',
       type: 'unit-input',
       name: 'insetRight',
@@ -42,8 +42,8 @@ Polymer({
       },
       value: 0
     }
-
-    this.$.insetBottom.prop = {
+    
+    this._bottomProp = {
       path: 'insetBottom',
       type: 'unit-input',
       name: 'insetBottom',
@@ -51,6 +51,14 @@ Polymer({
       },
       value: 0
     }
+
+    this.$.insetLeft.prop = dup(this._leftProp);
+
+    this.$.insetTop.prop = dup(this._topProp);
+
+    this.$.insetRight.prop = dup(this._rightProp);
+
+    this.$.insetBottom.prop = dup(this._bottomProp);
 
     this.addEventListener('end-editing', function (e) {
       if (e.detail.cancel || this._isReseting) {
@@ -80,26 +88,16 @@ Polymer({
 
     this._isReseting = true;
     this.metaData = getMetaData(this.path)
-    function setTargetValue(target, value) {
-      let prop = dup(target.prop);
-      prop.name = "fuck";
-      prop.value = value;
-      target.prop = prop;
-
-      target.prop = {
-        path: 'insetRight',
-        type: 'unit-input',
-        name: 'insetRight',
-        attrs: {
-        },
-        value: 10
-      }
+    function setTargetValue(target, prop, value) {
+      let new_prop = dup(prop);
+      new_prop.value = value;
+      target.prop = {};
+      target.prop = new_prop;
     }
-    setTargetValue(this.$.insetLeft, this.metaData.insetLeft || 0)
-    // this.$.insetLeft.prop.value = this.metaData.insetLeft || 0;
-    this.$.insetTop.prop.value = this.metaData.insetTop || 0;
-    this.$.insetRight.prop.value = this.metaData.insetRight || 0;
-    this.$.insetBottom.prop.value = this.metaData.insetBottom || 0;
+    setTargetValue(this.$.insetLeft, dup(this._leftProp), this.metaData.insetLeft || 0)
+    setTargetValue(this.$.insetTop, this._topProp, this.metaData.insetTop || 0)
+    setTargetValue(this.$.insetRight, this._rightProp, this.metaData.insetRight || 0)
+    setTargetValue(this.$.insetBottom, this._bottomProp, this.metaData.insetBottom || 0)
 
     this._isReseting = false;
   },

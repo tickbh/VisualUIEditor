@@ -388,6 +388,9 @@ function getFullRealPathForName (name) {
   if (fs.existsSync(url)) {
     return url
   }
+  if (fs.existsSync(name)) {
+    return name
+  }
   return null
 }
 
