@@ -189,7 +189,7 @@
       if (e.currentTarget.isDirectory && e.currentTarget.foldable) {
         e.currentTarget.folded = !e.currentTarget.folded
       } else {
-        if (!e.ctrlKey) {
+        if (!isCtrlKey(event)) {
           this.clearSelectInfo()
         }
         if (e.currentTarget.doselect) {

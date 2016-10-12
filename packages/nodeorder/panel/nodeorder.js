@@ -145,7 +145,7 @@
       this.tryChangeItemPosition(item, ev.currentTarget)
     },
     clickItem: function (e) {
-      if (!e.ctrlKey) {
+      if (!isCtrlKey(e)) {
         this.clearSelectInfo()
       }
       if (e.currentTarget.doselect) {
@@ -281,7 +281,7 @@
         }
         _this.$.tree.scrollToItem(_item)
         if (e)
-          Ipc.sendToAll('ui:select_item', {uuid: _item._uuid, ctrlKey: e.ctrlKey})
+          Ipc.sendToAll('ui:select_item', {uuid: _item._uuid, ctrlKey: isCtrlKey(e)})
       }
 
       item['dounselect'] = () => {

@@ -314,6 +314,10 @@ function dup (t) {
   return src
 }
 
+function isCtrlKey(event) {
+  return event.ctrlKey || event.metaKey
+}
+
 // 动态插入script标签 
 function createScript (url, callback) {
   var oScript = document.createElement('script')

@@ -692,7 +692,7 @@
 
     mouseupTouchnull: function (e) {
       let canvas = this.$.scene.getFabricCanvas()
-      if (e.ctrlKey || canvas.getActiveObject() || canvas.getActiveGroup()) {
+      if (isCtrlKey(e) || canvas.getActiveObject() || canvas.getActiveGroup()) {
       } else {
         canvas.clear()
         this._firstSelectItem = null
@@ -723,7 +723,7 @@
 
       let canvas = this.$.scene.getFabricCanvas()
       let activeGroup = canvas.getActiveGroup()
-      if (e.ctrlKey || canvas.getActiveObject() || canvas.getActiveGroup()) {
+      if (isCtrlKey(e) || canvas.getActiveObject() || canvas.getActiveGroup()) {
       } else {
         canvas.clear()
       }
@@ -931,7 +931,7 @@
       if (!sourceNode) {
         return
       }
-      if (!info.ctrlKey) {
+      if (!isCtrlKey(info)) {
         this.$.scene.getFabricCanvas().clear()
         this._firstSelectItem = null
       }
@@ -1075,13 +1075,13 @@
       },
 
       'ui:keydownEvent'(ev, event) {
-        if (event.keyCode == KeyCodes('c') && event.ctrlKey) {
+        if (event.keyCode == KeyCodes('c') && isCtrlKey(event)) {
           this._doCopyFunc()
-        } else if (event.keyCode == KeyCodes('v') && event.ctrlKey) {
+        } else if (event.keyCode == KeyCodes('v') && isCtrlKey(event)) {
           this._doPasteFunc()
-        } else if (event.keyCode == KeyCodes('a') && event.ctrlKey) {
+        } else if (event.keyCode == KeyCodes('a') && isCtrlKey(event)) {
           this._doSelectAll()
-        } else if (event.keyCode == KeyCodes('w') && event.ctrlKey) {
+        } else if (event.keyCode == KeyCodes('w') && isCtrlKey(event)) {
           this._ensureExitCurRender()
         } else if (event.keyCode == KeyCodes('esc')) {
           this.$.scene.getFabricCanvas().clear()
@@ -1090,7 +1090,7 @@
           this._doItemMove(event)
         }
 
-        if (event.keyCode == KeyCodes('s') && event.ctrlKey && this._openPath) {
+        if (event.keyCode == KeyCodes('s') && isCtrlKey(event) && this._openPath) {
           this._doSaveFunc()
         } else if (event.keyCode == KeyCodes('delete') || event.keyCode == KeyCodes('backspace')) {
           this._doDeleteFunc()
