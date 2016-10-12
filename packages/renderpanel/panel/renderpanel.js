@@ -1092,7 +1092,7 @@
 
         if (event.keyCode == KeyCodes('s') && event.ctrlKey && this._openPath) {
           this._doSaveFunc()
-        } else if (event.keyCode == KeyCodes('delete')) {
+        } else if (event.keyCode == KeyCodes('delete') || event.keyCode == KeyCodes('backspace')) {
           this._doDeleteFunc()
         }
       },
