@@ -522,3 +522,19 @@ function ClearCurrentGameStatus () {
   cc.game._rendererInitialized = false
   cc.game._renderContext = null
 }
+
+function AddImages(images, callback) {
+  let results = [];
+  let loadCount = 0;
+  let needLoadCount = images.length;
+  for(var i = 0; i < images.length; i++) {
+    let fullpath = getFullPathForName(images[i])
+    cc.textureCache.addImage(fullpath, function (atlas) {
+      loadCount++;
+      results[i] = atlas;
+      if(loadCount == needLoadCount) {
+        callback(results)
+      }
+    })
+  }
+}

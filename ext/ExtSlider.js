@@ -9,6 +9,7 @@ ExtSlider.defBarProgress = 'res/default/SliderBar.png'
 
 ExtSlider.GenEmptyNode = function () {
   node = new ccui.Slider(getFullPathForName(ExtSlider.defBack))
+  node._prevIgnoreSize = false;
   node._barBg = ExtSlider.defBack
 
   setNodeSpriteFrame('barProgress', ExtSlider.defBarProgress, node, node.loadProgressBarTexture)
@@ -17,21 +18,49 @@ ExtSlider.GenEmptyNode = function () {
 }
 
 ExtSlider.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
-}
-
-ExtSlider.SetNodePropByData = function (node, data, parent) {
-  (data['scale9Enable']) && (node.setScale9Enabled(data['scale9Enable']));
+  node = new ccui.Slider()
+  node._prevIgnoreSize = false;
+  if(!isNull(data['scale9Enable'])) {
+    node.setScale9Enabled(data['scale9Enable']);
+  }
   (data['percent']) && (node.percent = data['percent']);
   setNodeSpriteFrame('barBg', data['barBg'], node, node.loadBarTexture)
   setNodeSpriteFrame('barProgress', data['barProgress'], node, node.loadProgressBarTexture)
   setNodeSpriteFrame('barNormalBall', data['barNormalBall'], node, node.loadSlidBallTextureNormal)
   setNodeSpriteFrame('barSelectBall', data['barSelectBall'], node, node.loadSlidBallTexturePressed)
   setNodeSpriteFrame('barDisableBall', data['barDisableBall'], node, node.loadSlidBallTextureDisabled)
+  node._className = ExtSlider.name
+  return node
+}
+
+
+ExtSlider.ResetPropByData = function (control, data, parent) {
+  if (data.ignoreSetProp) {
+    return
+  }
+  let node = control._node
+  parent = parent || node.getParent()
+
+  data.ignoreSetProp = true
+  let newNode = cocosGenNodeByData(data, parent)
+  node.ignoreAddToParent = true
+  ReplaceNode(node, newNode, parent)
+  control._node = newNode
+}
+
+ExtSlider.SetNodePropByData = function (node, data, parent) {
+  ExtSlider.ResetPropByData({_node: node}, data, parent)
+  // (!isNull(data['scale9Enable'])) && (node.setScale9Enabled(data['scale9Enable']));
+  // (data['percent']) && (node.percent = data['percent']);
+  // setNodeSpriteFrame('barBg', data['barBg'], node, node.loadBarTexture)
+  // setNodeSpriteFrame('barProgress', data['barProgress'], node, node.loadProgressBarTexture)
+  // setNodeSpriteFrame('barNormalBall', data['barNormalBall'], node, node.loadSlidBallTextureNormal)
+  // setNodeSpriteFrame('barSelectBall', data['barSelectBall'], node, node.loadSlidBallTexturePressed)
+  // setNodeSpriteFrame('barDisableBall', data['barDisableBall'], node, node.loadSlidBallTextureDisabled)
 }
 
 ExtSlider.ExportNodeData = function (node, data) {
-  (node.isScale9Enabled()) && (data['scale9Enable'] = node.isScale9Enabled());
+  (!node.isScale9Enabled()) && (data['scale9Enable'] = node.isScale9Enabled());
   (node.percent) && (data['percent'] = node.percent);
   (node._barBg) && (data['barBg'] = node._barBg);
   (node._barProgress) && (data['barProgress'] = node._barProgress);
@@ -41,25 +70,10 @@ ExtSlider.ExportNodeData = function (node, data) {
 }
 
 ExtSlider.SetPropChange = function (control, path, value) {
-  if (path == 'isScale9Enabled') {
-    control._node.setScale9Enabled(value)
-  } else if (path == 'fontColor') {
-    control._node.fontColor = new cc.Color(value.r, value.g, value.b, value.a)
-  } else if (path == 'placeholderFontColor') {
-    control._node.placeholderFontColor = new cc.Color(value.r, value.g, value.b, value.a)
-  } else if (path == 'barBg') {
-    setNodeSpriteFrame('barBg', value, control._node, control._node.loadBarTexture)
-  } else if (path == 'barProgress') {
-    setNodeSpriteFrame('barProgress', value, control._node, control._node.loadProgressBarTexture)
-  } else if (path == 'barNormalBall') {
-    setNodeSpriteFrame('barNormalBall', value, control._node, control._node.loadSlidBallTextureNormal)
-  } else if (path == 'barSelectBall') {
-    setNodeSpriteFrame('barSelectBall', value, control._node, control._node.loadSlidBallTexturePressed)
-  } else if (path == 'barDisableBall') {
-    setNodeSpriteFrame('barDisableBall', value, control._node, control._node.loadSlidBallTextureDisabled)
-  } else {
-    control._node[path] = value
-  }
+
+  let data = cocosExportNodeData(control._node, {uuid: true})
+  data[path] = value
+  ExtSlider.ResetPropByData(control, data)
 }
 
 ExtSlider.ExportData = function (node) {
@@ -99,9 +113,9 @@ ExtSlider.ExportData.prototype = {
 
   get isScale9Enabled() {
     return {
-      path: 'isScale9Enabled',
+      path: 'scale9Enable',
       type: 'checkbox',
-      name: 'isScale9Enabled',
+      name: 'scale9Enable',
       attrs: {
       },
       value: this._node.isScale9Enabled()

@@ -9715,7 +9715,7 @@ cc.Sprite = cc.Node.extend({
     },
     initWithFile:function (filename, rect) {
         cc.assert(filename, cc._LogInfos.Sprite_initWithFile);
-        // this.setNodeDirty(true);
+        this.setNodeDirty(true);
         var tex = cc.textureCache.getTextureForKey(filename);
         if (!tex) {
             tex = cc.textureCache.addImage(filename);
@@ -9769,6 +9769,7 @@ cc.Sprite = cc.Node.extend({
         _t.setTexture(texture);
         _t.setTextureRect(rect, rotated);
         _t.setBatchNode(null);
+        this.setNodeDirty(true);
         return true;
     },
     setTextureRect: function (rect, rotated, untrimmedSize, needConvert) {
@@ -52182,6 +52183,10 @@ ccui.Slider = ccui.Widget.extend({
         this._updateContentSizeWithTextureSize(this._barRenderer.getContentSize());
         this._findLayout();
         this._barTextureSize = this._barRenderer.getContentSize();
+
+        if (!this._prevIgnoreSize && cc.sizeEqualToSize(this._customSize, cc.size(0, 0))) {
+            this._customSize = this._barTextureSize;
+        }
     },
     loadProgressBarTexture: function (fileName, texType) {
         if (!fileName) {
