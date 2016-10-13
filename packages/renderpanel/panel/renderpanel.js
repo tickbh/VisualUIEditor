@@ -29,7 +29,7 @@
       'mousemove': '_mouseMove',
       'mousewheel': '_mouseWheel',
       'mousedown': '_mouseDown',
-      'focused-changed': '_onFocusedChanged'
+      // 'focused-changed': '_onFocusedChanged'
     },
 
     _mouseDown: function (ev) {},
@@ -626,11 +626,25 @@
     },
 
     _doSaveFunc: function () {
+      if(this._openPath == null) {
+        let newPath = Electron.remote.dialog.showSaveDialog({title: '请选择您要保存的路径', defaultPath: window.projectFolder, filters: [
+          {name: 'UI', extensions: ['ui']}
+        ]})
+        if (!newPath) {
+          return;
+        }
+        this._openPath = newPath;
+        let subPath = calcRelativePath(window.projectFolder + '/', this._openPath)
+        this._localName = subPath;
+      }
+      
       if (this.modeSelected == 1) {
         saveFileByContent(this._openPath, this._editor.getValue())
       } else {
         saveSceneToFile(this._openPath, this.$.scene.getRunScene())
       }
+
+      Ipc.sendToAllPanel("ui:name-change", this._localName)
 
       let runScene = this.$.scene.getRunScene()
       runScene._undo.save()
@@ -672,6 +686,17 @@
       node.width = 800
       node.height = 400
       this.sceneChange(node)
+
+      // let self = this;
+      // var timeout = false; //启动及关闭按钮  
+      // function time()  
+      // {
+      //   console.log("do timeout " + self._openPath);
+      //   if(timeout) return;  
+      //   setTimeout(time,100); //time是指本身,延时递归调用自己,100为间隔调用时间,单位毫秒  
+      // } 
+
+      // time();
     },
 
     sceneChange: function (newScene) {
@@ -1010,7 +1035,7 @@
       'ui:has_item_change'(event, message) {
         this.updateForgeCanvas()
       },
-      'ui:open_scene_file'(event, message) {
+      'ui:open_scene_file'(event, message, isUnknow) {
         let path = message.path
         if (endWith(path, '.ui')) {
           let runScene = this.$.scene.getRunScene()
@@ -1019,12 +1044,22 @@
             let scene = loadSceneFromFile(path)
             if (scene && (scene._className == 'Scene')) {
               self._openPath = path
+              let subPath = calcRelativePath(window.projectFolder + '/', self._openPath)
+              self._localName = subPath;
               window.localStorage['last_open_ui'] = path
               self.sceneChange(scene)
             }
           }
 
           openScene()
+        } else if(isUnknow) {
+          let runScene = this.$.scene.getRunScene()
+          this._openPath = null
+          this._localName = path;
+          let node = new cc.Scene()
+          node.width = 800
+          node.height = 400
+          this.sceneChange(node)
         }
 
         this.resize()
@@ -1102,7 +1137,7 @@
           this._doItemMove(event)
         }
 
-        if (event.keyCode == KeyCodes('s') && isCtrlKey(event) && this._openPath) {
+        if (event.keyCode == KeyCodes('s') && isCtrlKey(event)) {
           this._doSaveFunc()
         } else if ((event.keyCode == KeyCodes('delete') || event.keyCode == KeyCodes('backspace')) && isCtrlKey(event)) {
           this._doDeleteFunc()

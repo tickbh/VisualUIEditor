@@ -57,6 +57,8 @@ $(document).ready(function () {
       isPersistent: true,
       faicon: 'cubes',
       onCreate: function (myPanel) {
+        myPanel.closeable(false);
+
         var $tabArea = $('<div style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;">')
         myPanel.layout().addItem($tabArea)
         var tabFrame = new wcTabFrame($tabArea, myPanel)
@@ -70,6 +72,8 @@ $(document).ready(function () {
         myPanel.on(wcDocker.EVENT.RESIZED, function (data) {
           Ipc.sendToAll('panelResized')
         })
+
+        let curActivePanel = null;
 
         myPanel.messages = {}
         myPanel.messages['ui:open_file'] = function (event, message) {
@@ -91,15 +95,54 @@ $(document).ready(function () {
           tabFrame.tab(0, true)
           newLayout._main = $node[0]
           myPanel._main = $node[0]
+          myPanel._layout = newLayout
+          curActivePanel = $node[0];
           Ipc.sendToAll('ui:open_scene_file', message)
+        }
+
+        myPanel.messages['ui:new-ui-file'] = function (event, message) {
+          let name = ""
+          for (var j = 0; j < 100; j++) {
+            name = "Unknow" + j;
+            let isFind = false;
+            for (var i = 0; i < tabFrame.tabCount(); i++) {
+              let layout = tabFrame.layout(i)
+              if (layout.name == name || layout.name == name + '*') {
+                isFind = true;
+                break
+              }
+            }
+            if(!isFind) {
+              break
+            }
+          }
+
+          var $node = $('<ve-renderpanel id="render" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-renderpanel>')
+          let newLayout = tabFrame.addTab(name, 0, wcDocker.LAYOUT.SIMPLE)
+          newLayout.addItem($node)
+          tabFrame.tab(0, true)
+          newLayout._main = $node[0]
+          myPanel._main = $node[0]
+          myPanel._layout = newLayout
+          curActivePanel = $node[0];
+          Ipc.sendToAll('ui:open_scene_file', {path : name}, true)
+        }
+
+        myPanel.messages['ui:name-change'] = function (event, message) {
+          myPanel._layout.name = message
+          tabFrame.__updateTabs();
         }
 
         let tabChanged = function (index) {
           let layout = tabFrame.layout(index)
+          myPanel._layout = layout
           if (!layout) {
+            curActivePanel = null
+            Ipc.sendToAllPanel('ui:new-ui-file')
             return
           }
           myPanel._main = layout._main
+          curActivePanel = layout._main;
           Ipc.sendToAll('ui:cur_tab_select', {index: index})
         }
 
@@ -111,6 +154,21 @@ $(document).ready(function () {
         myPanel.on(wcDocker.EVENT.CUSTOM_TAB_CHANGED, function (data) {
           tabChanged(data.index)
         })
+
+
+        setInterval(function() {
+          if(curActivePanel) {
+            let runScene = curActivePanel.$.scene.getRunScene()
+            if(!runScene) {
+              return;
+            }
+            if(runScene._undo.isSaved()) {
+              Ipc.sendToAllPanel("ui:name-change", curActivePanel._localName)
+            } else {
+              Ipc.sendToAllPanel("ui:name-change", curActivePanel._localName + "*")
+            }
+          }
+        }, 1000);
 
         // myPanel.on(wcDocker.EVENT.GAIN_FOCUS, function(data) {
         //   myPanel._main.focus()

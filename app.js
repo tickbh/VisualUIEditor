@@ -52,6 +52,12 @@ app.on('ready', function () {
         click() {
           Ipc.sendToWinsDirect('ui:open-project-folder')
         }
+      },
+      {
+        label: '新建UI文件',
+        click() {
+           Ipc.sendToWinsDirect('ui:new-ui-file')
+        }
       }
     ]
 

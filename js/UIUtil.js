@@ -23,6 +23,10 @@ ipcRenderer.on('ui:open-project-folder', (event, message, ...args) => {
   ChangeProjectFolder()
 })
 
+ipcRenderer.on('ui:new-ui-file', (event, message, ...args) => {
+  Ipc.sendToAllPanel('ui:new-ui-file')
+})
+
 ipcRenderer.on('ui:openPanel', (event, panelName, a) => {
   console.log(panelName)
   ChangeProjectFolder()
