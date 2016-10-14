@@ -58,6 +58,7 @@
 
     _refreshAll: function () {
       this.showFolderTree()
+      this._filterTextChanged();
     },
 
     build: function (data) {
