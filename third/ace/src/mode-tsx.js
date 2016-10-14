@@ -864,3 +864,22 @@ oop.inherits(Mode, jsMode);
 
 exports.Mode = Mode;
 });
+
+define("ace/mode/tsx",["require","exports","module","ace/lib/oop","ace/mode/typescript"], function(require, exports, module) {
+"use strict";
+
+var oop = require("../lib/oop");
+var tsMode = require("./typescript").Mode;
+
+var Mode = function() {    
+    tsMode.call(this);
+    this.$highlightRuleConfig = {jsx: true};
+};
+oop.inherits(Mode, tsMode);
+
+(function() {
+    this.$id = "ace/mode/tsx";
+}).call(Mode.prototype);
+
+exports.Mode = Mode;
+});

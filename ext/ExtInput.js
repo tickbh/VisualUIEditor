@@ -33,7 +33,7 @@ ExtInput.GenEmptyNode = function () {
 
 ExtInput.GenNodeByData = function (data, parent) {
   node = new cc.EditBox(cc.size(data.width || 100, data.height || 20), new cc.Scale9Sprite())
-  ExtInput.SetNodePropByData(data, parent)
+  ExtInput.SetNodePropByData(node, data, parent)
   node._className = ExtInput.name
   return node
 }
@@ -48,9 +48,9 @@ ExtInput.SetNodePropByData = function (node, data, parent) {
   data.placeHolderFontName && (node.placeHolderFontName = data.placeHolderFontName)
   data.placeHolderFontSize && (node.placeHolderFontSize = data.placeHolderFontSize)
   ;(covertToColor(data.placeholderFontColor)) && (node.placeholderFontColor = covertToColor(data.placeholderFontColor))
-  data.inputFlag && (node.inputFlag = data.inputFlag)
-  data.inputMode && (node.inputMode = data.inputMode)
-  data.returnType && (node.returnType = data.returnType)
+  !isNull(data.inputFlag) && (node.inputFlag = data.inputFlag)
+  !isNull(data.inputMode) && (node.inputMode = data.inputMode)
+  !isNull(data.returnType) && (node.returnType = data.returnType)
 
   ExtInput.SetSpriteFrame(node, data.spriteFrame)
 }
@@ -64,9 +64,9 @@ ExtInput.ExportNodeData = function (node, data) {
   ;(value != 14) && (data['fontSize'] = value)
   value = node._textColor
   ;(!cc.colorEqual(value, cc.color.BLACK)) && (data['fontColor'] = [value.r, value.g, value.b, value.a])
-  ;(node.inputFlag != cc.EDITBOX_INPUT_FLAG_SENSITIVE) && (data['inputFlag'] = node.inputFlag)
-  ;(node.inputMode != cc.EDITBOX_INPUT_MODE_ANY) && (data['inputMode'] = node.inputMode)
-  ;(node.returnType != cc.KEYBOARD_RETURNTYPE_DEFAULT) && (data['returnType'] = node.returnType)
+  ;(node._editBoxInputFlag != cc.EDITBOX_INPUT_FLAG_SENSITIVE) && (data['inputFlag'] = node._editBoxInputFlag)
+  ;(node._editBoxInputMode != cc.EDITBOX_INPUT_MODE_ANY) && (data['inputMode'] = node._editBoxInputMode)
+  ;(node._keyboardReturnType != cc.KEYBOARD_RETURNTYPE_DEFAULT) && (data['returnType'] = node._keyboardReturnType)
   ;(node.maxLength != 50) && (data['maxLength'] = node.maxLength)
   ;(node.placeHolder && node.placeHolder.length > 0) && (data['placeHolder'] = node.placeHolder)
   value = node._placeholderFontName

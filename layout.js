@@ -129,8 +129,10 @@ $(document).ready(function () {
         }
 
         myPanel.messages['ui:name-change'] = function (event, message) {
-          myPanel._layout.name = message
-          tabFrame.__updateTabs();
+          if(myPanel._layout.name != message) {
+            myPanel._layout.name = message
+            tabFrame.__updateTabs();
+          }
         }
 
         let tabChanged = function (index) {
