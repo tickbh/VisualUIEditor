@@ -14,20 +14,38 @@ ExtScale9.GenEmptyNode = function () {
 }
 
 ExtScale9.GenNodeByData = function (data, parent) {
-  node = new ccui.Scale9Sprite()
+  let fullpath = getFullPathForName(data.spriteFrame)
+  node = new ccui.Scale9Sprite(fullpath)
   node.setScale9Enabled(true)
   node._className = ExtScale9.name
-  ExtScale9.SetNodePropByData(node, data, parent)
-  return node
-}
-
-ExtScale9.SetNodePropByData = function (node, data, parent) {
   node._spriteFrame = data.spriteFrame
-  setNodeSpriteFrame("spriteFrame", data["spriteFrame"], node, node.initWithFile)
   data.insetLeft && (node.insetLeft = data.insetLeft)
   data.insetTop && (node.insetTop = data.insetTop)
   data.insetRight && (node.insetRight = data.insetRight)
   data.insetBottom && (node.insetBottom = data.insetBottom)
+  return node
+}
+
+ExtScale9.ResetPropByData = function (control, data, parent) {
+  if (data.ignoreSetProp) {
+    return
+  }
+  let node = control._node
+  parent = parent || node.getParent()
+
+  let fullpath = getFullPathForName(data.spriteFrame)
+  cc.textureCache.addImage(fullpath, function (atlas) {
+    data.ignoreSetProp = true
+    data.uuid = node.uuid
+    let newNode = cocosGenNodeByData(data, parent)
+    node.ignoreAddToParent = true
+    ReplaceNode(node, newNode, parent)
+    control._node = newNode
+  })
+}
+
+ExtScale9.SetNodePropByData = function (node, data, parent) {
+  ExtScale9.ResetPropByData({ _node: node }, data, parent)
 }
 
 ExtScale9.ExportNodeData = function (node, data) {
@@ -38,7 +56,7 @@ ExtScale9.ExportNodeData = function (node, data) {
   node.insetBottom && (data.insetBottom = node.insetBottom)
 }
 
-ExtScale9.SetPropChange = function (control, path, value) {
+ExtScale9.SetPropChange = function (control, path, value, target) {
   let data = cocosExportNodeData(control._node, { uuid: true })
   if(path == "editor") {
     if(target._mode == "editor") {
@@ -54,7 +72,7 @@ ExtScale9.SetPropChange = function (control, path, value) {
   } else {
     data[path] = value
   }
-  ResetNodePropByData(control, data)
+  ExtScale9.ResetPropByData(control, data)
 }
 
 ExtScale9.NodifyPropChange = function (control) {
