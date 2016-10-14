@@ -318,7 +318,7 @@
       nodeRect.fill = 'red'
       nodeRect.hasRotatingPoint = true
       var block = new fabric.Rect(nodeRect)
-      block._innerItem = node
+      block._innerUuid = node.uuid
       block._preInfo = nodeRect
       block.hasRotatingPoint = true
       canvas.add(block)
@@ -381,7 +381,7 @@
       let objects = canvas.getObjects()
       let select_items = []
       for (var i = 0; i < objects.length; i++) {
-        let uuid = objects[i]._innerItem.uuid
+        let uuid = objects[i]._innerUuid
         if (uuid)
           select_items.push(uuid)
       }
@@ -497,7 +497,7 @@
       let objects = canvas.getObjects()
 
       for (var i = 0; i < objects.length; i++) {
-        let child = objects[i]._innerItem
+        let child = cocosGetItemByUUID(this.$.scene.getRunScene(), objects[i]._innerUuid)
         if(child._path) {
           Ipc.sendToAllPanel('ui:open_file', {path: getFullRealPathForName(child._path)})
         }
@@ -666,7 +666,7 @@
       }
 
       for (var i = 0; i < objects.length; i++) {
-        let child = objects[i]._innerItem
+        let child = cocosGetItemByUUID(runScene, objects[i]._innerUuid) 
         let oldValue = child[prop]
         if (prop == 'x') {
           FixNodeHor(child, step)
@@ -833,7 +833,7 @@
     },
 
     canvasTargetChange: function (target, group) {
-      let child = target._innerItem
+      let child = cocosGetItemByUUID(this.$.scene.getRunScene(),  target._innerUuid)
       let preInfo = target._preInfo
       if (!child) {
         return
