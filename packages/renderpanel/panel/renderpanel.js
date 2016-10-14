@@ -519,17 +519,9 @@
     },
 
     _doCopyFunc: function () {
-      Electron.clipboard.writeText(this.getSelectItems().join('#'))
-    },
-
-    _doPasteFunc: function () {
-      let detail = Electron.clipboard.readText()
-      let selectItems = detail.split('#')
+      // Electron.clipboard.writeText(this.getSelectItems().join('#'))
       let runScene = this.$.scene.getRunScene()
-      if (detail.length == 0 || selectItems.length == 0) {
-        return
-      }
-
+      let selectItems = this.getSelectItems();
       // only copy parent node, filter child node
       let finalItems = []
       for (var i = 0; i < selectItems.length; i++) {
@@ -551,26 +543,86 @@
         }
       }
 
-      for (var i = 0; i < finalItems.length; i++) {
-        let item = finalItems[i]
-        let parent = item.getParent()
-        // no parent node(such as scene), no support copy
-        if (!parent) {
-          continue
+      let jsonData = [];
+      for(var i = 0; i < finalItems.length; i++) {
+        jsonData.push(cocosExportNodeData(finalItems[i]));
+      }
+
+      let result = {jsonData: jsonData, sceneUuid: runScene.uuid, selectItems: selectItems}
+      Electron.clipboard.writeText(JSON.stringify(result, null, 4))
+    },
+
+    _doPasteFunc: function () {
+      let detail = Electron.clipboard.readText()
+      let result = null;
+      try {
+        result = JSON.parse(detail)
+      } catch(e) {
+        result = {}
+      }
+
+      if(!result.selectItems || result.selectItems.length == 0) {
+        return;
+      }
+      let runScene = this.$.scene.getRunScene()
+      if(result.sceneUuid == runScene.uuid) {
+        let selectItems = result.selectItems;
+        
+        // only copy parent node, filter child node
+        let finalItems = []
+        for (var i = 0; i < selectItems.length; i++) {
+          var item = cocosGetItemByUUID(runScene, selectItems[i])
+          if (!item) {
+            return
+          }
+          let isChildNode = false
+          let parent = item.getParent()
+          while(parent) {
+            if (selectItems.indexOf(parent.uuid) >= 0) {
+              isChildNode = true
+              break
+            }
+            parent = parent.getParent()
+          }
+          if (!isChildNode) {
+            finalItems.push(item)
+          }
         }
 
-        let data = cocosExportNodeData(item)
-        // no support same id in same children
-        if (data.id && data.id.length > 0) {
-          data.id = null
-        }
+        for (var i = 0; i < finalItems.length; i++) {
+          let item = finalItems[i]
+          let parent = item.getParent()
+          // no parent node(such as scene), no support copy
+          if (!parent) {
+            continue
+          }
 
-        let genNode = cocosGenNodeByData(data, parent)
-        if (!genNode) {
-          continue
+          let data = cocosExportNodeData(item)
+          // no support same id in same children
+          // if (data.id && data.id.length > 0) {
+          //   data.id = null
+          // }
+
+          let genNode = cocosGenNodeByData(data, parent)
+          if (!genNode || genNode.ignoreAddToParent) {
+            Ipc.sendToAll('ui:scene_item_add', {uuid: genNode.uuid})
+            continue
+          }
+          this._doItemAdd(parent, genNode)
+          Ipc.sendToAll('ui:scene_item_add', {uuid: genNode.uuid})
         }
-        this._doItemAdd(parent, genNode)
-        Ipc.sendToAll('ui:scene_item_add', {uuid: genNode.uuid})
+      } else {
+        for(var i = 0; i < result.jsonData.length; i++) {
+          let data = result.jsonData[i]
+          data.uuid = gen_uuid();
+          let genNode = cocosGenNodeByData(data, runScene)
+          if (!genNode || genNode.ignoreAddToParent) {
+            Ipc.sendToAll('ui:scene_item_add', {uuid: genNode.uuid})
+            continue
+          }
+          this._doItemAdd(runScene, genNode)
+          Ipc.sendToAll('ui:scene_item_add', {uuid: genNode.uuid})
+        }
       }
     },
 

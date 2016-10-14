@@ -23,6 +23,7 @@ ExtScale9.GenNodeByData = function (data, parent) {
   data.insetTop && (node.insetTop = data.insetTop)
   data.insetRight && (node.insetRight = data.insetRight)
   data.insetBottom && (node.insetBottom = data.insetBottom)
+  // data.ignoreSetProp = true;
   return node
 }
 
