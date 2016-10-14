@@ -385,6 +385,8 @@
         AddLinkToScripte(message.folder + '/js/init.html', function () {
           if (last_open_ui) {
             Ipc.sendToAllPanel('ui:open_file', {path: last_open_ui})
+          } else {
+            Ipc.sendToAllPanel('ui:new-ui-file')
           }
         })
 

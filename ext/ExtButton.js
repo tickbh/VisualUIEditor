@@ -15,28 +15,31 @@ ExtButton.GenEmptyNode = function () {
 ExtButton.SetButtonSpriteFrame = function (path, value, node, func) {
   setNodeSpriteFrame(path, value, node, function (url) {
     func.call(node, url)
-    let isEnable = node.isScale9Enabled()
-    if (isEnable) {
-      node.setScale9Enabled(false)
-      node.setScale9Enabled(true)
-    }
+    // let isEnable = node.isScale9Enabled()
+    // if (isEnable) {
+    //   node.setScale9Enabled(false)
+    //   node.setScale9Enabled(true)
+    // }
   })
 }
 
 ExtButton.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  node = new ccui.Button();
+  node._className = ExtButton.name;
+  ExtButton.SetNodePropByData(node, data, parent);
+  return node
 }
 
 ExtButton.SetNodePropByData = function (node, data, parent) {
-  (data['scale9Enable']) && (node.setScale9Enabled(data['scale9Enable']))
-  ExtButton.SetButtonSpriteFrame('bgNormal', data['bgNormal'], node, node.loadTextureNormal)
-  ExtButton.SetButtonSpriteFrame('bgSelect', data['bgSelect'], node, node.loadTexturePressed)
-  ExtButton.SetButtonSpriteFrame('bgDisable', data['bgDisable'], node, node.loadTextureDisabled)
+  (data['scale9Enable']) && (node.setScale9Enabled(data['scale9Enable']));
+  ExtButton.SetButtonSpriteFrame('bgNormal', data['bgNormal'], node, node.loadTextureNormal);
+  ExtButton.SetButtonSpriteFrame('bgSelect', data['bgSelect'], node, node.loadTexturePressed);
+  ExtButton.SetButtonSpriteFrame('bgDisable', data['bgDisable'], node, node.loadTextureDisabled);
 
-  ;(data['titleText']) && (node.setTitleText(data['titleText']))
-  ;(data['fontName']) && (node.setTitleFontName(data['fontName']))
-  ;(data['fontSize']) && (node.setTitleFontSize(data['fontSize']))
-  ;(data['fontColor']) && (node.setTitleColor(covertToColor(data['fontColor'])))
+  (data['titleText']) && (node.setTitleText(data['titleText']));
+  (data['fontName']) && (node.setTitleFontName(data['fontName']));
+  (data['fontSize']) && (node.setTitleFontSize(data['fontSize']));
+  (data['fontColor']) && (node.setTitleColor(covertToColor(data['fontColor'])));
 }
 
 ExtButton.ExportNodeData = function (node, data) {
@@ -54,29 +57,14 @@ ExtButton.ExportNodeData = function (node, data) {
 }
 
 ExtButton.SetPropChange = function (control, path, value) {
-  if (path == 'isScale9Enabled') {
-    control._node.setScale9Enabled(value)
-  } else if (path == 'bgNormal') {
-    ExtButton.SetButtonSpriteFrame(path, value, control._node, control._node.loadTextureNormal)
-  } else if (path == 'bgSelect') {
-    ExtButton.SetButtonSpriteFrame(path, value, control._node, control._node.loadTexturePressed)
-  } else if (path == 'bgDisable') {
-    ExtButton.SetButtonSpriteFrame(path, value, control._node, control._node.loadTextureDisabled)
-  } else if (path == 'titleText') {
-    control._node.setTitleText(value)
-    control._node.getTitleRenderer()._setUpdateTextureDirty()
-  } else if (path == 'fontName') {
-    control._node.setTitleFontName(value)
-    control._node.getTitleRenderer()._setUpdateTextureDirty()
-  } else if (path == 'fontSize') {
-    control._node.setTitleFontSize(value)
-    control._node.getTitleRenderer()._setUpdateTextureDirty()
-  } else if (path == 'fontColor') {
-    control._node.setTitleColor(new cc.Color(value.r, value.g, value.b, value.a))
-    control._node.getTitleRenderer()._setUpdateTextureDirty()
-  } else {
-    control._node[path] = value
-  }
+  let data = cocosExportNodeData(control._node, {uuid: true})
+  data[path] = value
+  ResetNodePropByData(control, data)
+}
+
+ExtButton.NodifyPropChange = function (control) {
+  let data = cocosExportNodeData(control._node, {uuid: true})
+  ResetNodePropByData(control, data)
 }
 
 ExtButton.ExportData = function (node) {
@@ -87,11 +75,11 @@ ExtButton.ExportData.prototype = {
   __displayName__: 'Button',
   __type__: 'cc.Button',
 
-  get isScale9Enabled() {
+  get scale9Enable() {
     return {
-      path: 'isScale9Enabled',
+      path: 'scale9Enable',
       type: 'checkbox',
-      name: 'isScale9Enabled',
+      name: 'scale9Enable',
       attrs: {
       },
       value: this._node.isScale9Enabled()
@@ -182,7 +170,7 @@ ExtButton.ExportData.prototype = {
 
   get __props__() {
     return [
-      this.isScale9Enabled,
+      this.scale9Enable,
       this.bgNormal,
       this.bgSelect,
       this.bgDisable,

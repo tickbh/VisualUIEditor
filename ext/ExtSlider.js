@@ -20,6 +20,11 @@ ExtSlider.GenEmptyNode = function () {
 ExtSlider.GenNodeByData = function (data, parent) {
   node = new ccui.Slider()
   node._prevIgnoreSize = false;
+  ExtSlider.GenNodeByData(node, data, parent)
+  return node
+}
+
+ExtSlider.SetNodePropByData = function (node, data, parent) {
   if(!isNull(data['scale9Enable'])) {
     node.setScale9Enabled(data['scale9Enable']);
   }
@@ -29,34 +34,6 @@ ExtSlider.GenNodeByData = function (data, parent) {
   setNodeSpriteFrame('barNormalBall', data['barNormalBall'], node, node.loadSlidBallTextureNormal)
   setNodeSpriteFrame('barSelectBall', data['barSelectBall'], node, node.loadSlidBallTexturePressed)
   setNodeSpriteFrame('barDisableBall', data['barDisableBall'], node, node.loadSlidBallTextureDisabled)
-  node._className = ExtSlider.name
-  return node
-}
-
-
-ExtSlider.ResetPropByData = function (control, data, parent) {
-  if (data.ignoreSetProp) {
-    return
-  }
-  let node = control._node
-  parent = parent || node.getParent()
-
-  data.ignoreSetProp = true
-  let newNode = cocosGenNodeByData(data, parent)
-  node.ignoreAddToParent = true
-  ReplaceNode(node, newNode, parent)
-  control._node = newNode
-}
-
-ExtSlider.SetNodePropByData = function (node, data, parent) {
-  ExtSlider.ResetPropByData({_node: node}, data, parent)
-  // (!isNull(data['scale9Enable'])) && (node.setScale9Enabled(data['scale9Enable']));
-  // (data['percent']) && (node.percent = data['percent']);
-  // setNodeSpriteFrame('barBg', data['barBg'], node, node.loadBarTexture)
-  // setNodeSpriteFrame('barProgress', data['barProgress'], node, node.loadProgressBarTexture)
-  // setNodeSpriteFrame('barNormalBall', data['barNormalBall'], node, node.loadSlidBallTextureNormal)
-  // setNodeSpriteFrame('barSelectBall', data['barSelectBall'], node, node.loadSlidBallTexturePressed)
-  // setNodeSpriteFrame('barDisableBall', data['barDisableBall'], node, node.loadSlidBallTextureDisabled)
 }
 
 ExtSlider.ExportNodeData = function (node, data) {
@@ -70,10 +47,9 @@ ExtSlider.ExportNodeData = function (node, data) {
 }
 
 ExtSlider.SetPropChange = function (control, path, value) {
-
   let data = cocosExportNodeData(control._node, {uuid: true})
   data[path] = value
-  ExtSlider.ResetPropByData(control, data)
+  ResetNodePropByData(control, data)
 }
 
 ExtSlider.ExportData = function (node) {

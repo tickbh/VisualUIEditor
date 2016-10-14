@@ -454,8 +454,13 @@ NodeData.prototype = {
       this._node.touchListener = value
     } else if (extControl) {
       extControl.SetPropChange(this, path, value, target)
+      return
     } else {
       return
+    }
+
+    if (extControl && extControl.NodifyPropChange) {
+      extControl.NodifyPropChange(this)
     }
 
     if (this._node._className == 'Scene') {

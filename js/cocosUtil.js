@@ -538,3 +538,18 @@ function AddImages(images, callback) {
     })
   }
 }
+
+
+function ResetNodePropByData(control, data, parent) {
+  if (data.ignoreSetProp) {
+    return
+  }
+  let node = control._node
+  parent = parent || node.getParent()
+
+  data.ignoreSetProp = true
+  let newNode = cocosGenNodeByData(data, parent)
+  node.ignoreAddToParent = true
+  ReplaceNode(node, newNode, parent)
+  control._node = newNode
+}
