@@ -11,7 +11,10 @@ ExtText.GenEmptyNode = function () {
 }
 
 ExtText.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  let node = new ccui.Text('', 'Arial', 24)
+  ExtText.SetNodePropByData(node, data, parent)
+  node._className = ExtText.name
+  return node
 }
 
 ExtText.SetNodeString = function (node, string) {
@@ -57,36 +60,45 @@ ExtText.ExportNodeData = function (node, data) {
   node.boundingHeight > 0 && (data['boundingHeight'] = node.boundingHeight)
 }
 
+// ExtText.SetPropChange = function (control, path, value) {
+//   let node = control._node
+//   if (path == 'string') {
+//     ExtText.SetNodeString(node, value)
+//   } else if (path == 'textAlign') {
+//     node.textAlign = parseFloat(value)
+//   } else if (path == 'verticalAlign') {
+//     node.verticalAlign = parseFloat(value)
+//   } else if (path == 'fontSize') {
+//     node.fontSize = value
+//   } else if (path == 'fontName') {
+//     node.fontName = value
+//   } else if (path == 'outlineColor') {
+//     node.outlineColor = new cc.Color(value.r, value.g, value.b, value.a)
+//     node.enableShadow(node.outlineColor, node.outlineSize || 0)
+//   } else if (path == 'outlineSize') {
+//     node.outlineSize = value
+//     if (node.outlineSize == 0) {
+//       node.disableEffect()
+//       node.outlineColor = null
+//     } else {
+//       node.outlineColor = node.outlineColor || cc.color.WHITE
+//       node.enableShadow(node.outlineColor, node.outlineSize || 0)
+//     }
+//   } else if (path == 'boundingWidth') {
+//     node.boundingWidth = value
+//   } else if (path == 'boundingHeight') {
+//     node.boundingHeight = value
+//   }
+// }
+
 ExtText.SetPropChange = function (control, path, value) {
-  let node = control._node
-  if (path == 'string') {
-    ExtText.SetNodeString(node, value)
-  } else if (path == 'textAlign') {
-    node.textAlign = parseFloat(value)
-  } else if (path == 'verticalAlign') {
-    node.verticalAlign = parseFloat(value)
-  } else if (path == 'fontSize') {
-    node.fontSize = value
-  } else if (path == 'fontName') {
-    node.fontName = value
-  } else if (path == 'outlineColor') {
-    node.outlineColor = new cc.Color(value.r, value.g, value.b, value.a)
-    node.enableShadow(node.outlineColor, node.outlineSize || 0)
-  } else if (path == 'outlineSize') {
-    node.outlineSize = value
-    if (node.outlineSize == 0) {
-      node.disableEffect()
-      node.outlineColor = null
-    } else {
-      node.outlineColor = node.outlineColor || cc.color.WHITE
-      node.enableShadow(node.outlineColor, node.outlineSize || 0)
-    }
-  } else if (path == 'boundingWidth') {
-    node.boundingWidth = value
-  } else if (path == 'boundingHeight') {
-    node.boundingHeight = value
-  }
+  SetDefaultPropChange(control, path, value)
 }
+
+ExtText.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
+}
+
 
 function TextData (node) {
   this._node = node

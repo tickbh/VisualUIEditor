@@ -11,7 +11,10 @@ ExtRichText.GenEmptyNode = function () {
 }
 
 ExtRichText.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  let node = new NodeRichText('', {}, {})
+  node._className = ExtRichText.name
+  ExtRichText.SetNodePropByData(node, data, parent)
+  return node
 }
 
 ExtRichText.SetNodeString = function (node, string) {
@@ -60,32 +63,40 @@ ExtRichText.ExportNodeData = function (node, data) {
   data['text'] = node._key ? ('@' + node._key) : node._text
 }
 
+// ExtRichText.SetPropChange = function (control, path, value) {
+//   let node = control._node
+//   if (path == 'text') {
+//     ExtRichText.SetNodeString(node, value)
+//     node.forceUpdate()
+//   } else if (path == 'textAlign') {
+//     node.setTextHorizontalAlignment(parseFloat(value))
+//   } else if (path == 'verticalAlign') {
+//     node.setTextVerticalAlignment(parseFloat(value))
+//   } else if (path == 'oriFontSize') {
+//     node._originConfig.fontSize = value
+//     node.forceUpdate()
+//   }
+//   //  else if(path == "fontName") {
+//   //     node.fontName = value
+//   // }
+//   else if (path == 'oriOColor') {
+//     node._originConfig.ocolor = new cc.Color(value.r, value.g, value.b, value.a)
+//     node.forceUpdate()
+//   } else if (path == 'oriOSize') {
+//     node._originConfig.osize = value
+//     node.forceUpdate()
+//   } else if (path == 'oriColor') {
+//     node._originConfig.color = new cc.Color(value.r, value.g, value.b, value.a)
+//     node.forceUpdate()
+//   }
+// }
+
 ExtRichText.SetPropChange = function (control, path, value) {
-  let node = control._node
-  if (path == 'text') {
-    ExtRichText.SetNodeString(node, value)
-    node.forceUpdate()
-  } else if (path == 'textAlign') {
-    node.setTextHorizontalAlignment(parseFloat(value))
-  } else if (path == 'verticalAlign') {
-    node.setTextVerticalAlignment(parseFloat(value))
-  } else if (path == 'oriFontSize') {
-    node._originConfig.fontSize = value
-    node.forceUpdate()
-  }
-  //  else if(path == "fontName") {
-  //     node.fontName = value
-  // }
-  else if (path == 'oriOColor') {
-    node._originConfig.ocolor = new cc.Color(value.r, value.g, value.b, value.a)
-    node.forceUpdate()
-  } else if (path == 'oriOSize') {
-    node._originConfig.osize = value
-    node.forceUpdate()
-  } else if (path == 'oriColor') {
-    node._originConfig.color = new cc.Color(value.r, value.g, value.b, value.a)
-    node.forceUpdate()
-  }
+  SetDefaultPropChange(control, path, value)
+}
+
+ExtRichText.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
 }
 
 function RichTextData (node) {

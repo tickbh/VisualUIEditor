@@ -13,7 +13,9 @@ ExtImage.GenEmptyNode = function () {
 }
 
 ExtImage.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  let node = new ccui.ImageView()
+  node._className = ExtImage.name
+  return node
 }
 
 ExtImage.SetSpriteFrame = function (node, spriteFrame) {
@@ -37,9 +39,11 @@ ExtImage.ExportNodeData = function (node, data) {
 }
 
 ExtImage.SetPropChange = function (control, path, value) {
-  if (path == 'spriteFrame') {
-    ExtImage.SetSpriteFrame(control._node, value)
-  }
+  SetDefaultPropChange(control, path, value)
+}
+
+ExtImage.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
 }
 
 function ImageData (node) {

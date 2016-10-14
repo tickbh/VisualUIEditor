@@ -12,7 +12,11 @@ ExtPageView.GenEmptyNode = function () {
 }
 
 ExtPageView.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  node = new ccui.PageView()
+  node.setContentSize(cc.size(data.width || 200, data.height || 1000))
+  ExtPageView.SetNodePropByData(node, data, parent)
+  node._className = ExtPageView.name
+  return node
 }
 
 ExtPageView.SetNodePropByData = function (node, data, parent) {
@@ -24,7 +28,11 @@ ExtPageView.ExportNodeData = function (node, data) {
 }
 
 ExtPageView.SetPropChange = function (control, path, value) {
-  ExtListView.SetPropChange(control, path, value)
+  SetDefaultPropChange(control, path, value)
+}
+
+ExtPageView.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
 }
 
 ExtPageView.ExportData = function (node) {

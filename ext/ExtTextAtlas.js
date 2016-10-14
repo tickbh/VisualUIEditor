@@ -62,11 +62,20 @@ ExtTextAtlas.ExportNodeData = function (node, data) {
   data['anchorY'] = node.anchorY
 }
 
+// ExtTextAtlas.SetPropChange = function (control, path, value) {
+//   let data = cocosExportNodeData(control._node, {uuid: true})
+//   data[path] = value
+//   ExtTextAtlas.ResetPropByData(control, data)
+// }
+
 ExtTextAtlas.SetPropChange = function (control, path, value) {
-  let data = cocosExportNodeData(control._node, {uuid: true})
-  data[path] = value
-  ExtTextAtlas.ResetPropByData(control, data)
+  SetDefaultPropChange(control, path, value)
 }
+
+ExtTextAtlas.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
+}
+
 
 ExtTextAtlas.ExportData = function (node) {
   this._node = node

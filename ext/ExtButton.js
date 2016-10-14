@@ -15,11 +15,6 @@ ExtButton.GenEmptyNode = function () {
 ExtButton.SetButtonSpriteFrame = function (path, value, node, func) {
   setNodeSpriteFrame(path, value, node, function (url) {
     func.call(node, url)
-    // let isEnable = node.isScale9Enabled()
-    // if (isEnable) {
-    //   node.setScale9Enabled(false)
-    //   node.setScale9Enabled(true)
-    // }
   })
 }
 
@@ -57,14 +52,11 @@ ExtButton.ExportNodeData = function (node, data) {
 }
 
 ExtButton.SetPropChange = function (control, path, value) {
-  let data = cocosExportNodeData(control._node, {uuid: true})
-  data[path] = value
-  ResetNodePropByData(control, data)
+  SetDefaultPropChange(control, path, value)
 }
 
 ExtButton.NodifyPropChange = function (control) {
-  let data = cocosExportNodeData(control._node, {uuid: true})
-  ResetNodePropByData(control, data)
+  SetNodifyPropChange(control)
 }
 
 ExtButton.ExportData = function (node) {

@@ -12,7 +12,11 @@ ExtScrollView.GenEmptyNode = function () {
 }
 
 ExtScrollView.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  node = new ccui.ScrollView()
+  node.setContentSize(cc.size(data.width || 200, data.height || 100))
+  ExtScrollView.SetNodePropByData(node, data, parent);
+  node._className = ExtScrollView.name
+  return node
 }
 
 ExtScrollView.SetNodePropByData = function (node, data, parent) {
@@ -45,27 +49,35 @@ ExtScrollView.ExportNodeData = function (node, data) {
   data['bounceEnabled'] = node._bounceEnabled
 }
 
+// ExtScrollView.SetPropChange = function (control, path, value) {
+//   if (path == 'innerPosition.x') {
+//     control._node.setInnerContainerPosition(cc.p(value, control._node.getInnerContainerPosition().y))
+//   } else if (path == 'innerPosition.y') {
+//     control._node.setInnerContainerPosition(cc.p(control._node.getInnerContainerPosition().x, value))
+//   } else if (path == 'innerSize.width') {
+//     control._node.setInnerContainerSize(value, cc.size(control._node.getInnerContainerSize().height))
+//   } else if (path == 'innerSize.height') {
+//     control._node.setInnerContainerSize(cc.size(control._node.getInnerContainerSize().width, value))
+//   } else if (path == 'direction') {
+//     value = fixFloatValue(value)
+//     let pre = control._node._direction
+//     control._node.setDirection(value == 4 ? 0 : value)
+//     let after = control._node._direction
+//   } else if (path == 'scrollBarEnabled') {
+//     control._node.setScrollBarEnabled(value)
+//   } else if (path == 'inertiaScrollEnabled') {
+//     control._node.setInertiaScrollEnabled(value)
+//   } else if (path == 'bounceEnabled') {
+//     control._node.setBounceEnabled(value)
+//   }
+// }
+
 ExtScrollView.SetPropChange = function (control, path, value) {
-  if (path == 'innerPosition.x') {
-    control._node.setInnerContainerPosition(cc.p(value, control._node.getInnerContainerPosition().y))
-  } else if (path == 'innerPosition.y') {
-    control._node.setInnerContainerPosition(cc.p(control._node.getInnerContainerPosition().x, value))
-  } else if (path == 'innerSize.width') {
-    control._node.setInnerContainerSize(value, cc.size(control._node.getInnerContainerSize().height))
-  } else if (path == 'innerSize.height') {
-    control._node.setInnerContainerSize(cc.size(control._node.getInnerContainerSize().width, value))
-  } else if (path == 'direction') {
-    value = fixFloatValue(value)
-    let pre = control._node._direction
-    control._node.setDirection(value == 4 ? 0 : value)
-    let after = control._node._direction
-  } else if (path == 'scrollBarEnabled') {
-    control._node.setScrollBarEnabled(value)
-  } else if (path == 'inertiaScrollEnabled') {
-    control._node.setInertiaScrollEnabled(value)
-  } else if (path == 'bounceEnabled') {
-    control._node.setBounceEnabled(value)
-  }
+  SetDefaultPropChange(control, path, value)
+}
+
+ExtScrollView.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
 }
 
 ExtScrollView.ExportData = function (node) {

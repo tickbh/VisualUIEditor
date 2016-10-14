@@ -12,7 +12,11 @@ ExtListView.GenEmptyNode = function () {
 }
 
 ExtListView.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  node = new ccui.ListView()
+  node.setContentSize(cc.size(data.width || 200, data.height || 100))
+  ExtListView.SetNodePropByData(node, data, parent)
+  node._className = ExtListView.name
+  return node
 }
 
 ExtListView.SetNodePropByData = function (node, data, parent) {
@@ -28,14 +32,11 @@ ExtListView.ExportNodeData = function (node, data) {
 }
 
 ExtListView.SetPropChange = function (control, path, value) {
-  if (path == 'gravity') {
-    value = fixFloatValue(value)
-    control._node.setGravity(value)
-  } else if (path == 'itemsMargin') {
-    control._node.setItemsMargin(value)
-  } else {
-    ExtScrollView.SetPropChange(control, path, value)
-  }
+  SetDefaultPropChange(control, path, value)
+}
+
+ExtListView.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
 }
 
 ExtListView.ExportData = function (node) {

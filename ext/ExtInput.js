@@ -32,7 +32,10 @@ ExtInput.GenEmptyNode = function () {
 }
 
 ExtInput.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  node = new cc.EditBox(cc.size(data.width || 100, data.height || 20), new cc.Scale9Sprite())
+  ExtInput.SetNodePropByData(data, parent)
+  node._className = ExtInput.name
+  return node
 }
 
 ExtInput.SetNodePropByData = function (node, data, parent) {
@@ -77,15 +80,11 @@ ExtInput.ExportNodeData = function (node, data) {
 }
 
 ExtInput.SetPropChange = function (control, path, value) {
-  if (path == 'fontColor') {
-    control._node.fontColor = new cc.Color(value.r, value.g, value.b, value.a)
-  } else if (path == 'placeholderFontColor') {
-    control._node.placeholderFontColor = new cc.Color(value.r, value.g, value.b, value.a)
-  } else if (path == 'spriteBg') {
-    ExtInput.SetSpriteFrame(control._node, value)
-  } else {
-    control._node[path] = value
-  }
+  SetDefaultPropChange(control, path, value)
+}
+
+ExtInput.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
 }
 
 ExtInput.ExportData = function (node) {

@@ -47,9 +47,11 @@ ExtSlider.ExportNodeData = function (node, data) {
 }
 
 ExtSlider.SetPropChange = function (control, path, value) {
-  let data = cocosExportNodeData(control._node, {uuid: true})
-  data[path] = value
-  ResetNodePropByData(control, data)
+  SetDefaultPropChange(control, path, value)
+}
+
+ExtSlider.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
 }
 
 ExtSlider.ExportData = function (node) {

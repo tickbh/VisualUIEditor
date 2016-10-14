@@ -553,3 +553,14 @@ function ResetNodePropByData(control, data, parent) {
   ReplaceNode(node, newNode, parent)
   control._node = newNode
 }
+
+function SetDefaultPropChange(control, path, value) {
+  let data = cocosExportNodeData(control._node, {uuid: true})
+  data[path] = value
+  ResetNodePropByData(control, data)
+}
+
+function SetNodifyPropChange(control) {
+  let data = cocosExportNodeData(control._node, {uuid: true})
+  ResetNodePropByData(control, data)
+}

@@ -23,7 +23,10 @@ ExtCheckBox.GenEmptyNode = function () {
 }
 
 ExtCheckBox.GenNodeByData = function (data, parent) {
-  return this.GenEmptyNode()
+  node = new ccui.CheckBox();
+  node._className = ExtCheckBox.name;
+  ExtCheckBox.SetNodePropByData(node, data, parent);
+  return node
 }
 
 ExtCheckBox.SetNodePropByData = function (node, data, parent) {
@@ -46,19 +49,11 @@ ExtCheckBox.ExportNodeData = function (node, data) {
 }
 
 ExtCheckBox.SetPropChange = function (control, path, value) {
-  if (path == 'back') {
-    SetSpriteFrame(control._node, path, value, 'res/default/CheckBoxNormal.png', control._node.loadTextureBackGround)
-  } else if (path == 'backSelect') {
-    SetSpriteFrame(control._node, path, value, 'res/default/CheckBoxSelect.png', control._node.loadTextureBackGroundSelected)
-  } else if (path == 'active') {
-    SetSpriteFrame(control._node, path, value, 'res/default/CheckBoxNodeNormal.png', control._node.loadTextureFrontCross)
-  } else if (path == 'backDisable') {
-    SetSpriteFrame(control._node, path, value, 'res/default/CheckBoxDisable.png', control._node.loadTextureBackGroundDisabled)
-  } else if (path == 'activeDisable') {
-    SetSpriteFrame(control._node, path, value, 'res/default/CheckBoxNodeDisable.png', control._node.loadTextureFrontCrossDisabled)
-  } else if (path == 'select') {
-    control._node.setSelected(value)
-  }
+  SetDefaultPropChange(control, path, value)
+}
+
+ExtCheckBox.NodifyPropChange = function (control) {
+  SetNodifyPropChange(control)
 }
 
 ExtCheckBox.ExportData = function (node) {
