@@ -20,7 +20,7 @@ ExtSlider.GenEmptyNode = function () {
 ExtSlider.GenNodeByData = function (data, parent) {
   node = new ccui.Slider()
   node._prevIgnoreSize = false;
-  ExtSlider.GenNodeByData(node, data, parent)
+  ExtSlider.SetNodePropByData(node, data, parent)
   return node
 }
 
