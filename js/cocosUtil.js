@@ -149,6 +149,8 @@ function cocosExportNodeData (node, ext) {
     extControl.ExportNodeData(node, data)
   } else if (startWith(node._className, 'SubPath')) {
     data['path'] = node._path
+    data['anchorX'] = node.anchorX
+    data['anchorY'] = node.anchorY
     extControl = GetExtNodeControl(node._path)
     extControl && extControl.ExportNodeData(node, data)
   } else if (node._className == 'Layout') {
