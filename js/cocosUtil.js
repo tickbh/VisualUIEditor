@@ -201,7 +201,7 @@ function saveFileByContent (filename, content) {
 }
 
 function covertToColor (value) {
-  if (!value || !value[0] || !value[3]) {
+  if (!value  || !isNum(value[0]) || !isNum(value[3])) {
     return null
   }
   return new cc.color(value[0], value[1], value[2], value[3])
