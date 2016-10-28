@@ -28,7 +28,7 @@ ExtScrollView.SetNodePropByData = function (node, data, parent) {
     node.setInnerContainerSize(cc.size(data['innerSizeW'] || 0, data['innerSizeH'] || 0))
   }
 
-  (isValue(data['direction'])) && (node.setDirection(data['direction']))
+  (isValue(data['direction'])) && (node.setDirection(parseInt( data['direction']) ))
   ;(isValue(data['scrollBarEnabled'])) && (node.setScrollBarEnabled(data['scrollBarEnabled']))
   ;(isValue(data['inertiaScrollEnabled'])) && (node.setInertiaScrollEnabled(data['inertiaScrollEnabled']))
   ;(isValue(data['bounceEnabled'])) && (node.setBounceEnabled(data['bounceEnabled']))
