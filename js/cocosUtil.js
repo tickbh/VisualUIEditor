@@ -29,7 +29,7 @@ function isBaseTypeByName (name) {
     name = name.substring(0, index)
   }
   if (name == 'UIButton' || name == 'UICheckBox' || name == 'UIImage'
-    || name == 'UIInput' || name == 'UIScale9' || name == 'UISlider' || name == 'UIText' || name == 'UITextAtlas') {
+    || name == 'UIInput' || name == 'UIScale9' || name == 'UISlider' || name == 'UIText' || name == 'UITextAtlas' || name == 'UIArmature') {
     return true
   }
   return false
@@ -258,19 +258,19 @@ function cocosGenSubUINode (path, parent) {
   if (checkPathRepeat(parent, path)) {
     return null
   }
-  cocosGenNodeByData(getPathData(path), node, true)
+  cocosGenNodeByData(getPathData(path), parent, node)
   node._className = 'SubPath:' + path
   return node
 }
 
-function cocosGenNodeByData (data, parent, isSetParent) {
+function cocosGenNodeByData (data, parent, outNode) {
   if (!data) {
     return
   }
   let node = null
   let extControl = GetExtNodeControl(data.type)
-  if (isSetParent) {
-    node = parent
+  if (outNode) {
+    node = outNode
   } else if (data.path) {
     node = cocosGenSubUINode(data.path, parent)
   } else if (extControl) {

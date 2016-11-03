@@ -60451,7 +60451,7 @@ ccs.ProcessBase = ccs.Class.extend({
         this._rawDuration = 0;
         this._loopType = ccs.ANIMATION_TYPE_LOOP_BACK;
         this._tweenEasing = ccs.TweenType.LINEAR;
-        this.animationInternal = 1 / 60;
+        this.animationInternal = 1 / 30;
         this._curFrameIndex = 0;
         this._durationTween = 0;
         this._isLoopBack = false;
@@ -61609,7 +61609,9 @@ ccs.Armature = ccs.Node.extend({
         return this._armatureTransformDirty;
     },
     update: function (dt) {
-        this.animation.update(dt);
+        if(this.animation) {
+            this.animation.update(dt);
+        }
         var locTopBoneList = this._topBoneList;
         for (var i = 0; i < locTopBoneList.length; i++)
             locTopBoneList[i].update(dt);
