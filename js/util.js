@@ -298,7 +298,9 @@ function merge (src, t) {
     return src
   }
   for (k in t) {
-    src[k] = t[k]
+    if(t[k] !== null && t[k] !== undefined) {
+      src[k] = t[k]
+    }
   }
   return src
 }

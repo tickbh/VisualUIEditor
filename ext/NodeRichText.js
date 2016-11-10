@@ -27,7 +27,59 @@ let NodeRichText = ccui.RichText.extend({
   },
 
   addRichElement: function (str) {
-    let re = ccui.RichElementText.create(1, this._curConfig.color, 255, str, this._font, this._curConfig.fontSize)
+
+//     cc.FontDefinition = function (properties) {
+//     var _t = this;
+//     _t.fontName = "Arial";
+//     _t.fontSize = 12;
+//     _t.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+//     _t.verticalAlign = cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+//     _t.fillStyle = cc.color(255, 255, 255, 255);
+//     _t.boundingWidth = 0;
+//     _t.boundingHeight = 0;
+
+//     _t.strokeEnabled = false;
+//     _t.strokeStyle = cc.color(255, 255, 255, 255);
+//     _t.lineWidth = 1;
+//     _t.lineHeight = "normal";
+//     _t.fontStyle = "normal";
+//     _t.fontWeight = "normal";
+
+//     _t.shadowEnabled = false;
+//     _t.shadowOffsetX = 0;
+//     _t.shadowOffsetY = 0;
+//     _t.shadowBlur = 0;
+//     _t.shadowOpacity = 1.0;
+
+//     //properties mapping:
+//     if(properties && properties instanceof Object){
+//          for(var key in properties){
+//              _t[key] = properties[key];
+//          }
+//     }
+// };
+
+    //  * var rtEl  = new ccui.RichElementText("tag", new cc.FontDefinition({
+    //  *                              fillStyle: cc.color.BLACK,
+    //  *                              fontName: "Arial",
+    //  *                              fontSize: 12,
+    //  *                              fontWeight: "bold",
+    //  *                              fontStyle: "normal",
+    //  *                              lineHeight: 14
+    //  *                          }), 255, "Some Text");
+
+    //     _t.strokeEnabled = false;
+    // _t.strokeStyle = cc.color(255, 255, 255, 255);
+    // _t.lineWidth = 1;
+    var font = new cc.FontDefinition({
+                                      fillStyle: this._curConfig.color,
+                                      fontName: this._font,
+                                      fontSize: this._curConfig.fontSize,
+                                      strokeEnabled: this._curConfig.osize > 0,
+                                      strokeStyle: this._curConfig.ocolor,
+                                      lineWidth: this._curConfig.osize,
+                                  });
+    let re = ccui.RichElementText.create(1, font, 255, str)
     this.pushBackElement(re)
   },
 

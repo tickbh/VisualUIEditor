@@ -11,7 +11,7 @@ ExtRichText.GenEmptyNode = function () {
 }
 
 ExtRichText.GenNodeByData = function (data, parent) {
-  let node = new NodeRichText('', {}, {})
+  let node = new NodeRichText('', {}, {color: covertToColor(data.oriColor), fontSize: data.oriFontSize || 20, ocolor: covertToColor(data.oriOColor), osize: data.oriOSize || 0})
   node._className = ExtRichText.name
   ExtRichText.SetNodePropByData(node, data, parent)
   return node
@@ -130,7 +130,7 @@ RichTextData.prototype = {
         min: 0,
         max: 72
       },
-      value: this._node._originConfig.fontSize
+      value: this._node._originConfig.oriFontSize
     }
   },
 

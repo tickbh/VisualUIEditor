@@ -53620,9 +53620,9 @@ ccui.RichElementText = ccui.RichElement.extend({
         var color = colorOrFontDef;
         if (colorOrFontDef && colorOrFontDef instanceof cc.FontDefinition) {
             color = colorOrFontDef.fillStyle;
-            fontName = fontDef.fontName;
-            fontSize = fontDef.fontSize;
-            this._fontDefinition = fontDef;
+            fontName = colorOrFontDef.fontName;
+            fontSize = colorOrFontDef.fontSize;
+            this._fontDefinition = colorOrFontDef;
         }
         ccui.RichElement.prototype.ctor.call(this, tag, color, opacity);
         this._type = ccui.RichElement.TEXT;
@@ -53905,7 +53905,8 @@ ccui.RichText = ccui.Widget.extend({
         this._elementRenders.length = 0;
         this.setContentSize(this._ignoreSize?this.getVirtualRendererSize():this._customSize);
         this._updateContentSizeWithTextureSize(this._contentSize);
-        locRenderersContainer.setPosition(this._contentSize.width * 0.5, this._contentSize.height * 0.5);
+        locRenderersContainer.setPosition(this._contentSize.width * locRenderersContainer.anchorX, this._contentSize.height * locRenderersContainer.anchorY);
+        // locRenderersContainer.setPosition(this._contentSize.width * 0.5, this._contentSize.height * 0.5);
     },
     _pushToContainer: function (renderer) {
         if (this._elementRenders.length <= 0)
