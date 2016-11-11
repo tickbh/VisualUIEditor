@@ -811,8 +811,7 @@
       let children = runScene.getChildren()
 
       let canvas = this.$.scene.getFabricCanvas()
-      let activeGroup = canvas.getActiveGroup()
-      if (isCtrlKey(e) || canvas.getActiveObject() || canvas.getActiveGroup()) {
+      if (isCtrlKey(e)) { // || canvas.getActiveObject() || canvas.getActiveGroup()
       } else {
         canvas.clear()
       }

@@ -296,6 +296,7 @@ ExtInput.ExportData.prototype = {
 
 ExtInput.PropComps = function (node) {
   let datas = [ new WidgetData(node) ]
+  datas.push(new TouchData(node))
   datas.push(new ExtInput.ExportData(node))
   return datas
 }
