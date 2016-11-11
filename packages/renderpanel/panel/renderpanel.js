@@ -799,7 +799,7 @@
       let rect = object.selector
       let left = Math.min(rect.ex, rect.ex + rect.left)
       let top = Math.min(rect.ey, rect.ey + rect.top)
-      let isClick = rect.left == 0 && rect.top == 0
+      let isClick = rect.left <= 5 && rect.top <= 5
       let width = Math.abs(rect.left), height = Math.abs(rect.top)
       let e = object.e
       rect = {left: left, top: top, width: width, height: height}
