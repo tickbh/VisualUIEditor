@@ -31,9 +31,9 @@ ExtArmature.GenNodeByData = function (data, parent) {
     node.uuid = data.uuid;
   }
   var fullImagePath = getFullPathForName(data.imagePath)
-  var fullPlistPath = getFullRealPathForName(data.plistPath)
-  var fullConfigPath = getFullRealPathForName(data.configFilePath)
-  if (!fullImagePath || !fullPlistPath || !fullConfigPath) {
+  var fullPlistPath = getFullPathForName(data.plistPath)
+  var fullConfigPath = getFullPathForName(data.configFilePath)
+  if (!fullImagePath || !fullPlistPath || !fullConfigPath || !data.actionName) {
     return node
   }
 
