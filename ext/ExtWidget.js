@@ -5,7 +5,8 @@ ExtWidget.icon = 'app://res/control/Node.png'
 ExtWidget.tag = 0
 
 ExtWidget.GenEmptyNode = function () {
-  let node = new ccui.Widget()
+  // let node = new ccui.Widget()
+  let node = new cc.Node()
   node.setContentSize(cc.size(40, 40))
   node._className = ExtWidget.name
   return node
