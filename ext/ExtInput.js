@@ -72,7 +72,7 @@ ExtInput.ExportNodeData = function (node, data) {
   value = node._placeholderFontName
   ;(value.length > 0) && (data['placeHolderFontName'] = value)
   value = node._placeholderFontSize
-  ;(value != 14) && (data['placeholderFontSize'] = value)
+  ;(value != 14) && (data['placeHolderFontSize'] = value)
   value = node._placeholderColor || cc.color.GRAY
   ;(!cc.colorEqual(value, cc.color.GRAY)) && (data['placeholderFontColor'] = [value.r, value.g, value.b, value.a])
   value = node._spriteFrame
@@ -194,7 +194,7 @@ ExtInput.ExportData.prototype = {
 
   get placeHolderFontSize() {
     return {
-      path: 'placeholderFontSize',
+      path: 'placeHolderFontSize',
       type: 'unit-input',
       name: 'placeHolderFontSize',
       attrs: {
