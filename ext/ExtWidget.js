@@ -18,7 +18,10 @@ ExtWidget.GenNodeByData = function (data, parent) {
 
 ExtWidget.SetNodePropByData = function (node, data, parent) {}
 
-ExtWidget.ExportNodeData = function (node, data) {}
+ExtWidget.ExportNodeData = function (node, data) {
+  data['anchorX'] = node.anchorX
+  data['anchorY'] = node.anchorY
+}
 
 ExtWidget.SetPropChange = function (control, path, value) {}
 
