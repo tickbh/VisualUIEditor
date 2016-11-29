@@ -8,6 +8,8 @@ ExtWidget.GenEmptyNode = function () {
   // let node = new ccui.Widget()
   let node = new cc.Node()
   node.setContentSize(cc.size(40, 40))
+  node.anchorX = 0.5
+  node.anchorY = 0.5
   node._className = ExtWidget.name
   return node
 }
