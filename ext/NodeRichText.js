@@ -26,6 +26,12 @@ let NodeRichText = ccui.RichText.extend({
     this.parseText(this._text)
   },
 
+  addNewLineElement: function() {
+    var re = ccui.RichElementNewLine.create(1, this._curConfig.color, 255)
+    this.pushBackElement(re)
+  },
+
+
   addRichElement: function (str) {
 
 //     cc.FontDefinition = function (properties) {
@@ -144,6 +150,8 @@ let NodeRichText = ccui.RichText.extend({
       this._curConfig.fontSize = this._originConfig.fontSize
     } else if (value == '/of') {
       this._curConfig.osize = this._originConfig.osize
+    } else if (value == 'br') {
+      this.addNewLineElement()
     }
   },
 

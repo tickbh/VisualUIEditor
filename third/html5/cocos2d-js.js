@@ -53660,6 +53660,17 @@ ccui.RichElementCustomNode = ccui.RichElement.extend({
 ccui.RichElementCustomNode.create = function (tag, color, opacity, customNode) {
     return new ccui.RichElementCustomNode(tag, color, opacity, customNode);
 };
+
+ccui.RichElementNewLine = ccui.RichElement.extend({
+    ctor: function (tag, color, opacity) {
+        ccui.RichElement.prototype.ctor.call(this, tag, color, opacity);
+        this._type = ccui.RichElement.NEWLINE;
+    }
+});
+
+ccui.RichElementNewLine.create = function (tag, color, opacity) {
+    return new ccui.RichElementNewLine(tag, color, opacity);
+};
 ccui.RichText = ccui.Widget.extend({
     _formatTextDirty: false,
     _richElements: null,
@@ -53723,6 +53734,9 @@ ccui.RichText = ccui.Widget.extend({
                         case ccui.RichElement.CUSTOM:
                             elementRenderer = element._customNode;
                             break;
+                        case ccui.RichElement.NEWLINE:
+                            this._addNewLine();
+                            continue;
                         default:
                             break;
                     }
@@ -53747,6 +53761,9 @@ ccui.RichText = ccui.Widget.extend({
                         case ccui.RichElement.CUSTOM:
                             this._handleCustomRenderer(element._customNode);
                             break;
+                        case ccui.RichElement.NEWLINE:
+                            this._addNewLine();
+                            continue;
                         default:
                             break;
                     }
@@ -53989,6 +54006,7 @@ ccui.RichText.create = function(){
 ccui.RichElement.TEXT = 0;
 ccui.RichElement.IMAGE = 1;
 ccui.RichElement.CUSTOM = 2;
+ccui.RichElement.NEWLINE = 3;
 ccui.ScrollViewBar = ccui.ProtectedNode.extend({
     _parentScroll: null,
     _direction: null,
