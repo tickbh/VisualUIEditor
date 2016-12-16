@@ -61105,8 +61105,7 @@ ccs.Tween = ccs.ProcessBase.extend({
             this._bone.setBlendFunc(keyFrameData.blendFunc);
             var childAramture = locBone.getChildArmature();
             if (childAramture) {
-                if (keyFrameData.movement !== "")
-                    childAramture.getAnimation().play(keyFrameData.movement);
+                childAramture.getAnimation().play("stand",null,1);
             }
         }
     },
