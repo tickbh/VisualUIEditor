@@ -255,7 +255,6 @@ NodeData.prototype = {
     }
   },
 
-
   get __props__() {
     return [
       this.tag,
@@ -301,8 +300,7 @@ NodeData.prototype = {
     if (this._node._path && !extControl) {
       extControl = GetExtNodeControl(this._node._path)
     }
-    if(extControl && extControl.PropCantChange && extControl.PropCantChange(this._node, path, value)) {
-      
+    if (extControl && extControl.PropCantChange && extControl.PropCantChange(this._node, path, value)) {
     } else if (path == 'tag') {
       addNodeCommand(this._node, '_name', this._node._name, value)
       this._node._name = value
@@ -696,6 +694,5 @@ TouchData.prototype = {
 //             value: this._node.clippingType,
 //         }
 //     },
-
 
 // }

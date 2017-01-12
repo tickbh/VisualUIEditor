@@ -20,6 +20,10 @@ cocosGetItemByUUID = function (node, uuid) {
   return recursiveGetChild(node, uuid)
 }
 
+function IsSubPath (name) {
+  return startWith(name, 'SubPath:')
+}
+
 function isBaseTypeByName (name) {
   if (startWith(name, 'SubPath:')) {
     return true
@@ -270,9 +274,19 @@ function cocosGenSubUINode (path, parent) {
   if (checkPathRepeat(parent, path)) {
     return null
   }
-  cocosGenNodeByData(getPathData(path), parent, node)
+  var data = getPathData(path)
+  var result = CalcNeedLoadImage(data)
+  cc.loader.load(TableKeyToArray(result.imageTable), function() {
+    cocosGenNodeByData(data, parent, node)
+  })
   node._className = 'SubPath:' + path
   return node
+}
+
+function CalcDataSize(node ,data, parent) {
+    let widthRet = calcWidth(node, data.width, parent)
+    let heightRet = calcHeight(node, data.height, parent)
+    return cc.size(widthRet.width, heightRet.height)
 }
 
 function cocosGenNodeByDataBase (data, node, parent) {
@@ -397,7 +411,14 @@ function loadSceneFromFile (filename) {
   let content = fs.readFileSync(filename)
   let data = JSON.parse(content || '{}')
   data._sceneSubPath = calcRelativePath(window.projectFolder, filename)
-  return cocosGenNodeByData(data, null)
+
+  var scene = ExtScene.GenEmptyNode()
+  scene.setContentSize(CalcDataSize(scene, data))
+  var result = CalcNeedLoadImage(data)
+  cc.loader.load(TableKeyToArray(result.imageTable), function() {
+    cocosGenNodeByData(data, null, scene)
+  })
+  return scene
 }
 
 function getFullRealPathForName (name) {
@@ -582,4 +603,44 @@ function SetDefaultPropChange (control, path, value) {
 function SetNodifyPropChange (control) {
   let data = cocosExportNodeData(control._node, {uuid: true})
   ResetNodePropByData(control, data)
+}
+
+function TableKeyToArray(table) {
+  table = table || {}
+  var array = []
+  for(var k in table) {
+    array.push(k)
+  }
+  return array
+}
+
+function CalcNeedLoadImage (data, result) {
+  result = result || {}
+  result.imageTable = result.imageTable || {}
+
+  // result.loadUi = result.loadUi || {}
+  // if (IsSubPath(child.type || '')) {
+  //   if(result.loadUi[child.path]) {
+  //     return result
+  //   }
+  //   CalcNeedLoadImage(getPathData(child.path), result)
+  //   result.loadUi[child.path] = true
+  //   return result
+  // }
+  let extControl = GetExtNodeControl(data.type)
+  if (extControl && extControl.GetLoadImages) {
+    var list = extControl.GetLoadImages(data)
+    for (var i = 0; i < list.length; i++) {
+      var fullpath = getFullPathForName(list[i] || '')
+      if (fullpath) {
+        result.imageTable[fullpath] = true
+      }
+    }
+  }
+  data.children = data.children || []
+  for (var i = 0; i < data.children.length; i++) {
+    var child = data.children[i]
+    CalcNeedLoadImage(child, result)
+  }
+  return result
 }

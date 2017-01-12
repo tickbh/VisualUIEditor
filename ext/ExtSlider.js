@@ -51,6 +51,11 @@ ExtSlider.SetPropChange = function (control, path, value) {
   SetDefaultPropChange(control, path, value)
 }
 
+ExtSlider.GetLoadImages = function(data) {
+  return [data['barBg'], data['barProgress'], data['barNormalBall'], data['barSelectBall'], data['barDisableBall']]
+}
+
+
 ExtSlider.NodifyPropChange = function (control) {
   SetNodifyPropChange(control)
 }

@@ -49,6 +49,10 @@ ExtScale9.SetNodePropByData = function (node, data, parent) {
   ExtScale9.ResetPropByData({ _node: node }, data, parent)
 }
 
+ExtScale9.GetLoadImages = function(data) {
+  return [data['spriteFrame']]
+}
+
 ExtScale9.ExportNodeData = function (node, data) {
   node._spriteFrame && (data['spriteFrame'] = node._spriteFrame)
   node.insetLeft && (data.insetLeft = node.insetLeft)

@@ -68,6 +68,10 @@ ExtTextAtlas.ExportNodeData = function (node, data) {
 //   ExtTextAtlas.ResetPropByData(control, data)
 // }
 
+ExtTextAtlas.GetLoadImages = function(data) {
+  return [data['charMapFile']]
+}
+
 ExtTextAtlas.SetPropChange = function (control, path, value) {
   SetDefaultPropChange(control, path, value)
 }

@@ -55,6 +55,10 @@ ExtButton.SetPropChange = function (control, path, value) {
   SetDefaultPropChange(control, path, value)
 }
 
+ExtButton.GetLoadImages = function(data) {
+  return [data['bgNormal'], data['bgSelect'], data['bgDisable']]
+} 
+
 ExtButton.NodifyPropChange = function (control) {
   SetNodifyPropChange(control)
 }

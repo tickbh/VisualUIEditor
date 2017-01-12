@@ -52,6 +52,10 @@ ExtCheckBox.SetPropChange = function (control, path, value) {
   SetDefaultPropChange(control, path, value)
 }
 
+ExtCheckBox.GetLoadImages = function(data) {
+  return [data['back'], data['backSelect'], data['active'], data['backDisable'], data['activeDisable']]
+}
+
 ExtCheckBox.NodifyPropChange = function (control) {
   SetNodifyPropChange(control)
 }

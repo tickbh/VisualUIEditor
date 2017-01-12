@@ -42,6 +42,10 @@ ExtImage.SetPropChange = function (control, path, value) {
   SetDefaultPropChange(control, path, value)
 }
 
+ExtImage.GetLoadImages = function(data) {
+  return [data['spriteFrame']]
+}
+
 ExtImage.NodifyPropChange = function (control) {
   SetNodifyPropChange(control)
 }

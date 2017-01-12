@@ -55,6 +55,11 @@ ExtInput.SetNodePropByData = function (node, data, parent) {
   ExtInput.SetSpriteFrame(node, data.spriteFrame)
 }
 
+ExtInput.GetLoadImages = function(data) {
+  return [data['spriteFrame']]
+}
+
+
 ExtInput.ExportNodeData = function (node, data) {
   (node.string.length > 0) && (data['string'] = node.string)
   let value = null
