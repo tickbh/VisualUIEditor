@@ -62,8 +62,11 @@ function setNodeSpriteFrame (path, value, node, fn) {
   })
 }
 
-function cocosExportNodeData (node, ext) {
-  let data = {}
+function cocosExportNodeBase (node, data) {
+  if (!data) {
+    data = {}
+  }
+
   let parent = node.getParent()
   if (node.isWidthPer && parent) {
     let ratio = node.width / parent.width * 100
@@ -95,9 +98,6 @@ function cocosExportNodeData (node, ext) {
     data['y'] = fixFloatValue(node.y)
   }
 
-  if (node._name.length > 0) {
-    data['id'] = node._name
-  }
   data['type'] = node._className
   if (!cc.colorEqual(node.color, cc.color.WHITE)) {
     data['color'] = [node.color.r, node.color.g, node.color.b, node.color.a]
@@ -127,6 +127,15 @@ function cocosExportNodeData (node, ext) {
     data['anchorY'] = node.anchorY
   }
 
+  return data
+}
+
+function cocosExportNodeData (node, ext) {
+  let data = {}
+  cocosExportNodeBase(node, data)
+  if (node._name.length > 0) {
+    data['id'] = node._name
+  }
   if (typeof (node._touchEnabled) == 'boolean') {
     data['touchEnabled'] = node._touchEnabled
   }
@@ -201,10 +210,10 @@ function saveFileByContent (filename, content) {
 }
 
 function covertToColor (value) {
-  if(value && !isNull(value.r)) {
-    return value;
+  if (value && !isNull(value.r)) {
+    return value
   }
-  if (!value  || !isNum(value[0]) || !isNum(value[3])) {
+  if (!value || !isNum(value[0]) || !isNum(value[3])) {
     return null
   }
   return new cc.color(value[0], value[1], value[2], value[3])
@@ -266,33 +275,7 @@ function cocosGenSubUINode (path, parent) {
   return node
 }
 
-function cocosGenNodeByData (data, parent, outNode) {
-  if (!data) {
-    return
-  }
-  let node = null
-  let extControl = GetExtNodeControl(data.type)
-  if (outNode) {
-    node = outNode
-  } else if (data.path) {
-    node = cocosGenSubUINode(data.path, parent)
-  } else if (extControl) {
-    node = extControl.GenNodeByData(data, parent)
-  } else if (data.type == 'Scene' || !parent) {
-    node = new cc.Scene()
-    if (!parent) {
-      node.width = 800
-      node.height = 400
-    }
-  } else {
-    node = new cc.Node()
-    node._className = 'Node'
-  }
-  node._name = ''
-
-  node.uuid = data.uuid || gen_uuid();
-
-  (data.id) && (node._name = data.id)
+function cocosGenNodeByDataBase (data, node, parent) {
   if (!isNull(data.width) || !isNull(data.height)) {
     let setFn = node.setPreferredSize ? node.setPreferredSize : node.setContentSize
     let widthRet = calcWidth(node, data.width, parent)
@@ -324,6 +307,39 @@ function cocosGenNodeByData (data, parent, outNode) {
   ;(!isNull(data.visible)) && node.setVisible(data.visible)
 
   ;(covertToColor(data.color)) && (node.color = covertToColor(data.color))
+}
+
+function cocosGenNodeByData (data, parent, outNode) {
+  if (!data) {
+    return
+  }
+  let node = null
+  let extControl = GetExtNodeControl(data.type)
+  if (outNode) {
+    node = outNode
+  } else if (data.path) {
+    node = cocosGenSubUINode(data.path, parent)
+  } else if (extControl) {
+    node = extControl.GenNodeByData(data, parent)
+  } else if (data.type == 'Scene' || !parent) {
+    node = new cc.Scene()
+    if (!parent) {
+      node.width = 800
+      node.height = 400
+    }
+  } else {
+    node = new cc.Node()
+    node._className = 'Node'
+  }
+  node._name = ''
+
+  // if(parent && !node.getParent() && !node.ignoreAddToParent) {
+  //     parent.addChild(node)
+  // }
+
+  node.uuid = data.uuid || gen_uuid()
+  cocosGenNodeByDataBase(data, node, parent)
+  ;(data.id) && (node._name = data.id)
 
   ;(!isNull(data.touchEnabled)) && (node._touchEnabled = data.touchEnabled)
   ;(!isNull(data.touchListener)) && (node.touchListener = data.touchListener)
@@ -367,13 +383,13 @@ function getPathData (path) {
   return JSON.parse(content || '{}')
 }
 
-function getMetaData(path) {
-  let metaPath = path + ".meta";
-  return getPathData(metaPath);
+function getMetaData (path) {
+  let metaPath = path + '.meta'
+  return getPathData(metaPath)
 }
 
-function setMetaData(path, data) {
-  let metaPath = path + ".meta";
+function setMetaData (path, data) {
+  let metaPath = path + '.meta'
   fs.writeFileSync(metaPath, JSON.stringify(data, null, 4))
 }
 
@@ -398,7 +414,6 @@ function getFullRealPathForName (name) {
   }
   return null
 }
-
 
 function getFullPathForName (name) {
   let url = getFullRealPathForName(name)
@@ -460,8 +475,8 @@ function ReplaceNode (node, newNode, parent) {
   let afterNode = []
   let children = parent.getChildren()
   let index = children.indexOf(node)
-  if(index < 0) {
-    index = children.length;
+  if (index < 0) {
+    index = children.length
   }
   for (var i = index + 1; i < children.length; i++) {
     afterNode.push(children[i])
@@ -528,24 +543,23 @@ function ClearCurrentGameStatus () {
   cc.game._renderContext = null
 }
 
-function AddImages(images, callback) {
-  let results = [];
-  let loadCount = 0;
-  let needLoadCount = images.length;
-  for(var i = 0; i < images.length; i++) {
+function AddImages (images, callback) {
+  let results = []
+  let loadCount = 0
+  let needLoadCount = images.length
+  for (var i = 0; i < images.length; i++) {
     let fullpath = getFullPathForName(images[i])
     cc.textureCache.addImage(fullpath, function (atlas) {
-      loadCount++;
-      results[i] = atlas;
-      if(loadCount == needLoadCount) {
+      loadCount++
+      results[i] = atlas
+      if (loadCount == needLoadCount) {
         callback(results)
       }
     })
   }
 }
 
-
-function ResetNodePropByData(control, data, parent) {
+function ResetNodePropByData (control, data, parent) {
   if (data.ignoreSetProp) {
     return
   }
@@ -559,13 +573,13 @@ function ResetNodePropByData(control, data, parent) {
   control._node = newNode
 }
 
-function SetDefaultPropChange(control, path, value) {
+function SetDefaultPropChange (control, path, value) {
   let data = cocosExportNodeData(control._node, {uuid: true})
   data[path] = value
   ResetNodePropByData(control, data)
 }
 
-function SetNodifyPropChange(control) {
+function SetNodifyPropChange (control) {
   let data = cocosExportNodeData(control._node, {uuid: true})
   ResetNodePropByData(control, data)
 }

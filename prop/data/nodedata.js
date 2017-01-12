@@ -301,7 +301,9 @@ NodeData.prototype = {
     if (this._node._path && !extControl) {
       extControl = GetExtNodeControl(this._node._path)
     }
-    if (path == 'tag') {
+    if(extControl && extControl.PropCantChange && extControl.PropCantChange(this._node, path, value)) {
+      
+    } else if (path == 'tag') {
       addNodeCommand(this._node, '_name', this._node._name, value)
       this._node._name = value
     } else if (path == 'position.x') {
