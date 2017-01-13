@@ -309,11 +309,13 @@ NodeData.prototype = {
       this._node.x = parseFloat(value.toFixed(0))
       this._node.left = null
       this._node.right = null
+      this._node.horizontal = null
     } else if (path == 'position.y') {
       addNodeCommand(this._node, 'y', this._node.y, value)
       this._node.y = value
       this._node.top = null
       this._node.bottom = null
+      this._node.vertical = null
     } else if (path == 'rotation') {
       addNodeCommand(this._node, 'rotation', this._node.rotation, value)
       this._node.rotation = value
