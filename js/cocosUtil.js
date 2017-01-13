@@ -24,6 +24,48 @@ function IsSubPath (name) {
   return startWith(name, 'SubPath:')
 }
 
+function CheckDeepSame (src, dest) {
+  if (typeof (src) != typeof (dest)) {
+    return false
+  }
+
+  if (typeof (src) == 'array') {
+    if (src.length != dest.length) {
+      return false
+    }
+    for (var i = 0; i < src.length; i++) {
+      if (!CheckDeepSame(src[i], dest[i])) {
+        return false
+      }
+    }
+    return true
+  }
+
+  if (typeof (src) == 'object') {
+    if (Object.keys(src).length != Object.keys(dest).length) {
+      return false
+    }
+    for (var k in src) {
+      if (!CheckDeepSame(src[k], dest[k])) {
+        return false
+      }
+    }
+    return true
+  }
+
+  return src == dest
+}
+
+function GetNodeUuids (node, result) {
+  result = result || {}
+  result[node.uuid] = []
+  var children = node.getChildren()
+  for (var i = 0; i < children.length; i++) {
+    result[node.uuid].push(GetNodeUuids(children[i]))
+  }
+  return result
+}
+
 function isBaseTypeByName (name) {
   if (startWith(name, 'SubPath:')) {
     return true
@@ -66,10 +108,29 @@ function setNodeSpriteFrame (path, value, node, fn) {
   })
 }
 
-function cocosExportNodeBase (node, data) {
+function cocosExportNodeBase (node, data, ext) {
   if (!data) {
     data = {}
   }
+
+  if (node._name.length > 0) {
+    data['id'] = node._name
+  }
+  if (typeof (node._touchEnabled) == 'boolean') {
+    data['touchEnabled'] = node._touchEnabled
+  }
+
+  if (node.touchListener) {
+    data['touchListener'] = node.touchListener
+  }
+
+  // 适用于删除及添加的撤消操作
+  if (ext && ext.uuid) {
+    data['uuid'] = node.uuid
+    data['preuuid'] = CalcPreUUID(node)
+  }
+
+  (!node.isVisible()) && (data['visible'] = node.isVisible())
 
   let parent = node.getParent()
   if (node.isWidthPer && parent) {
@@ -136,25 +197,7 @@ function cocosExportNodeBase (node, data) {
 
 function cocosExportNodeData (node, ext) {
   let data = {}
-  cocosExportNodeBase(node, data)
-  if (node._name.length > 0) {
-    data['id'] = node._name
-  }
-  if (typeof (node._touchEnabled) == 'boolean') {
-    data['touchEnabled'] = node._touchEnabled
-  }
-
-  if (node.touchListener) {
-    data['touchListener'] = node.touchListener
-  }
-
-  // 适用于删除及添加的撤消操作
-  if (ext && ext.uuid) {
-    data['uuid'] = node.uuid
-    data['preuuid'] = CalcPreUUID(node)
-  }
-
-  (!node.isVisible()) && (data['visible'] = node.isVisible())
+  cocosExportNodeBase(node, data, ext)
 
   let extControl = GetExtNodeControl(node._className)
 
@@ -268,28 +311,35 @@ function calcHeight (node, height, parent) {
   return ret
 }
 
-function cocosGenSubUINode (path, parent) {
+function cocosGenSubUINode (data, parent) {
   let node = new cc.Node()
-  node._path = path
-  if (checkPathRepeat(parent, path)) {
+  node._path = data.path
+  if (checkPathRepeat(parent, data.path)) {
     return null
   }
-  var data = getPathData(path)
-  var result = CalcNeedLoadImage(data)
-  cc.loader.load(TableKeyToArray(result.imageTable), function() {
-    cocosGenNodeByData(data, parent, node)
+  var sub_data = getPathData(data.path)
+  var result = CalcNeedLoadImage(sub_data)
+  cc.loader.load(TableKeyToArray(result.imageTable), function () {
+    cocosGenNodeByData(sub_data, parent, node)
+    cocosSetNodeProp(data, node, parent)
   })
-  node._className = 'SubPath:' + path
+  node._className = 'SubPath:' + data.path
   return node
 }
 
-function CalcDataSize(node ,data, parent) {
-    let widthRet = calcWidth(node, data.width, parent)
-    let heightRet = calcHeight(node, data.height, parent)
-    return cc.size(widthRet.width, heightRet.height)
+function CalcDataSize (node , data, parent) {
+  let widthRet = calcWidth(node, data.width, parent)
+  let heightRet = calcHeight(node, data.height, parent)
+  return cc.size(widthRet.width, heightRet.height)
 }
 
 function cocosGenNodeByDataBase (data, node, parent) {
+  node.uuid = data.uuid || gen_uuid()
+  ;(data.id) && (node._name = data.id)
+
+  ;(!isNull(data.touchEnabled)) && (node._touchEnabled = data.touchEnabled)
+  ;(!isNull(data.touchListener)) && (node.touchListener = data.touchListener)
+
   if (!isNull(data.width) || !isNull(data.height)) {
     let setFn = node.setPreferredSize ? node.setPreferredSize : node.setContentSize
     let widthRet = calcWidth(node, data.width, parent)
@@ -332,7 +382,7 @@ function cocosGenNodeByData (data, parent, outNode) {
   if (outNode) {
     node = outNode
   } else if (data.path) {
-    node = cocosGenSubUINode(data.path, parent)
+    node = cocosGenSubUINode(data, parent)
   } else if (extControl) {
     node = extControl.GenNodeByData(data, parent)
   } else if (data.type == 'Scene' || !parent) {
@@ -346,18 +396,21 @@ function cocosGenNodeByData (data, parent, outNode) {
     node._className = 'Node'
   }
   node._name = ''
+  cocosSetNodeProp(data, node, parent)
 
-  // if(parent && !node.getParent() && !node.ignoreAddToParent) {
-  //     parent.addChild(node)
-  // }
+  data.children = data.children || []
+  for (var i = 0; i < data.children.length; i++) {
+    let child = cocosGenNodeByData(data.children[i], node)
+    if (child && !child.ignoreAddToParent) {
+      node.addChild(child)
+    }
+  }
+  return node
+}
 
-  node.uuid = data.uuid || gen_uuid()
+function cocosSetNodeProp (data, node, parent) {
   cocosGenNodeByDataBase(data, node, parent)
-  ;(data.id) && (node._name = data.id)
-
-  ;(!isNull(data.touchEnabled)) && (node._touchEnabled = data.touchEnabled)
-  ;(!isNull(data.touchListener)) && (node.touchListener = data.touchListener)
-
+  let extControl = GetExtNodeControl(data.type)
   if (extControl) {
     extControl.SetNodePropByData(node, data, parent)
   } else if (node._path) {
@@ -377,16 +430,6 @@ function cocosGenNodeByData (data, parent, outNode) {
     ;(data['clippingEnabled']) && (node.setClippingEnabled(data['clippingEnabled']))
     ;(data['clippingType']) && (node.setClippingType(data['clippingType']))
   }
-
-  data.children = data.children || []
-  for (var i = 0; i < data.children.length; i++) {
-    let child = cocosGenNodeByData(data.children[i], node)
-    if (child && !child.ignoreAddToParent) {
-      node.addChild(child)
-    }
-  }
-
-  return node
 }
 
 function getPathData (path) {
@@ -415,7 +458,7 @@ function loadSceneFromFile (filename) {
   var scene = ExtScene.GenEmptyNode()
   scene.setContentSize(CalcDataSize(scene, data))
   var result = CalcNeedLoadImage(data)
-  cc.loader.load(TableKeyToArray(result.imageTable), function() {
+  cc.loader.load(TableKeyToArray(result.imageTable), function () {
     cocosGenNodeByData(data, null, scene)
   })
   return scene
@@ -605,10 +648,10 @@ function SetNodifyPropChange (control) {
   ResetNodePropByData(control, data)
 }
 
-function TableKeyToArray(table) {
+function TableKeyToArray (table) {
   table = table || {}
   var array = []
-  for(var k in table) {
+  for (var k in table) {
     array.push(k)
   }
   return array
@@ -644,3 +687,18 @@ function CalcNeedLoadImage (data, result) {
   }
   return result
 }
+
+var isGlobalEnable = false
+function EnableGlobalTimeUpdate () {
+  isGlobalEnable = true
+  var repeatCheckSence = function () {
+    Ipc.sendToAll('ui:global_time_update', {})
+    if (isGlobalEnable) {
+      setTimeout(repeatCheckSence, 1000)
+      return
+    }
+  }
+  setTimeout(repeatCheckSence, 1000)
+}
+
+EnableGlobalTimeUpdate()

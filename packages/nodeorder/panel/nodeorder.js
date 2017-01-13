@@ -21,6 +21,8 @@
       this._curOpMode = 'center'
       this._scene = null
 
+      this._preSceneInfo = {}
+
       this.addEventListener('mousedown', function (e) {
         if (e.button == '2') {
           e.preventDefault()
@@ -29,16 +31,15 @@
         }
       })
 
-      let self = this;
-      this.$.input.addEventListener("end-editing", function(e) {
-          if (e.detail.cancel) {
-            return
-          }
-          self.filterText = e.target.value;
+      let self = this
+      this.$.input.addEventListener('end-editing', function (e) {
+        if (e.detail.cancel) {
+          return
+        }
+        self.filterText = e.target.value
       })
 
       this.addEventListener('keydown', function (event) {
-
         if (event.keyCode == KeyCodes('left') || event.keyCode == KeyCodes('right') || event.keyCode == KeyCodes('up') || event.keyCode == KeyCodes('down')) {
           this._doItemMove(event)
           event.stopPropagation()
@@ -374,6 +375,16 @@
         let firstChild = Polymer.dom(parentItem).lastElementChild
         this._curOpMode = 'bottom'
         this.tryChangeItemPosition(this._curMouseOverItem, firstChild)
+      },
+      'ui:global_time_update'(event, message) {
+        if (!this._scene) {
+          return
+        }
+        var scene_info = GetNodeUuids(this._scene)
+        if (!CheckDeepSame(scene_info, this._preSceneInfo)) {
+          this.build()
+          this._preSceneInfo = scene_info
+        }
       }
     }
 
