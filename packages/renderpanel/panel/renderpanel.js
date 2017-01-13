@@ -310,6 +310,7 @@
       let canvas = this.$.scene.getFabricCanvas()
       let forgeRect = this.$.scene.$.forgeCanvas.getBoundingClientRect()
       let nodeRect = this.getNodeWorldRectToFabric(node)
+
       nodeRect.left -= forgeRect.left
       nodeRect.top -= forgeRect.top
       nodeRect.scaleX = nodeRect.scaleX || 1
@@ -444,8 +445,8 @@
       return {
         top: rect.y,
         left: rect.x,
-        width: rect.width,
-        height: rect.height
+        width: Math.max(rect.width, 30),
+        height: Math.max(rect.height, 30)
       }
     },
 
