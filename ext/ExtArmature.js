@@ -54,7 +54,7 @@ ExtArmature.GenNodeByData = function (data, parent) {
       console.log("parent = ", node.getParent())
       console.log("getNodeToParentTransform = ", node.getNodeToParentTransform())
       console.log("_offsetPoint = ", node._offsetPoint)
-      cocosGenNodeByDataBase(data, node, parent)
+      // cocosGenNodeByDataBase(data, node, parent)
     // var newNode = new ccs.Armature(data.actionName)
     // newNode._className = ExtArmature.name
     // node.uuid = data.uuid || gen_uuid()

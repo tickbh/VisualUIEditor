@@ -455,7 +455,17 @@ NodeData.prototype = {
       addNodeCommand(this._node, 'touchListener', this._node.touchListener, value)
       this._node.touchListener = value
     } else if (extControl) {
-      extControl.SetPropChange(this, path, value, target)
+
+      if(target.type == "asset") {
+        var fullPath = getFullPathForName(value)
+        if(fullPath) {
+          cc.loader.load(fullPath, function() {
+            extControl.SetPropChange(this, path, value, target)
+          })
+        }
+      } else {
+        extControl.SetPropChange(this, path, value, target)
+      }
       return
     } else {
       return
