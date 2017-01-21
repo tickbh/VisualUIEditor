@@ -347,7 +347,7 @@
               }
             }
           }
-          if (!baseNode && _this.isCollection(nodeRect, rect)) {
+          if (!baseNode && node.isVisible() && _this.isCollection(nodeRect, rect)) {
             baseNode = node
           }
           return baseNode
