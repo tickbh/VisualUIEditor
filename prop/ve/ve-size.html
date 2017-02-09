@@ -31,34 +31,36 @@
                 hidden="{{!value.isHeightPer}}" hint="H%" step="1" precision="1" max="1000" min="0"></ve-unit-input>
         </div>
     </template>
-    <script>(() => {
-        'use strict';
-        Polymer({
-            properties: {
-                value: {
-                    type: Object,
-                    value: function() {
-                        return {
-                            width: 0,
-                            height: 0,
-                            isWidthPer:false,
-                            isHeightPer:false
-                        }
+
+    <script>
+        (() => {
+            'use strict';
+            Polymer({
+                properties: {
+                    value: {
+                        type: Object,
+                        value: function() {
+                            return {
+                                width: 0,
+                                height: 0,
+                                isWidthPer: false,
+                                isHeightPer: false
+                            }
+                        },
+                        notify: true
                     },
-                    notify: true
-                },
-                disabled: {
-                    type: Boolean,
-                    value: false,
-                    reflectToAttribute: true
-                },
-                readonly: {
-                    type: Boolean,
-                    value: false,
-                    reflectToAttribute: true
+                    disabled: {
+                        type: Boolean,
+                        value: false,
+                        reflectToAttribute: true
+                    },
+                    readonly: {
+                        type: Boolean,
+                        value: false,
+                        reflectToAttribute: true
+                    }
                 }
-            }
-        });
-    })();
+            });
+        })();
     </script>
 </dom-module>

@@ -49,18 +49,6 @@ ExtArmature.GenNodeByData = function(data, parent) {
     if (node.getAnimation()) {
         node.getAnimation().play('stand', -1, 1)
     }
-
-    // cocosGenNodeByDataBase(data, node, parent)
-    // var newNode = new ccs.Armature(data.actionName)
-    // newNode._className = ExtArmature.name
-    // node.uuid = data.uuid || gen_uuid()
-    // data.uuid = node.uuid
-    // node.ignoreAddToParent = true
-    // newNode.getAnimation().play('stand', -1, 1)
-    // cocosGenNodeByData(data, parent, newNode)
-    // 
-    // ExtArmature.SetBaseNodeProp(newNode, data)
-    // })
     return node
 }
 

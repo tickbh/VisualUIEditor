@@ -1,114 +1,114 @@
 var fs = require('fs')
 var Path = require('path')
 
-function gen_uuid () {
-  var s = []
-  var hexDigits = '0123456789abcdef'
-  for (var i = 0; i < 36; i++) {
-    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
-  }
-  s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
-  s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-  s[8] = s[13] = s[18] = s[23] = '-'
-
-  var uuid = s.join('')
-  return uuid
-}
-
-function print_func (o) {
-  var result = ''
-  var type = typeof o
-  switch (type) {
-    case 'string':
-    case 'number':
-    case 'boolean':
-    case 'undefined':
-      break
-    case 'function':
-      result += o
-      break
-    case 'object':
-    default:
-      result += '['
-      for (var key in o) {
-        if (typeof o[key] == 'function') {
-          result += key + ', '
-        }
-      }
-      result += ']'
-  }
-  console.log(result)
-  return result
-}
-
-function print_keys (o) {
-  var result = ''
-  var type = typeof o
-  switch (type) {
-    case 'string':
-    case 'number':
-    case 'boolean':
-    case 'undefined':
-      break
-    case 'function':
-      result += o
-      break
-    case 'object':
-    default:
-      result += '['
-      for (var key in o) {
-        result += key + ', '
-      }
-      result += ']'
-  }
-  console.log(result)
-  return result
-}
-
-function print_r (o, depth) {
-  var result = ''
-  depth || (depth = 1)
-  if (depth > 3) {
-    return result
-  }
-  var indent = new Array(4 * depth + 1).join(' ')
-  var indentNext = new Array(4 * (depth + 1) + 1).join(' ')
-  var indentNextTwo = new Array(4 * (depth + 2) + 1).join(' ')
-  var tmp = ''
-  var type = typeof o
-  switch (type) {
-    case 'string':
-    case 'number':
-    case 'boolean':
-    case 'undefined':
-    case 'function':
-      tmp += indent + indentNext + o + '\n'
-      break
-    case 'object':
-    default:
-      for (var key in o) {
-        tmp += indentNextTwo + '[' + key + '] = '
-        tmp += print_r(o[key], (depth + 1))
-      }
-  }
-  result += type + '\n'
-  result += indentNext + '(' + '\n'
-  result += tmp
-  result += indentNext + ')' + '\n'
-  console.log(result)
-  return result
-}
-
-function getFileName (path) {
-  var result = path
-  var index = 0
-  for (var i = path.length - 2; i >= 0; i--) {
-    if (path.charAt(i) == '\\' || path.charAt(i) == '/') {
-      index = Math.min(i + 1, path.length - 1)
-      break
+function gen_uuid() {
+    var s = []
+    var hexDigits = '0123456789abcdef'
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1)
     }
-  }
-  return path.substring(index)
+    s[14] = '4'; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = '-'
+
+    var uuid = s.join('')
+    return uuid
+}
+
+function print_func(o) {
+    var result = ''
+    var type = typeof o
+    switch (type) {
+        case 'string':
+        case 'number':
+        case 'boolean':
+        case 'undefined':
+            break
+        case 'function':
+            result += o
+            break
+        case 'object':
+        default:
+            result += '['
+            for (var key in o) {
+                if (typeof o[key] == 'function') {
+                    result += key + ', '
+                }
+            }
+            result += ']'
+    }
+    console.log(result)
+    return result
+}
+
+function print_keys(o) {
+    var result = ''
+    var type = typeof o
+    switch (type) {
+        case 'string':
+        case 'number':
+        case 'boolean':
+        case 'undefined':
+            break
+        case 'function':
+            result += o
+            break
+        case 'object':
+        default:
+            result += '['
+            for (var key in o) {
+                result += key + ', '
+            }
+            result += ']'
+    }
+    console.log(result)
+    return result
+}
+
+function print_r(o, depth) {
+    var result = ''
+    depth || (depth = 1)
+    if (depth > 3) {
+        return result
+    }
+    var indent = new Array(4 * depth + 1).join(' ')
+    var indentNext = new Array(4 * (depth + 1) + 1).join(' ')
+    var indentNextTwo = new Array(4 * (depth + 2) + 1).join(' ')
+    var tmp = ''
+    var type = typeof o
+    switch (type) {
+        case 'string':
+        case 'number':
+        case 'boolean':
+        case 'undefined':
+        case 'function':
+            tmp += indent + indentNext + o + '\n'
+            break
+        case 'object':
+        default:
+            for (var key in o) {
+                tmp += indentNextTwo + '[' + key + '] = '
+                tmp += print_r(o[key], (depth + 1))
+            }
+    }
+    result += type + '\n'
+    result += indentNext + '(' + '\n'
+    result += tmp
+    result += indentNext + ')' + '\n'
+    console.log(result)
+    return result
+}
+
+function getFileName(path) {
+    var result = path
+    var index = 0
+    for (var i = path.length - 2; i >= 0; i--) {
+        if (path.charAt(i) == '\\' || path.charAt(i) == '/') {
+            index = Math.min(i + 1, path.length - 1)
+            break
+        }
+    }
+    return path.substring(index)
 }
 
 // 遍历文件夹，获取所有文件夹里面的文件信息
@@ -117,58 +117,59 @@ function getFileName (path) {
  *
  */
 
-function getFileList (path, filter) {
-  var filesList = []
-  var childList = []
-  filesList.push({
-    name: getFileName(path),
-    isDirectory: true,
-    children: childList,
-    path: path
-  })
-  readFile(path, childList, filter)
-  return filesList
+function getFileList(path, filter) {
+    var filesList = []
+    var childList = []
+    filesList.push({
+        name: getFileName(path),
+        isDirectory: true,
+        children: childList,
+        path: path
+    })
+    readFile(path, childList, filter)
+    return filesList
 }
 
 // 遍历读取文件
-function readFile (path, filesList, filter) {
-  files = fs.readdirSync(path); // 需要用到同步读取
-  files.forEach(walk)
-  function walk (file) {
-    if (filter && filter(file)) {
-      return
+function readFile(path, filesList, filter) {
+    files = fs.readdirSync(path); // 需要用到同步读取
+    files.forEach(walk)
+
+    function walk(file) {
+        if (filter && filter(file)) {
+            return
+        }
+        states = fs.statSync(path + '/' + file)
+        if (states.isDirectory()) {
+            var childList = []
+            readFile(path + '/' + file, childList, filter)
+            filesList.push({
+                name: file,
+                isDirectory: true,
+                children: childList,
+                path: path + '/' + file
+            })
+        } else {
+            filesList.push({
+                name: file,
+                isDirectory: false,
+                path: path + '/' + file
+            })
+        }
     }
-    states = fs.statSync(path + '/' + file)
-    if (states.isDirectory()) {
-      var childList = []
-      readFile(path + '/' + file, childList, filter)
-      filesList.push({
-        name: file,
-        isDirectory: true,
-        children: childList,
-        path: path + '/' + file
-      })
-    }else {
-      filesList.push({
-        name: file,
-        isDirectory: false,
-        path: path + '/' + file
-      })
-    }
-  }
 }
 
-isSelfOrAncient = function (node, parentNode) {
-  let parent = node
-  while ( parent ) {
-    if (parent === parentNode) {
-      return true
+isSelfOrAncient = function(node, parentNode) {
+    let parent = node
+    while (parent) {
+        if (parent === parentNode) {
+            return true
+        }
+
+        parent = parent.getParent()
     }
 
-    parent = parent.getParent()
-  }
-
-  return false
+    return false
 }
 
 /**
@@ -178,18 +179,18 @@ isSelfOrAncient = function (node, parentNode) {
  *@author pansen
  *@return 是-true,否-false
  */
-function endWith (str1, str2) {
-  if (str1 == null || str2 == null) {
+function endWith(str1, str2) {
+    if (str1 == null || str2 == null) {
+        return false
+    }
+    if (str1.length < str2.length) {
+        return false
+    } else if (str1 == str2) {
+        return true
+    } else if (str1.substring(str1.length - str2.length) == str2) {
+        return true
+    }
     return false
-  }
-  if (str1.length < str2.length) {
-    return false
-  } else if (str1 == str2) {
-    return true
-  } else if (str1.substring(str1.length - str2.length) == str2) {
-    return true
-  }
-  return false
 }
 /**
  *判断str1字符串是否以str2为开头
@@ -198,293 +199,295 @@ function endWith (str1, str2) {
  *@author pansen
  *@return 是-true,否-false
  */
-function startWith (str1, str2) {
-  if (str1 == null || str2 == null) {
+function startWith(str1, str2) {
+    if (str1 == null || str2 == null) {
+        return false
+    }
+    if (str1.length < str2.length) {
+        return false
+    } else if (str1 == str2) {
+        return true
+    } else if (str1.substr(0, str2.length) == str2) {
+        return true
+    }
     return false
-  }
-  if (str1.length < str2.length) {
-    return false
-  } else if (str1 == str2) {
-    return true
-  } else if (str1.substr(0, str2.length) == str2) {
-    return true
-  }
-  return false
 }
 
-function getParentDir (path) {
-  let ret = Path.parse(path)
-  return ret.dir
+function getParentDir(path) {
+    let ret = Path.parse(path)
+    return ret.dir
 }
 
-function deleteFolderRecursive (path) {
-  if (!fs.existsSync(path)) {
-    return
-  }
-
-  if (!fs.statSync(path).isDirectory()) {
-    return fs.unlinkSync(path)
-  }
-
-  var files = []
-  files = fs.readdirSync(path)
-  files.forEach(function (file, index) {
-    var curPath = path + '/' + file
-    if (fs.statSync(curPath).isDirectory()) { // recurse
-      deleteFolderRecursive(curPath)
-    } else { // delete file
-      fs.unlinkSync(curPath)
+function deleteFolderRecursive(path) {
+    if (!fs.existsSync(path)) {
+        return
     }
-  })
 
-  fs.rmdirSync(path)
-}
-
-function getCanUseFolder (path) {
-  let prefix = 'UIFolder'
-  let name = ''
-  for (var i = 0; i < 100000; i++) {
-    name = prefix + ' ' + i
-    if (!fs.existsSync(path + '/' + name)) {
-      break
+    if (!fs.statSync(path).isDirectory()) {
+        return fs.unlinkSync(path)
     }
-  }
 
-  return {
-    name: name,
-    isDirectory: true,
-    children: [],
-    path: path + '/' + name
-  }
+    var files = []
+    files = fs.readdirSync(path)
+    files.forEach(function(file, index) {
+        var curPath = path + '/' + file
+        if (fs.statSync(curPath).isDirectory()) { // recurse
+            deleteFolderRecursive(curPath)
+        } else { // delete file
+            fs.unlinkSync(curPath)
+        }
+    })
+
+    fs.rmdirSync(path)
 }
 
-function getCanUseFile (path) {
-  let prefix = 'UIFile'
-  let suffix = '.ui'
-  let name = ''
-  for (var i = 0; i < 100000; i++) {
-    name = prefix + ' ' + i + suffix
-    if (!fs.existsSync(path + '/' + name)) {
-      break
+function getCanUseFolder(path) {
+    let prefix = 'UIFolder'
+    let name = ''
+    for (var i = 0; i < 100000; i++) {
+        name = prefix + ' ' + i
+        if (!fs.existsSync(path + '/' + name)) {
+            break
+        }
     }
-  }
 
-  return {
-    name: name,
-    isDirectory: false,
-    children: [],
-    path: path + '/' + name
-  }
+    return {
+        name: name,
+        isDirectory: true,
+        children: [],
+        path: path + '/' + name
+    }
 }
 
-function isNum (value) {
-  return typeof value == 'number'
+function getCanUseFile(path) {
+    let prefix = 'UIFile'
+    let suffix = '.ui'
+    let name = ''
+    for (var i = 0; i < 100000; i++) {
+        name = prefix + ' ' + i + suffix
+        if (!fs.existsSync(path + '/' + name)) {
+            break
+        }
+    }
+
+    return {
+        name: name,
+        isDirectory: false,
+        children: [],
+        path: path + '/' + name
+    }
 }
 
-function isNull (value) {
-  return value === null || value === undefined
+function isNum(value) {
+    return typeof value == 'number'
 }
 
-function isValue (value) {
-  return !isNull(value)
+function isNull(value) {
+    return value === null || value === undefined
 }
 
-function fixFloatValue (value, precision) {
-  return parseFloat(parseFloat(value).toFixed(precision || 0))
+function isValue(value) {
+    return !isNull(value)
 }
 
-function merge (src, t) {
-  if (typeof src != 'object' || typeof t != 'object') {
+function fixFloatValue(value, precision) {
+    return parseFloat(parseFloat(value).toFixed(precision || 0))
+}
+
+function merge(src, t) {
+    if (typeof src != 'object' || typeof t != 'object') {
+        return src
+    }
+    for (k in t) {
+        if (t[k] !== null && t[k] !== undefined) {
+            src[k] = t[k]
+        }
+    }
     return src
-  }
-  for (k in t) {
-    if(t[k] !== null && t[k] !== undefined) {
-      src[k] = t[k]
-    }
-  }
-  return src
 }
 
-function dup (t) {
-  if (typeof t != 'object') {
-    return t
-  }
-  let src = {}
-  for (k in t) {
-    src[k] = t[k]
-  }
-  return src
+function dup(t) {
+    if (typeof t != 'object') {
+        return t
+    }
+    let src = {}
+    for (k in t) {
+        src[k] = t[k]
+    }
+    return src
 }
 
 function isCtrlKey(event) {
-  return event.ctrlKey || event.metaKey
+    return event.ctrlKey || event.metaKey
 }
 
 // 动态插入script标签 
-function createScript (url, callback) {
-  var oScript = document.createElement('script')
-  oScript.type = 'text/javascript'
-  oScript.async = true
-  oScript.src = url
-  /* 
-  ** script标签的onload和onreadystatechange事件 
-  ** IE6/7/8支持onreadystatechange事件 
-  ** IE9/10支持onreadystatechange和onload事件 
-  ** Firefox/Chrome/Opera支持onload事件 
-  */
+function createScript(url, callback) {
+    var oScript = document.createElement('script')
+    oScript.type = 'text/javascript'
+    oScript.async = true
+    oScript.src = url
+        /* 
+         ** script标签的onload和onreadystatechange事件 
+         ** IE6/7/8支持onreadystatechange事件 
+         ** IE9/10支持onreadystatechange和onload事件 
+         ** Firefox/Chrome/Opera支持onload事件 
+         */
 
-  // 判断IE8及以下浏览器 
-  var isIE = !-[1]
-  if (isIE) {
-    alert('IE')
-    oScript.onreadystatechange = function () {
-      if (this.readyState == 'loaded' || this.readyState == 'complete') {
+    // 判断IE8及以下浏览器 
+    var isIE = !-[1]
+    if (isIE) {
+        alert('IE')
+        oScript.onreadystatechange = function() {
+            if (this.readyState == 'loaded' || this.readyState == 'complete') {
+                callback()
+            }
+        }
+    } else {
+        // IE9及以上浏览器，Firefox，Chrome，Opera 
+        oScript.onload = function() {
+            callback()
+        }
+    }
+    document.body.appendChild(oScript)
+}
+
+function AddLinkToScripte(url, callback) {
+    if (!fs.existsSync(url)) {
         callback()
-      }
+        return
     }
-  } else {
-    // IE9及以上浏览器，Firefox，Chrome，Opera 
-    oScript.onload = function () {
-      callback()
+    var head = document.getElementsByTagName('head')[0],
+        linkTag = document.createElement('link')
+    linkTag.id = 'dynamic-style'
+    linkTag.href = url
+    linkTag.setAttribute('rel', 'import')
+
+    linkTag.onload = linkTag.readystatechange = function() {
+        callback()
     }
-  }
-  document.body.appendChild(oScript)
+    head.appendChild(linkTag)
 }
 
-function AddLinkToScripte (url, callback) {
-  if (!fs.existsSync(url)) {
-    callback()
-    return
-  }
-  var head = document.getElementsByTagName('head')[0], linkTag = document.createElement('link')
-  linkTag.id = 'dynamic-style'
-  linkTag.href = url
-  linkTag.setAttribute('rel', 'import')
-
-  linkTag.onload = linkTag.readystatechange = function () {
-    callback()
-  }
-  head.appendChild(linkTag)
-}
-
-function GetFileToData (file) {
-  let content = fs.readFileSync(file)
-  try {
-    return JSON.parse(content || '{}')
-  } catch (e) {
-    return {}
-  }
+function GetFileToData(file) {
+    let content = fs.readFileSync(file)
+    try {
+        return JSON.parse(content || '{}')
+    } catch (e) {
+        return {}
+    }
 }
 
 var configFile = 'ProgramConfig.json'
 var cacheFile = 'CahceConfig.json'
 var cacheConfigData = {}
 var cacheReadTime = 0
-function GetConfigData (isDirect) {
-  if (!isDirect && !window.projectFolder) {
-    return {}
-  }
-  let file = isDirect ? cacheFile : window.projectFolder + '/' + configFile
-  if (!fs.existsSync(file)) {
-    return {}
-  }
-  if (isDirect) {
-    return GetFileToData(file)
-  }
-  var stat = fs.statSync(file)
-  if (stat.mtime.getTime() == cacheReadTime) {
-    return cacheConfigData
-  }
-  cacheConfigData = GetFileToData(file)
-  cacheReadTime = stat.mtime.getTime()
-  return cacheConfigData
-}
 
-function AddOrModifyConfig (key, value, isDirect) {
-  if (!isDirect && !window.projectFolder) {
-    return {}
-  }
-  let data = GetConfigData(isDirect)
-  data[key] = value
-  let file = isDirect ? cacheFile : window.projectFolder + '/' + configFile
-  fs.writeFileSync(file, JSON.stringify(data, null, 4))
-}
-
-function GetConfigValueByKey (key, isDirect) {
-  let data = GetConfigData(isDirect)
-  return data[key]
-}
-
-function mkdirPath (dirpath, mode) {
-  if (!fs.existsSync(dirpath)) {
-    if (!fs.mkdirSync(dirpath, mode)) {
-      if (fs.existsSync(dirpath)) {
-        return true
-      }
-      return false
+function GetConfigData(isDirect) {
+    if (!isDirect && !window.projectFolder) {
+        return {}
     }
-  }
-  return true
+    let file = isDirect ? cacheFile : window.projectFolder + '/' + configFile
+    if (!fs.existsSync(file)) {
+        return {}
+    }
+    if (isDirect) {
+        return GetFileToData(file)
+    }
+    var stat = fs.statSync(file)
+    if (stat.mtime.getTime() == cacheReadTime) {
+        return cacheConfigData
+    }
+    cacheConfigData = GetFileToData(file)
+    cacheReadTime = stat.mtime.getTime()
+    return cacheConfigData
 }
 
-function getLangPath () {
-  if (!window.projectFolder) {
-    return null
-  }
-  let langPath = GetConfigValueByKey('langPath')
-  if (langPath == null) {
-    AddOrModifyConfig('langPath', '/lang')
-    langPath = '/lang'
-  }
-  return window.projectFolder + langPath
+function AddOrModifyConfig(key, value, isDirect) {
+    if (!isDirect && !window.projectFolder) {
+        return {}
+    }
+    let data = GetConfigData(isDirect)
+    data[key] = value
+    let file = isDirect ? cacheFile : window.projectFolder + '/' + configFile
+    fs.writeFileSync(file, JSON.stringify(data, null, 4))
 }
 
-function getLangFileName () {
-  if (!window.projectFolder) {
-    return null
-  }
-  let langFileName = GetConfigValueByKey('langFileName')
-  if (langFileName == null) {
-    AddOrModifyConfig('langFileName', 'lang.txt')
-    langFileName = 'lang.txt'
-  }
-  return langFileName
+function GetConfigValueByKey(key, isDirect) {
+    let data = GetConfigData(isDirect)
+    return data[key]
 }
 
-function getCurLangSet () {
-  if (!window.projectFolder) {
-    return null
-  }
-  let langSet = GetConfigValueByKey('langSet')
-  if (langSet == null) {
-    AddOrModifyConfig('langSet', 'Zh')
-    langSet = 'Zh'
-  }
-  return langSet
+function mkdirPath(dirpath, mode) {
+    if (!fs.existsSync(dirpath)) {
+        if (!fs.mkdirSync(dirpath, mode)) {
+            if (fs.existsSync(dirpath)) {
+                return true
+            }
+            return false
+        }
+    }
+    return true
 }
 
-function ensureLangExist () {
-  let langFolder = getLangPath()
-  if (!langFolder) {
-    return false
-  }
-  if (!mkdirPath(langFolder)) {
-    return false
-  }
-
-  let langPath = langFolder + '/' + getLangFileName()
-  if (!fs.existsSync(langPath)) {
-    let test = {test: {Zh: '测试', En: 'test'}}
-    fs.writeFileSync(langPath, JSON.stringify(test, null, 4))
-  }
-  return true
+function getLangPath() {
+    if (!window.projectFolder) {
+        return null
+    }
+    let langPath = GetConfigValueByKey('langPath')
+    if (langPath == null) {
+        AddOrModifyConfig('langPath', '/lang')
+        langPath = '/lang'
+    }
+    return window.projectFolder + langPath
 }
 
-function saveLangData (langPath, data) {
-  AddOrModifyConfig('modify:langPath', true)
-  fs.writeFileSync(langPath, JSON.stringify(data, null, 4))
+function getLangFileName() {
+    if (!window.projectFolder) {
+        return null
+    }
+    let langFileName = GetConfigValueByKey('langFileName')
+    if (langFileName == null) {
+        AddOrModifyConfig('langFileName', 'lang.txt')
+        langFileName = 'lang.txt'
+    }
+    return langFileName
+}
+
+function getCurLangSet() {
+    if (!window.projectFolder) {
+        return null
+    }
+    let langSet = GetConfigValueByKey('langSet')
+    if (langSet == null) {
+        AddOrModifyConfig('langSet', 'Zh')
+        langSet = 'Zh'
+    }
+    return langSet
+}
+
+function ensureLangExist() {
+    let langFolder = getLangPath()
+    if (!langFolder) {
+        return false
+    }
+    if (!mkdirPath(langFolder)) {
+        return false
+    }
+
+    let langPath = langFolder + '/' + getLangFileName()
+    if (!fs.existsSync(langPath)) {
+        let test = { test: { Zh: '测试', En: 'test' } }
+        fs.writeFileSync(langPath, JSON.stringify(test, null, 4))
+    }
+    return true
+}
+
+function saveLangData(langPath, data) {
+    AddOrModifyConfig('modify:langPath', true)
+    fs.writeFileSync(langPath, JSON.stringify(data, null, 4))
 }
 
 function fullPath(path) {
-  return "file://" + path;
+    return "file://" + path;
 }

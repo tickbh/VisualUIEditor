@@ -4,60 +4,60 @@ ExtText.name = 'UIText'
 ExtText.icon = 'app://res/control/Label.png'
 ExtText.tag = 2
 
-ExtText.GenEmptyNode = function () {
-  let node = new ccui.Text('VisualUI', 'Arial', 24)
-  node._className = ExtText.name
-  return node
+ExtText.GenEmptyNode = function() {
+    let node = new ccui.Text('VisualUI', 'Arial', 24)
+    node._className = ExtText.name
+    return node
 }
 
-ExtText.GenNodeByData = function (data, parent) {
-  let node = new ccui.Text('', 'Arial', 24)
-  ExtText.SetNodePropByData(node, data, parent)
-  node._className = ExtText.name
-  return node
+ExtText.GenNodeByData = function(data, parent) {
+    let node = new ccui.Text('', 'Arial', 24)
+    ExtText.SetNodePropByData(node, data, parent)
+    node._className = ExtText.name
+    return node
 }
 
-ExtText.SetNodeString = function (node, string) {
-  if (!string) {
-    return
-  }
-  let analyse = tryAnalyseLang(string)
-  if (analyse.isKey) {
-    node.string = analyse.value
-    node._key = analyse.key
-  } else {
-    node.string = string
-    node._key = undefined
-  }
+ExtText.SetNodeString = function(node, string) {
+    if (!string) {
+        return
+    }
+    let analyse = tryAnalyseLang(string)
+    if (analyse.isKey) {
+        node.string = analyse.value
+        node._key = analyse.key
+    } else {
+        node.string = string
+        node._key = undefined
+    }
 }
 
-ExtText.SetNodePropByData = function (node, data, parent) {
-  ExtText.SetNodeString(node, data.string)
-  data.textAlign && (node.textAlign = data.textAlign)
-  data.verticalAlign && (node.verticalAlign = data.verticalAlign)
-  data.fontSize && (node.fontSize = data.fontSize)
-  data.fontName && (node.fontName = data.fontName)
-  if (covertToColor(data.outlineColor)) {
-    node.outlineColor = covertToColor(data.outlineColor)
-    node.outlineSize = data.outlineSize || 0
-    node.enableOutline(node.outlineColor, node.outlineSize)
-  }
-  data.boundingWidth && (node.boundingWidth = data.boundingWidth)
-  data.boundingHeight && (node.boundingHeight = data.boundingHeight)
+ExtText.SetNodePropByData = function(node, data, parent) {
+    ExtText.SetNodeString(node, data.string)
+    data.textAlign && (node.textAlign = data.textAlign)
+    data.verticalAlign && (node.verticalAlign = data.verticalAlign)
+    data.fontSize && (node.fontSize = data.fontSize)
+    data.fontName && (node.fontName = data.fontName)
+    if (covertToColor(data.outlineColor)) {
+        node.outlineColor = covertToColor(data.outlineColor)
+        node.outlineSize = data.outlineSize || 0
+        node.enableOutline(node.outlineColor, node.outlineSize)
+    }
+    data.boundingWidth && (node.boundingWidth = data.boundingWidth)
+    data.boundingHeight && (node.boundingHeight = data.boundingHeight)
 }
 
-ExtText.ExportNodeData = function (node, data) {
-  data['string'] = node._key ? ('@' + node._key) : node.string
-  node.textAlign != cc.TEXT_ALIGNMENT_LEFT && (data['textAlign'] = node.textAlign)
-  node.verticalAlign != cc.VERTICAL_TEXT_ALIGNMENT_TOP && (data['verticalAlign'] = node.verticalAlign)
-  data['fontSize'] = node.fontSize
-  node.fontName.length > 0 && (data['fontName'] = node.fontName)
-  if (node.outlineColor && !cc.colorEqual(node.outlineColor, cc.color.WHITE)) {
-    data['outlineColor'] = [node.outlineColor.r, node.outlineColor.g, node.outlineColor.b, node.outlineColor.a]
-  }
-  node.outlineSize > 0 && (data['outlineSize'] = node.outlineSize)
-  node.boundingWidth > 0 && (data['boundingWidth'] = node.boundingWidth)
-  node.boundingHeight > 0 && (data['boundingHeight'] = node.boundingHeight)
+ExtText.ExportNodeData = function(node, data) {
+    data['string'] = node._key ? ('@' + node._key) : node.string
+    node.textAlign != cc.TEXT_ALIGNMENT_LEFT && (data['textAlign'] = node.textAlign)
+    node.verticalAlign != cc.VERTICAL_TEXT_ALIGNMENT_TOP && (data['verticalAlign'] = node.verticalAlign)
+    data['fontSize'] = node.fontSize
+    node.fontName.length > 0 && (data['fontName'] = node.fontName)
+    if (node.outlineColor && !cc.colorEqual(node.outlineColor, cc.color.WHITE)) {
+        data['outlineColor'] = [node.outlineColor.r, node.outlineColor.g, node.outlineColor.b, node.outlineColor.a]
+    }
+    node.outlineSize > 0 && (data['outlineSize'] = node.outlineSize)
+    node.boundingWidth > 0 && (data['boundingWidth'] = node.boundingWidth)
+    node.boundingHeight > 0 && (data['boundingHeight'] = node.boundingHeight)
 }
 
 // ExtText.SetPropChange = function (control, path, value) {
@@ -91,163 +91,159 @@ ExtText.ExportNodeData = function (node, data) {
 //   }
 // }
 
-ExtText.SetPropChange = function (control, path, value) {
-  SetDefaultPropChange(control, path, value)
+ExtText.SetPropChange = function(control, path, value) {
+    SetDefaultPropChange(control, path, value)
 }
 
-ExtText.NodifyPropChange = function (control) {
-  SetNodifyPropChange(control)
+ExtText.NodifyPropChange = function(control) {
+    SetNodifyPropChange(control)
 }
 
 
-function TextData (node) {
-  this._node = node
+function TextData(node) {
+    this._node = node
 }
 
 TextData.prototype = {
-  __displayName__: 'Text',
-  __type__: 'ccui.Text',
+    __displayName__: 'Text',
+    __type__: 'ccui.Text',
 
-  get string() {
-    return {
-      path: 'string',
-      type: 'textarea',
-      name: 'string',
-      attrs: {
-      },
-      value: this._node._key ? ('@' + this._node._key) : this._node.string
-    }
-  },
-
-  get fontName() {
-    return {
-      path: 'fontName',
-      type: 'input',
-      name: 'fontName',
-      attrs: {
-      },
-      value: this._node.fontName
-    }
-  },
-
-  get fontSize() {
-    return {
-      path: 'fontSize',
-      type: 'unit-input',
-      name: 'fontSize',
-      attrs: {
-        expand: true,
-        step: 1,
-        precision: 0,
-        min: 0,
-        max: 72
-      },
-      value: this._node.fontSize
-    }
-  },
-
-  get horizontalAlign() {
-    return {
-      path: 'textAlign',
-      type: 'select',
-      name: 'HorAlign',
-      attrs: {
-        selects: {
-          0: 'LEFT',
-          1: 'CENTER',
-          2: 'RIGHT'
+    get string() {
+        return {
+            path: 'string',
+            type: 'textarea',
+            name: 'string',
+            attrs: {},
+            value: this._node._key ? ('@' + this._node._key) : this._node.string
         }
-      },
-      value: this._node.textAlign
-    }
-  },
+    },
 
-  get verticalAlign() {
-    return {
-      path: 'verticalAlign',
-      type: 'select',
-      name: 'VerAlign',
-      attrs: {
-        selects: {
-          0: 'TOP',
-          1: 'CENTER',
-          2: 'BOTTOM'
+    get fontName() {
+        return {
+            path: 'fontName',
+            type: 'input',
+            name: 'fontName',
+            attrs: {},
+            value: this._node.fontName
         }
-      },
-      value: this._node.verticalAlign
-    }
-  },
+    },
 
-  get outlineSize() {
-    return {
-      path: 'outlineSize',
-      type: 'unit-input',
-      name: 'outlineSize',
-      attrs: {
-      },
-      value: this._node.outlineSize
-    }
-  },
+    get fontSize() {
+        return {
+            path: 'fontSize',
+            type: 'unit-input',
+            name: 'fontSize',
+            attrs: {
+                expand: true,
+                step: 1,
+                precision: 0,
+                min: 0,
+                max: 72
+            },
+            value: this._node.fontSize
+        }
+    },
 
-  get outlineColor() {
-    let color = this._node.outlineColor || cc.color.WHITE
-    return {
-      path: 'outlineColor',
-      type: 'color',
-      name: 'outlineColor',
-      attrs: {
-      },
-      value: {
-        r: color.r,
-        g: color.g,
-        b: color.b,
-        a: color.a
-      }
-    }
-  },
+    get horizontalAlign() {
+        return {
+            path: 'textAlign',
+            type: 'select',
+            name: 'HorAlign',
+            attrs: {
+                selects: {
+                    0: 'LEFT',
+                    1: 'CENTER',
+                    2: 'RIGHT'
+                }
+            },
+            value: this._node.textAlign
+        }
+    },
 
-  get boundingWidth() {
-    return {
-      path: 'boundingWidth',
-      type: 'unit-input',
-      name: 'boundingWidth',
-      attrs: {},
-      value: this._node.boundingWidth
-    }
-  },
+    get verticalAlign() {
+        return {
+            path: 'verticalAlign',
+            type: 'select',
+            name: 'VerAlign',
+            attrs: {
+                selects: {
+                    0: 'TOP',
+                    1: 'CENTER',
+                    2: 'BOTTOM'
+                }
+            },
+            value: this._node.verticalAlign
+        }
+    },
 
-  get boundingHeight() {
-    return {
-      path: 'boundingHeight',
-      type: 'unit-input',
-      name: 'boundingHeight',
-      attrs: {},
-      value: this._node.boundingHeight
-    }
-  },
+    get outlineSize() {
+        return {
+            path: 'outlineSize',
+            type: 'unit-input',
+            name: 'outlineSize',
+            attrs: {},
+            value: this._node.outlineSize
+        }
+    },
 
-  get __props__() {
-    return [
-      this.string,
-      this.fontName,
-      this.fontSize,
-      this.horizontalAlign,
-      this.verticalAlign,
-      this.outlineSize,
-      this.outlineColor,
-      this.boundingWidth,
-      this.boundingHeight
-    ]
-  }
+    get outlineColor() {
+        let color = this._node.outlineColor || cc.color.WHITE
+        return {
+            path: 'outlineColor',
+            type: 'color',
+            name: 'outlineColor',
+            attrs: {},
+            value: {
+                r: color.r,
+                g: color.g,
+                b: color.b,
+                a: color.a
+            }
+        }
+    },
+
+    get boundingWidth() {
+        return {
+            path: 'boundingWidth',
+            type: 'unit-input',
+            name: 'boundingWidth',
+            attrs: {},
+            value: this._node.boundingWidth
+        }
+    },
+
+    get boundingHeight() {
+        return {
+            path: 'boundingHeight',
+            type: 'unit-input',
+            name: 'boundingHeight',
+            attrs: {},
+            value: this._node.boundingHeight
+        }
+    },
+
+    get __props__() {
+        return [
+            this.string,
+            this.fontName,
+            this.fontSize,
+            this.horizontalAlign,
+            this.verticalAlign,
+            this.outlineSize,
+            this.outlineColor,
+            this.boundingWidth,
+            this.boundingHeight
+        ]
+    }
 }
 
 ExtText.TextData = TextData
 
-ExtText.PropComps = function (node) {
-  let datas = [ new WidgetData(node) ]
-  datas.push(new TouchData(node))
-  datas.push(new TextData(node))
-  return datas
+ExtText.PropComps = function(node) {
+    let datas = [new WidgetData(node)]
+    datas.push(new TouchData(node))
+    datas.push(new TextData(node))
+    return datas
 }
 
 module.exports = ExtText

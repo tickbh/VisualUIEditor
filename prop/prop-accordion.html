@@ -1,5 +1,5 @@
 <dom-module id="prop-accordion">
-  <template>
+    <template>
     <style>
       .header {
         display: flex;
@@ -52,78 +52,78 @@
     </div>
 
     <div class="content" id="extend">
-      <template is="dom-repeat" items="{{target.__comps__}}">
+        <template is="dom-repeat" items="{{target.__comps__}}">
         <prop-accordion target="{{item}}" folded="{{item.folded}}"></prop-accordion>
       </template>
     </div>
-  </template>
-  <script>(() => {
-      'use strict';
+    </template>
+    <script>
+        (() => {
+            'use strict';
 
-      Polymer({
-        listeners: {},
+            Polymer({
+                listeners: {},
 
-        properties: {
-          target: {
-            type: Object,
-            value: null,
-            notify: true,
-          },
+                properties: {
+                    target: {
+                        type: Object,
+                        value: null,
+                        notify: true,
+                    },
 
-          folded: {
-            type: Boolean,
-            value: false,
-            reflectToAttribute: true,
-          },
-        },
+                    folded: {
+                        type: Boolean,
+                        value: false,
+                        reflectToAttribute: true,
+                    },
+                },
 
-        observers: [
-        ],
+                observers: [],
 
-        ready () {
-          this.$.arrow.class = this._foldClass(this.folded);
-        },
+                ready() {
+                    this.$.arrow.class = this._foldClass(this.folded);
+                },
 
-        _onFoldClick () {
-          this.folded = !this.folded;
-        },
+                _onFoldClick() {
+                    this.folded = !this.folded;
+                },
 
-        _foldClass ( folded ) {
-          if (folded) {
-            return 'fa fa-caret-right fold flex-none ';
-          }
+                _foldClass(folded) {
+                    if (folded) {
+                        return 'fa fa-caret-right fold flex-none ';
+                    }
 
-          return 'fa fa-caret-down fold flex-none';
-        },
+                    return 'fa fa-caret-down fold flex-none';
+                },
 
-        _targetName ( target ) {
-          if ( target ) {
-            return target.__displayName__;
-          }
-          return 'Unknown';
-        },
+                _targetName(target) {
+                    if (target) {
+                        return target.__displayName__;
+                    }
+                    return 'Unknown';
+                },
 
-        _onKeyDown (event) {
-          // press 'enter' and 'space'
-          if (event.keyCode === 13 || event.keyCode === 32) {
-            event.preventDefault();
-            event.stopPropagation();
-            this.folded = !this.folded;
-          }
-          // press left
-          else if (event.keyCode === 37) {
-            event.preventDefault();
-            event.stopPropagation();
-            this.folded = true;
-          }
-          // press right
-          else if (event.keyCode === 39) {
-            event.preventDefault();
-            event.stopPropagation();
-            this.folded = false;
-          }
-        },
-      });
-    })();
-  </script>
+                _onKeyDown(event) {
+                    // press 'enter' and 'space'
+                    if (event.keyCode === 13 || event.keyCode === 32) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        this.folded = !this.folded;
+                    }
+                    // press left
+                    else if (event.keyCode === 37) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        this.folded = true;
+                    }
+                    // press right
+                    else if (event.keyCode === 39) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        this.folded = false;
+                    }
+                },
+            });
+        })();
+    </script>
 </dom-module>
