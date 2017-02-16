@@ -8,14 +8,14 @@ function ChangeProjectFolder() {
     let newFolder = Electron.remote.dialog.showOpenDialog({ properties: ['openFile', 'openDirectory'] })
     if (newFolder) {
         window.projectFolder = newFolder[0]
-        window.localStorage['projectFolder'] = newFolder[0]
+        setSaveData('projectFolder', newFolder[0])
         Ipc.sendToAll('ui:project_floder_change', { folder: newFolder[0] })
     }
 }
 
 ipcRenderer.on("ui:new-project", (event, project) => {
     window.projectFolder = project
-    window.localStorage['projectFolder'] = project
+    setSaveData('projectFolder', project)
     Ipc.sendToAll('ui:project_floder_change', { folder: project })
 })
 

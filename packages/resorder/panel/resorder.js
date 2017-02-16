@@ -48,8 +48,8 @@
             })
 
             global.setTimeout(() => {
-                if (window.localStorage['projectFolder']) {
-                    let path = window.localStorage['projectFolder']
+                if (getSaveData('projectFolder')) {
+                    let path = getSaveData('projectFolder')
                     window['projectFolder'] = path
                     Ipc.sendToAll('ui:project_floder_change', { folder: path })
                 }
@@ -379,10 +379,10 @@
             'ui:project_floder_change' (event, message) {
                 ensureLangExist()
 
-                let last_open_ui = window.localStorage['last_open_ui']
+                let last_open_ui = getSaveData('last_open_ui')
                 if (!startWith(last_open_ui, message.folder)) {
                     last_open_ui = null
-                    window.localStorage['last_open_ui'] = null
+                    setSaveData("last_open_ui")
                 }
                 AddLinkToScripte(message.folder + '/js/init.html', function() {
                     if (last_open_ui) {

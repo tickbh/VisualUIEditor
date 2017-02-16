@@ -30,13 +30,12 @@ ExtCheckBox.GenNodeByData = function(data, parent) {
 }
 
 ExtCheckBox.SetNodePropByData = function(node, data, parent) {
-    setNodeSpriteFrame('back', data['back'], node, node.loadTextureBackGround)
-    setNodeSpriteFrame('backSelect', data['backSelect'], node, node.loadTextureBackGroundSelected)
-    setNodeSpriteFrame('active', data['active'], node, node.loadTextureFrontCross)
-    setNodeSpriteFrame('backDisable', data['backDisable'], node, node.loadTextureBackGroundDisabled)
-    setNodeSpriteFrame('activeDisable', data['activeDisable'], node, node.loadTextureFrontCrossDisabled)
-
-    (!isNull(data['select'])) && (node.setSelected(data['select']))
+    setNodeSpriteFrame('back', data['back'], node, node.loadTextureBackGround);
+    setNodeSpriteFrame('backSelect', data['backSelect'], node, node.loadTextureBackGroundSelected);
+    setNodeSpriteFrame('active', data['active'], node, node.loadTextureFrontCross);
+    setNodeSpriteFrame('backDisable', data['backDisable'], node, node.loadTextureBackGroundDisabled);
+    setNodeSpriteFrame('activeDisable', data['activeDisable'], node, node.loadTextureFrontCrossDisabled);
+    (!isNull(data['select'])) && (node.setSelected(data['select']));
 }
 
 ExtCheckBox.ExportNodeData = function(node, data) {

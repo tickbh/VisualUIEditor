@@ -1115,7 +1115,7 @@
                             self._openPath = path
                             let subPath = calcRelativePath(window.projectFolder + '/', self._openPath)
                             self._localName = subPath;
-                            window.localStorage['last_open_ui'] = path
+                            setSaveData('last_open_ui', path)
                             self.sceneChange(scene)
                         }
                     }
@@ -1219,11 +1219,11 @@
                     return
                 }
                 let _saveLayout = global.myDocker.save()
-                window.localStorage['saveLayout'] = _saveLayout
+                setSaveData('saveLayout', _saveLayout)
             },
             'ui:reset-layout' (event, data) {
-                if (window.localStorage['saveLayout'] && global.myDocker) {
-                    global.myDocker.restore(window.localStorage['saveLayout'])
+                if (getSaveData('saveLayout') && global.myDocker) {
+                    global.myDocker.restore(getSaveData('saveLayout'))
                 }
             },
             'ui:reset-init-layout' (event, data) {

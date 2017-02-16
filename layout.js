@@ -203,8 +203,8 @@ $(document).ready(function() {
                 // var gridPanel = myDocker.addPanel('GridPanel', wcDocker.DOCK.LEFT, wcDocker.COLLAPSED, {h: '20%'})
         }
 
-        if (window.localStorage['saveLayout']) {
-            myDocker.restore(window.localStorage['saveLayout'])
+        if (getSaveData('saveLayout')) {
+            myDocker.restore(getSaveData('saveLayout'))
         } else {
             myDocker.setInitLayout()
         }

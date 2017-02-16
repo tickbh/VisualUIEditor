@@ -370,8 +370,8 @@ function AddLinkToScripte(url, callback) {
 }
 
 function GetFileToData(file) {
-    let content = fs.readFileSync(file)
     try {
+        let content = fs.readFileSync(file)
         return JSON.parse(content || '{}')
     } catch (e) {
         return {}
@@ -490,4 +490,36 @@ function saveLangData(langPath, data) {
 
 function fullPath(path) {
     return "file://" + path;
+}
+
+var localSaveData;
+
+function getLocalSaveData() {
+    if (!localSaveData) {
+        localSaveData = GetFileToData("save.dat")
+    }
+    return localSaveData
+}
+
+function getSaveData(key) {
+    try {
+        return window.localStorage[key]
+    } catch (e) {
+        var saveData = getLocalSaveData();
+        return saveData[key]
+    }
+}
+
+function setSaveData(key, data) {
+    try {
+        window.localStorage[key] = data
+    } catch (e) {
+        var saveData = getLocalSaveData();
+        if (!data) {
+            delete saveData[key]
+        } else {
+            saveData[key] = data
+        }
+        fs.writeFileSync("save.dat", JSON.stringify(saveData, null, 4))
+    }
 }

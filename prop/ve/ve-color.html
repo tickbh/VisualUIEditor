@@ -104,6 +104,13 @@
                         }, 1);
                     };
 
+                    let localStorageKey = "theme.colors";
+                    try {
+                        window.localStorage
+                    } catch (e) {
+                        localStorageKey = undefined
+                    }
+
                     $(this.$.color).spectrum({
                         color: this.convertToSpectrumColor(),
                         showAlpha: true,
@@ -124,8 +131,8 @@
                         ],
                         selectionPalette: [],
                         maxSelectionSize: 8,
-                        localStorageKey: "theme.colors",
                         preferredFormat: 'hex3',
+                        localStorageKey: localStorageKey,
                         change: __setColor,
                         move: function(color) {},
                         hide: __setColor

@@ -14,25 +14,27 @@
             "spriteFrame": "uires/xinxikuang.png"
         },
         {
+            "touchEnabled": false,
             "width": "252",
             "height": "48",
             "x": 401,
             "y": 331,
             "type": "UITextAtlas",
-            "touchEnabled": false,
             "string": "4532246",
             "charMapFile": "uires/lv_num.png",
             "itemWidth": 36,
             "itemHeight": 48,
-            "mapStartChar": "0"
+            "mapStartChar": "0",
+            "anchorX": 0.5,
+            "anchorY": 0.5
         },
         {
+            "touchEnabled": false,
             "width": "141",
             "height": "72",
             "x": 464,
             "y": 239,
             "type": "UIText",
-            "touchEnabled": false,
             "string": "VisualUIfd\ndsa111a",
             "fontSize": 30,
             "fontName": "Arial",
@@ -45,12 +47,12 @@
             "outlineSize": 2
         },
         {
+            "touchEnabled": true,
             "width": "228",
             "height": "74",
             "x": 886,
             "y": 106,
             "type": "UIButton",
-            "touchEnabled": true,
             "scale9Enable": true,
             "bgNormal": "uires/button.png",
             "titleText": "rewrew909",
@@ -64,20 +66,22 @@
             ]
         },
         {
+            "touchEnabled": false,
             "width": "40",
             "height": "40",
             "x": 153,
             "y": 453,
             "type": "UIWidget",
-            "touchEnabled": false,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
             "children": [
                 {
+                    "touchEnabled": true,
                     "width": "46",
                     "height": "46",
                     "x": 72,
                     "y": 1,
                     "type": "UIImage",
-                    "touchEnabled": true,
                     "spriteFrame": "res/default/Sprite.png"
                 }
             ]
@@ -100,12 +104,12 @@
             "spriteFrame": "res/default/shurukuang.png"
         },
         {
+            "touchEnabled": true,
             "width": "46",
             "height": "36",
             "x": 204,
             "y": 143,
             "type": "UIButton",
-            "touchEnabled": true,
             "bgNormal": "res/default/ButtonNormal.png",
             "titleText": "Button",
             "fontName": "Arial",
@@ -118,12 +122,12 @@
             ]
         },
         {
+            "touchEnabled": true,
             "width": "40",
             "height": "40",
             "right": 30,
             "y": 67,
             "type": "UICheckBox",
-            "touchEnabled": true,
             "back": "res/default/CheckBoxNormal.png",
             "backSelect": "res/default/CheckBoxSelect.png",
             "active": "res/default/CheckBoxNodeNormal.png",
@@ -143,6 +147,7 @@
             "test": "fdfdssd"
         },
         {
+            "touchEnabled": true,
             "width": "200",
             "height": "100",
             "x": 686,
@@ -150,32 +155,32 @@
             "type": "UIScrollView",
             "anchorX": 0,
             "anchorY": 0,
-            "touchEnabled": true,
             "innerPosX": 0,
             "innerPosY": -100,
             "innerSizeW": 200,
             "innerSizeH": 200,
-            "direction": "0",
+            "direction": 0,
             "scrollBarEnabled": true,
             "children": [
                 {
+                    "touchEnabled": true,
                     "width": "200",
                     "height": "14",
                     "x": 123,
                     "y": 163,
                     "type": "UISlider",
-                    "touchEnabled": true,
+                    "scale9Enable": false,
                     "percent": 42.15,
                     "barBg": "res/default/SliderBack.png",
                     "barProgress": "res/default/SliderBar.png"
                 },
                 {
+                    "touchEnabled": true,
                     "width": "40",
                     "height": "40",
                     "x": 40,
                     "y": 161,
                     "type": "UICheckBox",
-                    "touchEnabled": true,
                     "back": "res/default/CheckBoxNormal.png",
                     "backSelect": "res/default/CheckBoxSelect.png",
                     "active": "res/default/CheckBoxNodeNormal.png",
@@ -186,6 +191,7 @@
             ]
         },
         {
+            "touchEnabled": true,
             "width": "200",
             "height": "200",
             "x": 479,
@@ -193,7 +199,6 @@
             "type": "UIListView",
             "anchorX": 0,
             "anchorY": 0,
-            "touchEnabled": true,
             "gravity": 5,
             "itemsMargin": 0,
             "innerPosX": 0,
@@ -204,6 +209,7 @@
             "scrollBarEnabled": true,
             "children": [
                 {
+                    "touchEnabled": true,
                     "width": "40",
                     "height": "40",
                     "x": 0,
@@ -211,7 +217,6 @@
                     "type": "UICheckBox",
                     "anchorX": 0,
                     "anchorY": 0,
-                    "touchEnabled": true,
                     "back": "res/default/CheckBoxNormal.png",
                     "backSelect": "res/default/CheckBoxSelect.png",
                     "active": "res/default/CheckBoxNodeNormal.png",
@@ -220,12 +225,12 @@
                     "select": true
                 },
                 {
+                    "touchEnabled": true,
                     "width": "40",
                     "height": "40",
                     "x": 20,
                     "y": 140,
                     "type": "UICheckBox",
-                    "touchEnabled": true,
                     "back": "res/default/CheckBoxNormal.png",
                     "backSelect": "res/default/CheckBoxSelect.png",
                     "active": "res/default/CheckBoxNodeNormal.png",
@@ -234,12 +239,12 @@
                     "select": true
                 },
                 {
+                    "touchEnabled": true,
                     "width": "40",
                     "height": "40",
                     "x": 20,
                     "y": 100,
                     "type": "UICheckBox",
-                    "touchEnabled": true,
                     "back": "res/default/CheckBoxNormal.png",
                     "backSelect": "res/default/CheckBoxSelect.png",
                     "active": "res/default/CheckBoxNodeNormal.png",
@@ -248,12 +253,12 @@
                     "select": true
                 },
                 {
+                    "touchEnabled": true,
                     "width": "40",
                     "height": "40",
                     "x": 20,
                     "y": 60,
                     "type": "UICheckBox",
-                    "touchEnabled": true,
                     "back": "res/default/CheckBoxNormal.png",
                     "backSelect": "res/default/CheckBoxSelect.png",
                     "active": "res/default/CheckBoxNodeNormal.png",
@@ -264,12 +269,12 @@
             ]
         },
         {
+            "touchEnabled": false,
             "width": "100",
             "height": "100",
             "x": 151,
             "y": 543,
             "type": "UIRichText",
-            "touchEnabled": false,
             "oriColor": [
                 29,
                 158,
@@ -281,34 +286,35 @@
             "text": "V[cr]i[f30]su[/c]al[/f]UI"
         },
         {
+            "touchEnabled": false,
             "width": "91",
             "height": "28",
             "x": 337,
             "y": 485,
             "type": "UIText",
-            "touchEnabled": false,
             "string": "@gf",
             "fontSize": 24,
             "fontName": "Arial"
         },
         {
+            "touchEnabled": true,
             "width": "200",
             "height": "14",
             "x": 160,
             "y": 316,
             "type": "UISlider",
-            "touchEnabled": true,
+            "scale9Enable": false,
             "percent": 48.98,
             "barBg": "res/default/SliderBack.png",
             "barProgress": "res/default/SliderBar.png"
         },
         {
+            "touchEnabled": false,
             "width": "48",
             "height": "28",
             "x": 329,
             "y": 583,
             "type": "UIText",
-            "touchEnabled": false,
             "string": "@test",
             "fontSize": 24,
             "fontName": "Arial"

@@ -46,7 +46,10 @@ ExtInput.SetNodePropByData = function(node, data, parent) {
     data.placeHolder && (node.placeHolder = data.placeHolder)
     data.placeHolderFontName && (node.placeHolderFontName = data.placeHolderFontName)
     data.placeHolderFontSize && (node.placeHolderFontSize = data.placeHolderFontSize);
-    (covertToColor(data.placeholderFontColor)) && (node.placeholderFontColor = covertToColor(data.placeholderFontColor)) !isNull(data.inputFlag) && (node.inputFlag = data.inputFlag) !isNull(data.inputMode) && (node.inputMode = data.inputMode) !isNull(data.returnType) && (node.returnType = data.returnType)
+    (covertToColor(data.placeholderFontColor)) && (node.placeholderFontColor = covertToColor(data.placeholderFontColor));
+    !isNull(data.inputFlag) && (node.inputFlag = data.inputFlag);
+    !isNull(data.inputMode) && (node.inputMode = data.inputMode);
+    !isNull(data.returnType) && (node.returnType = data.returnType);
 
     ExtInput.SetSpriteFrame(node, data.spriteFrame)
 }
