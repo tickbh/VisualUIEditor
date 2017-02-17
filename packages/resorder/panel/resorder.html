@@ -1,6 +1,5 @@
-
 <dom-module id="ve-resorder">
-  <template>
+    <template>
     <style>
       :host {
         @apply(--layout-vertical);
@@ -39,14 +38,14 @@
 
     </style>
 
-    <div class="toolbar">
+    <div class="toolbar flex-1">
 
       <ve-input
+        class="flex-1"
         id="input"
         placeholder="搜索"
         cancelable
       ></ve-input>
-      <span class="flex-1"></span>
       <ve-button class="black small transparent" on-confirm="_foldedAll">
         <i class="fa fa-compress"></i>
       </ve-button>
@@ -65,9 +64,8 @@
     <td-tree-view id="tree" class="flex"></td-tree-view>
   </template>
 
-  <script>
+    <script>
+    </script>
 
-  </script>
-  
-  <script type="text/javascript" src="resorder.js"></script>
+    <script type="text/javascript" src="resorder.js"></script>
 </dom-module>
