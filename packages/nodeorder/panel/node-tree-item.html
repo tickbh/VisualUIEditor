@@ -1,0 +1,117 @@
+<style>
+    node-tree-item>#content>node-tree-item {
+        margin-left: 12px;
+    }
+</style>
+
+<dom-module id="node-tree-item">
+    <link rel="import" href="statusbox.html">
+    <link rel="import" type="css" href="node-tree-item.css">
+
+    <template>
+        <div id="header">
+            <div class="inline-block-wrapper">
+                <div class="wrapper">
+                    <i id="foldIcon" class$="{{_foldIconClass(folded)}}"
+                    on-click="_onFold"
+                    on-dblclick="_onDblClick"
+                    >
+                    </i>
+                    <i id="icon" hidden></i>
+                    <span style="width:5px;"></span>
+                    <span id="name" class$="{{_nameClass(name)}}">{{_nameText(name)}}</span>
+                    <ve-input id="input"  placeholder="filter"  value="{{name}}" hidden
+                    cancelable  unnavigable
+                    ></ve-input>
+
+                    <span class="flex-1"></span>
+                    
+                    <ve-statusbox activiteIcon="fa fa-eye" id="visiblebox">
+                    </ve-statusbox>
+
+                    <span style="margin-left: 4px;"></span>
+
+                    <ve-statusbox activiteIcon="fa fa-lock" id="lockbox">
+                    </ve-statusbox>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <content></content>
+        </div>
+    </template>
+
+
+    <script>
+        Polymer({
+
+            properties: {
+                foldable: {
+                    type: Boolean,
+                    value: false,
+                    notify: true,
+                    reflectToAttribute: true,
+                },
+
+                folded: {
+                    type: Boolean,
+                    value: false,
+                    notify: true,
+                    reflectToAttribute: true,
+                },
+
+                selected: {
+                    type: Boolean,
+                    value: false,
+                    notify: true,
+                    reflectToAttribute: true,
+                },
+
+                name: {
+                    type: String,
+                    value: '',
+                },
+            },
+
+            listeners: {
+                'dblclick': '_onDblClick',
+            },
+
+            ready: function() {
+                this._userId = '';
+            },
+
+            _nameClass: function(name) {
+                if (name === '')
+                    return 'no-name';
+                return 'name';
+            },
+
+            _nameText: function(name) {
+                if (name === '')
+                    return 'No Name';
+                return name;
+            },
+
+            _foldIconClass: function(folded) {
+                if (folded)
+                    return 'fa fa-caret-right';
+
+                return 'fa fa-caret-down';
+            },
+
+            _onFold: function(event) {
+                event.stopPropagation();
+
+                this.folded = !this.folded;
+            },
+
+            _onDblClick: function(event) {
+                if (event.target === this.$.foldIcon) {
+                    return;
+                }
+                event.stopPropagation();
+            },
+        });
+    </script>
+</dom-module>

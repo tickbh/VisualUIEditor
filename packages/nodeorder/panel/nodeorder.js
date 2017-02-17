@@ -247,7 +247,7 @@
         },
         newEntry: function(entry) {
             let _this = this
-            var item = document.createElement('td-tree-item')
+            var item = document.createElement('node-tree-item')
             item.draggable = true
             item['ondragstart'] = this.dragStart.bind(this)
             item['ondragend'] = this.dragEnd.bind(this)
@@ -276,6 +276,33 @@
                     e.stopPropagation()
                 }
             }).bind(this)
+
+
+            let _scene = getRootNode(entry)
+            item.$.visiblebox.activited = !item.$.visiblebox.activited
+            item.$.visiblebox.activited = entry.visible
+            item.$.visiblebox.addEventListener('end-editing', function(e) {
+                let node = cocosGetItemByUUID(_scene, entry.uuid)
+                if (!node || node.visible == e.target.activited) {
+                    return
+                }
+                addNodeCommand(node, 'visible', node.visible, e.target.activited)
+                Ipc.sendToAll('ui:item_prop_change', { uuid: node.uuid })
+                node.visible = e.target.activited;
+            })
+
+            item.$.lockbox.activiteIcon = "fa fa-lock"
+            item.$.lockbox.activited = !item.$.lockbox.activited
+            item.$.lockbox.activited = !!entry._lock
+
+            item.$.lockbox.addEventListener('end-editing', function(e) {
+                let node = cocosGetItemByUUID(_scene, entry.uuid)
+                if (!node || node._lock == e.target.activited) {
+                    return
+                }
+                Ipc.sendToAll('ui:item_prop_change', { uuid: node.uuid })
+                node._lock = e.target.activited;
+            })
 
             let _item = item
             item['doselect'] = (e) => {

@@ -347,7 +347,7 @@
                     nodeRect.left -= forgeRect.left
                     nodeRect.top -= forgeRect.top
                     let baseNode = null
-                    if (!isBaseType(node) && node.isVisible()) {
+                    if (!isBaseType(node) && IsCanSelect(node)) {
                         var children = node.getChildren()
                         for (var i = children.length - 1; i >= 0; i--) {
                             baseNode = calcCollectNode(children[i], rect)
@@ -356,7 +356,7 @@
                             }
                         }
                     }
-                    if (!baseNode && node.isVisible() && _this.isCollection(nodeRect, rect)) {
+                    if (!baseNode && IsCanSelect(node) && _this.isCollection(nodeRect, rect)) {
                         baseNode = node
                     }
                     return baseNode
@@ -371,7 +371,7 @@
                 nodeRect.left -= forgeRect.left
                 nodeRect.top -= forgeRect.top
                 let isCollect = this.isCollection(nodeRect, rect)
-                if (isCollect) {
+                if (isCollect && IsCanSelect(node)) {
                     this.addNodeControl(node)
                     return true
                 }

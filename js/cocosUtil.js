@@ -131,6 +131,10 @@ function cocosExportNodeBase(node, data, ext) {
         data['preuuid'] = CalcPreUUID(node)
     }
 
+    if (node._lock) {
+        data["_lock"] = node._lock
+    }
+
     (!node.isVisible()) && (data['visible'] = node.isVisible())
 
     let parent = node.getParent()
@@ -336,11 +340,11 @@ function CalcDataSize(node, data, parent) {
 
 function cocosGenNodeByDataBase(data, node, parent) {
     node.uuid = data.uuid || gen_uuid();
-    (data.id) && (node._name = data.id)
+    (data.id) && (node._name = data.id);
+    (data._lock) && (node._lock = data._lock);
 
-    ;
     (!isNull(data.touchEnabled)) && (node._touchEnabled = data.touchEnabled);
-    (!isNull(data.touchListener)) && (node.touchListener = data.touchListener)
+    (!isNull(data.touchListener)) && (node.touchListener = data.touchListener);
 
     if (!isNull(data.width) || !isNull(data.height)) {
         let setFn = node.setPreferredSize ? node.setPreferredSize : node.setContentSize
@@ -351,35 +355,28 @@ function cocosGenNodeByDataBase(data, node, parent) {
         setFn.call(node, cc.size(widthRet.width, heightRet.height))
     }
     (!isNull(data.x)) && (node.x = parseFloat(data.x));
-    (!isNull(data.y)) && (node.y = parseFloat(data.y))
+    (!isNull(data.y)) && (node.y = parseFloat(data.y));
 
-    ;
     (!isNull(data.left)) && (node.x = parseFloat(data.left), node.left = data.left);
     (!isNull(data.right) && parent) && (node.x = parent.width - parseFloat(data.right), node.right = data.right);
-    (!isNull(data.horizontal) && parent) && (node.x = parent.width / 2 + data.horizontal, node.horizontal = data.horizontal)
+    (!isNull(data.horizontal) && parent) && (node.x = parent.width / 2 + data.horizontal, node.horizontal = data.horizontal);
 
-    ;
     (!isNull(data.bottom)) && (node.y = parseFloat(data.bottom), node.bottom = data.bottom);
     (!isNull(data.top) && parent) && (node.y = parent.height - parseFloat(data.top), node.top = data.top);
-    (!isNull(data.vertical) && parent) && (node.y = parent.height / 2 + data.vertical, node.vertical = data.vertical)
+    (!isNull(data.vertical) && parent) && (node.y = parent.height / 2 + data.vertical, node.vertical = data.vertical);
 
-    ;
     (!isNull(data.anchorX)) && (node.anchorX = parseFloat(data.anchorX));
-    (!isNull(data.anchorY)) && (node.anchorY = parseFloat(data.anchorY))
+    (!isNull(data.anchorY)) && (node.anchorY = parseFloat(data.anchorY));
 
-    ;
     (!isNull(data.scaleX)) && (node.scaleX = parseFloat(data.scaleX));
-    (!isNull(data.scaleY)) && (node.scaleY = parseFloat(data.scaleY))
+    (!isNull(data.scaleY)) && (node.scaleY = parseFloat(data.scaleY));
 
-    ;
     (!isNull(data.opacity)) && (node.opacity = parseFloat(data.opacity));
-    (!isNull(data.rotation)) && (node.rotation = parseFloat(data.rotation))
+    (!isNull(data.rotation)) && (node.rotation = parseFloat(data.rotation));
 
-    ;
-    (!isNull(data.visible)) && node.setVisible(data.visible)
+    (!isNull(data.visible)) && node.setVisible(data.visible);
 
-    ;
-    (covertToColor(data.color)) && (node.color = covertToColor(data.color))
+    (covertToColor(data.color)) && (node.color = covertToColor(data.color));
 }
 
 function cocosGenNodeByData(data, parent, outNode) {
@@ -697,6 +694,15 @@ function CalcNeedLoadImage(data, result) {
         CalcNeedLoadImage(child, result)
     }
     return result
+}
+
+
+function IsCanSelect(node) {
+    return node.isVisible() && !IsNodeLock(node)
+}
+
+function IsNodeLock(node) {
+    return node._lock == true
 }
 
 var isGlobalEnable = false

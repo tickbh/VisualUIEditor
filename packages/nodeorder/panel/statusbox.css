@@ -1,0 +1,40 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    font-size: 14px;
+    white-space: nowrap;
+    text-align: left;
+    color: #ddd;
+    text-shadow: #666 1px 0 0, #666 0 1px 0, #666 -1px 0 0, #666 0 -1px 0;
+    cursor: pointer;
+}
+
+:host[focused] {
+    color: #00a6ff;
+}
+
+:host[pressed] #box {
+    opacity: 0.7;
+}
+
+#box {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 13px;
+    height: 13px;
+    min-width: 13px;
+    min-height: 13px;
+    font-size: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#box:hover {
+    border-color: #bababa;
+}
+
+:host[focused] #box {
+    border: 1px solid #0c70a6;
+}

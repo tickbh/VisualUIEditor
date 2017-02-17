@@ -1,6 +1,5 @@
-
 <dom-module id="ve-nodeorder">
-  <template>
+    <template>
     <style>
       :host {
         @apply(--layout-vertical);
@@ -38,7 +37,7 @@
       }
 
     </style>
-    <div class="toolbar">
+    <div class="toolbar flex-1">
       <ve-input
         id="input"
         placeholder="搜索"
@@ -54,9 +53,9 @@
 
   </template>
 
-  <script>
+    <script>
+    </script>
 
-  </script>
-  
-  <script type="text/javascript" src="nodeorder.js"></script>
+    <link rel="import" href="node-tree-item.html">
+    <script type="text/javascript" src="nodeorder.js"></script>
 </dom-module>

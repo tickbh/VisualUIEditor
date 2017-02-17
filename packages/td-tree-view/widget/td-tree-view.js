@@ -1,4 +1,3 @@
-
 (() => {
     'use strict'
 
@@ -165,9 +164,6 @@
             for (var i = 0; i < children.length; i++) {
                 thisDOM.removeChild(thisDOM.firstChild)
             }
-            // while (thisDOM.firstChild) {
-            //   thisDOM.removeChild(thisDOM.firstChild)
-            // }
             this._id2el = {}
         },
 
