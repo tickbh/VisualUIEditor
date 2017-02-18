@@ -17,6 +17,7 @@ $(document).ready(function() {
         myDocker.registerPanelType('NodePanel', {
             faicon: 'cubes',
             onCreate: function(myPanel) {
+                myPanel.title("节点面板")
                 myPanel.initSize(200, 400)
                 myPanel.maxSize(500, Infinity)
                 var $node = $('<ve-nodeorder id="NodePanel" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-nodeorder>')
@@ -28,6 +29,7 @@ $(document).ready(function() {
         myDocker.registerPanelType('ResourcePanel', {
             faicon: 'cubes',
             onCreate: function(myPanel) {
+                myPanel.title("资源面板")
                 var $node = $('<ve-resorder style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-resorder>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')
@@ -37,6 +39,7 @@ $(document).ready(function() {
         myDocker.registerPanelType('ControlPanel', {
             faicon: 'cubes',
             onCreate: function(myPanel) {
+                myPanel.title("控制面板")
                 myPanel.maxSize(200, Infinity)
                 var $node = $('<ve-controlpanel style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-controlpanel>')
                 myPanel._main = $node[0]
@@ -47,6 +50,7 @@ $(document).ready(function() {
         myDocker.registerPanelType('ConsolePanel', {
             faicon: 'cubes',
             onCreate: function(myPanel) {
+                myPanel.title("控制台面板")
                 var $node = $('<ve-console style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-console>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')
@@ -57,6 +61,7 @@ $(document).ready(function() {
             isPersistent: true,
             faicon: 'cubes',
             onCreate: function(myPanel) {
+                myPanel.title("渲染面板")
                 myPanel.closeable(false);
 
                 var $tabArea = $('<div style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;">')
@@ -178,6 +183,7 @@ $(document).ready(function() {
         myDocker.registerPanelType('PropPanel', {
             faicon: 'cubes',
             onCreate: function(myPanel) {
+                myPanel.title("属性面板")
                 var $node = $('<ve-proppanel style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-proppanel>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')

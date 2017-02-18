@@ -376,6 +376,10 @@
                     return true
                 }
 
+                if (isBaseType(node)) {
+                    return false
+                }
+
                 var children = node.getChildren()
                 for (var i = 0; i < children.length; i++) {
                     this.recursiveAddChild(children[i], rect, isClick)
@@ -816,7 +820,7 @@
             let rect = object.selector
             let left = Math.min(rect.ex, rect.ex + rect.left)
             let top = Math.min(rect.ey, rect.ey + rect.top)
-            let isClick = rect.left <= 5 && rect.top <= 5
+            let isClick = Math.abs(rect.left) <= 5 && Math.abs(rect.top) <= 5
             let width = Math.abs(rect.left),
                 height = Math.abs(rect.top)
             let e = object.e
