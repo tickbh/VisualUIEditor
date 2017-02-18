@@ -98,6 +98,7 @@ $(document).ready(function() {
                     let newLayout = tabFrame.addTab(subPath, 0, wcDocker.LAYOUT.SIMPLE)
                     newLayout.addItem($node)
                     tabFrame.tab(0, true)
+                    tabFrame.closeable(0, true)
                     newLayout._main = $node[0]
                     myPanel._main = $node[0]
                     myPanel._layout = newLayout
@@ -153,15 +154,27 @@ $(document).ready(function() {
                     Ipc.sendToAll('ui:cur_tab_select', { index: index })
                 }
 
+                let removeCallback = function(obj) {
+                    if (myPanel._close_by_render == true) {
+                        return true
+                    }
+
+                    obj.layout._main.ensureExitCurRender();
+                    return false
+                }
+
                 myPanel.messages['ui:closeCurRender'] = function(event, message) {
+                    myPanel._close_by_render = true
                     tabFrame.removeTab(tabFrame._curTab)
                     tabChanged(tabFrame._curTab)
+                    myPanel._close_by_render = false
                 }
 
                 myPanel.on(wcDocker.EVENT.CUSTOM_TAB_CHANGED, function(data) {
                     tabChanged(data.index)
                 })
 
+                tabFrame.setRemoveCallback(removeCallback);
 
                 setInterval(function() {
                     if (curActivePanel) {

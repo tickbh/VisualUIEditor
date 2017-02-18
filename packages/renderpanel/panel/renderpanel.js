@@ -1052,7 +1052,7 @@
             Ipc.sendToAll('ui:select_items_change', { select_items: select_items })
         },
 
-        _ensureExitCurRender: function() {
+        ensureExitCurRender: function() {
             let runScene = this.$.scene.getRunScene()
             let self = this
             let isModify = false
@@ -1202,7 +1202,7 @@
                 } else if (event.keyCode == KeyCodes('a') && isCtrlKey(event)) {
                     this._doSelectAll()
                 } else if (event.keyCode == KeyCodes('w') && isCtrlKey(event)) {
-                    this._ensureExitCurRender()
+                    this.ensureExitCurRender()
                 } else if (event.keyCode == KeyCodes('esc')) {
                     this.$.scene.getFabricCanvas().clear()
                     this._firstSelectItem = null
