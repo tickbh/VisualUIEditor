@@ -1,7 +1,7 @@
 let ExtTextAtlas = {}
 
 ExtTextAtlas.name = 'UITextAtlas'
-ExtTextAtlas.icon = 'app://res/control/Label.png'
+ExtTextAtlas.icon = 'app://res/control/Atlas.png'
 ExtTextAtlas.tag = 2
 ExtTextAtlas.defRes = 'res/default/AltasNum.png'
 ExtTextAtlas.defStr = '453224679'

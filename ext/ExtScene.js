@@ -1,7 +1,8 @@
 let ExtScene = {}
 
-ExtScene.name = 'Scene'
+ExtScene.UIScale9UIScene
 ExtScene.icon = 'app://res/control/Node.png'
+ExtScene.name = "Scene"
 ExtScene.tag = -1
 
 ExtScene.GenEmptyNode = function() {

@@ -1,55 +1,68 @@
 :host {
-  display: inline-block;
-  box-sizing: border-box;
-  border-radius: 2px;
-  overflow: hidden;
-  font-size: 1rem;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 2px;
+    overflow: hidden;
+    font-size: 1rem;
+    margin-right: 3px;
 }
+
 :host[disabled] {
-  opacity: 0.5;
-  pointer-events: none;
+    opacity: 0.5;
+    pointer-events: none;
 }
+
 :host::shadow ve-buttons-item {
-  border-right: 1px solid transparent;
+    border-right: 1px solid transparent;
 }
+
 :host::shadow ve-buttons-item:first-child {
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
 }
+
 :host::shadow ve-buttons-item:last-child {
-  border-right: 0px;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
+    border-right: 0px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
+
 :host.small::shadow ve-buttons-item {
-  font-size: 0.8rem;
-  padding: .3rem .3rem;
+    font-size: 0.8rem;
+    padding: .3rem .3rem;
 }
+
 :host.large::shadow ve-buttons-item {
-  font-size: 1.2rem;
-  padding: .5rem 1.5rem;
+    font-size: 1.2rem;
+    padding: .5rem 1.5rem;
 }
+
 :host.big::shadow ve-buttons-item {
-  font-size: 1.4rem;
-  padding: .5rem 2rem;
+    font-size: 1.4rem;
+    padding: .5rem 2rem;
 }
+
 :host.classical {
-  border: 1px solid #1f1f1f;
+    border: 1px solid #1f1f1f;
 }
+
 :host.classical::shadow ve-buttons-item {
-  background-image: linear-gradient(#5a5a5a, #444);
-  border: 1px solid #666565;
-  border-left: 0px;
-  padding: 0.3rem 0.3rem;
+    background-image: linear-gradient(#5a5a5a, #444);
+    border: 1px solid #666565;
+    border-left: 0px;
+    padding: 0.3rem 0.3rem;
 }
+
 :host.classical::shadow ve-buttons-item:first-child {
-  border-left: 1px solid #666565;
+    border-left: 1px solid #666565;
 }
+
 :host.classical::shadow ve-buttons-item[selected] {
-  background-image: linear-gradient(#464646, #303030);
-  box-shadow: inset 0 2px 20px rgba(0, 0, 0, 0.9);
+    background-image: linear-gradient(#464646, #303030);
+    box-shadow: inset 0 2px 20px rgba(0, 0, 0, 0.9);
 }
+
 :host.classical::shadow ve-buttons-item[pressed] {
-  background-image: linear-gradient(#5a5a5a, #444);
-  box-shadow: inset 0 2px 20px rgba(0, 0, 0, 0.7);
+    background-image: linear-gradient(#5a5a5a, #444);
+    box-shadow: inset 0 2px 20px rgba(0, 0, 0, 0.7);
 }

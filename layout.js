@@ -6,20 +6,20 @@ $(document).ready(function() {
         allowDrawers: true,
         responseRate: 10,
         themePath: 'app://js/Themes',
-        theme: 'default.min'
+        theme: 'default'
     })
     if (myDocker) {
-        var _currentTheme = 'default.min'
+        var _currentTheme = 'default'
         var _showingInfo = true
         var _savedLayout = null
         var _chatterIndex = 1
 
         myDocker.registerPanelType('NodePanel', {
-            faicon: 'cubes',
+            faicon: 'compass',
             onCreate: function(myPanel) {
                 myPanel.title("节点面板")
                 myPanel.initSize(200, 400)
-                myPanel.maxSize(500, Infinity)
+                myPanel.maxSize(230, Infinity)
                 var $node = $('<ve-nodeorder id="NodePanel" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-nodeorder>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')
@@ -27,7 +27,7 @@ $(document).ready(function() {
         })
 
         myDocker.registerPanelType('ResourcePanel', {
-            faicon: 'cubes',
+            faicon: 'plus-square',
             onCreate: function(myPanel) {
                 myPanel.title("资源面板")
                 var $node = $('<ve-resorder style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-resorder>')
@@ -37,18 +37,18 @@ $(document).ready(function() {
         })
 
         myDocker.registerPanelType('ControlPanel', {
-            faicon: 'cubes',
+            faicon: 'cog',
             onCreate: function(myPanel) {
-                myPanel.title("控制面板")
-                myPanel.maxSize(200, Infinity)
-                var $node = $('<ve-controlpanel style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-controlpanel>')
+                myPanel.title("控件")
+                myPanel.maxSize(125, Infinity)
+                var $node = $('<ve-controlpanel style="position:absolute;top:0px;left:0px;right:0px;bottom:0px; "></ve-controlpanel>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')
             }
         })
 
         myDocker.registerPanelType('ConsolePanel', {
-            faicon: 'cubes',
+            faicon: 'archive',
             onCreate: function(myPanel) {
                 myPanel.title("控制台面板")
                 var $node = $('<ve-console style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-console>')
@@ -59,7 +59,7 @@ $(document).ready(function() {
 
         myDocker.registerPanelType('RenderPanel', {
             isPersistent: true,
-            faicon: 'cubes',
+            faicon: 'github',
             onCreate: function(myPanel) {
                 myPanel.title("渲染面板")
                 myPanel.closeable(false);
@@ -194,7 +194,7 @@ $(document).ready(function() {
         })
 
         myDocker.registerPanelType('PropPanel', {
-            faicon: 'cubes',
+            faicon: 'arrows',
             onCreate: function(myPanel) {
                 myPanel.title("属性面板")
                 var $node = $('<ve-proppanel style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-proppanel>')

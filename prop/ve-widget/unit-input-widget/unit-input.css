@@ -1,139 +1,168 @@
 :host {
-  display: flex;
-  position: relative;
-  box-sizing: border-box;
-  min-width: 60px;
-  border: 1px solid #666666;
-  cursor: default;
-  background: #232323;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    min-width: 60px;
+    border: 1px solid #666666;
+    cursor: default;
+    background: #3a3a3a;
 }
+
 :host:focus {
-  outline: none;
+    outline: none;
 }
+
 :host:hover {
-  border: 1px solid #848484;
+    border: 1px solid #848484;
 }
+
 :host[focused] {
-  border: 1px solid #0c70a6;
+    border: 1px solid #0c70a6;
 }
+
 :host[invalid] {
-  border: 1px solid red;
+    border: 1px solid red;
 }
+
 :host[disabled],
 :host[disabled] .btn {
-  pointer-events: none;
-  background: #3a3a3a;
-  color: #787878;
+    pointer-events: none;
+    background: #3a3a3a;
+    color: #787878;
 }
+
 :host[disabled] #input {
-  color: #787878;
+    color: #787878;
 }
+
 :host[disabled] #input {
-  pointer-events: none;
+    pointer-events: none;
 }
+
 :host[disabled] #input::-webkit-input-placeholder {
-  color: #5a5a5a;
+    color: #5a5a5a;
 }
+
 :host[disabled] * {
-  pointer-events: none;
+    pointer-events: none;
 }
+
 .border {
-  border: 1px solid black;
+    border: 1px solid black;
 }
+
 #input {
-  display: flex;
-  padding: 2px 4px;
-  border: 0;
-  margin: 0;
-  flex: 1;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: transparent;
-  color: #ddd;
-  text-shadow:#666 1px 0 0,#666 0 1px 0,#666 -1px 0 0,#666 0 -1px 0;
-  pointer-events: auto;
-  user-select: auto;
-  cursor: auto;
-  border-right: 0px;
-  width: 100%;
+    display: flex;
+    padding: 2px 4px;
+    border: 0;
+    margin: 0;
+    flex: 1;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: transparent;
+    color: #ddd;
+    pointer-events: auto;
+    user-select: auto;
+    cursor: auto;
+    border-right: 0px;
+    width: 100%;
 }
+
 #hint {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #535353;
-  border-radius: 1px;
-  font-size: 9px;
-  font-weight: bold;
-  color: #eee;
-  text-shadow:#666 1px 0 0,#666 0 1px 0,#666 -1px 0 0,#666 0 -1px 0;
-  cursor: ew-resize;
-  margin-right: 4px;
-  padding: 0px 5px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #535353;
+    border-radius: 1px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #eee;
+    cursor: ew-resize;
+    margin-right: 3px;
+    margin-left: 2px;
+    padding: 3px 5px;
 }
+
 #input::selection {
-  background: #007acc;
+    background: #007acc;
 }
+
 #input:focus {
-  outline: none;
+    outline: none;
 }
+
 :host.mini #input {
-  font-size: 0.6rem;
+    font-size: 0.6rem;
 }
+
 :host.small #input {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
+
 :host #input {
-  font-size: 1.0rem;
+    font-size: 1.0rem;
 }
+
 :host.large #input {
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 }
+
 :host.big #input {
-  font-size: 1.6rem;
+    font-size: 1.6rem;
 }
+
 :host.mini .btngroup {
-  font-size: 0.6rem;
+    font-size: 0.6rem;
 }
+
 :host.small .btngroup {
-  font-size: 0.6rem;
+    font-size: 0.6rem;
 }
+
 :host .btngroup {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
+
 :host.large .btngroup {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
+
 :host.big .btngroup {
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 }
+
 .btngroup {
-  flex: 0 0 10px;
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  color: #aaa;
+    flex: 0 0 10px;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    color: #aaa;
 }
+
 .btn {
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  background-color: #474747;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-  padding-left: 1px;
-  border-top: 1px solid #000;
-  cursor: pointer;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #474747;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    padding-left: 1px;
+    border-top: 1px solid #000;
+    cursor: pointer;
 }
+
 .btn:hover {
-  background: #6c6c6c;
+    background: #6c6c6c;
 }
+
 .btn:active {
-  background: #393939;
-  color: #787878;
+    background: #393939;
+    color: #787878;
 }
+
 .btn:first-child {
-  border-top: none;
+    border-top: none;
 }
+
 :host[disabled] #hint {
-  opacity: 0.5;
+    opacity: 0.5;
 }

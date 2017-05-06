@@ -260,7 +260,7 @@
             item['onmouseover'] = (function(e) {
                 this._curMouseOverItem = item
                 if (!item._isSlected) {
-                    item.$.header.style.background = 'LightSkyBlue'
+                    item.$.header.style.background = '#596678'
                 }
                 e.preventDefault()
                 e.stopPropagation()
@@ -309,7 +309,7 @@
                 if (_item._isSlected) {
                     return
                 }
-                _item.$.header.style.background = 'blue'
+                _item.$.header.style.background = '#205399'
                 _item._isSlected = true
 
                 let parentNode = Polymer.dom(_item).parentNode

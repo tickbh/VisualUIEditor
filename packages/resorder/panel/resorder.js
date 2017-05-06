@@ -252,7 +252,7 @@
             item['onmouseover'] = (function(e) {
                 this._curMouseOverItem = item
                 if (!item._isSlected) {
-                    item.$.header.style.background = 'LightSkyBlue'
+                    item.$.header.style.background = '#596678'
                 }
                 e.preventDefault()
                 e.stopPropagation()
@@ -299,7 +299,7 @@
                 if (this._curSelectItem == null) {
                     this._curSelectItem = _item
                 }
-                _item.$.header.style.background = 'blue'
+                _item.$.header.style.background = '#205399'
                 _item._isSlected = true
                 Ipc.sendToAll('ui:item_path_click', { path: e.currentTarget.path })
             }).bind(this)
