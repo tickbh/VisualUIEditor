@@ -19,7 +19,7 @@ $(document).ready(function() {
             onCreate: function(myPanel) {
                 myPanel.title("节点面板")
                 myPanel.initSize(200, 400)
-                myPanel.maxSize(230, Infinity)
+                myPanel.maxSize(Infinity, Infinity)
                 var $node = $('<ve-nodeorder id="NodePanel" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-nodeorder>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')
@@ -30,6 +30,7 @@ $(document).ready(function() {
             faicon: 'plus-square',
             onCreate: function(myPanel) {
                 myPanel.title("资源面板")
+                myPanel.initSize(200, 400)
                 var $node = $('<ve-resorder style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-resorder>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')
@@ -225,7 +226,12 @@ $(document).ready(function() {
         if (getSaveData('saveLayout')) {
             myDocker.restore(getSaveData('saveLayout'))
         } else {
-            myDocker.setInitLayout()
+            var data = GetFileContent("layout.json");
+            if(data) {
+                myDocker.restore(data)
+            } else {
+                myDocker.setInitLayout()
+            }
         }
 
         myDocker.on(wcDocker.EVENT.LOADED, function() {

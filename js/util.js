@@ -369,6 +369,16 @@ function AddLinkToScripte(url, callback) {
     head.appendChild(linkTag)
 }
 
+
+function GetFileContent(file) {
+    try {
+        let content = fs.readFileSync(file)
+        return content
+    } catch (e) {
+        return ''
+    }
+}
+
 function GetFileToData(file) {
     try {
         let content = fs.readFileSync(file)
