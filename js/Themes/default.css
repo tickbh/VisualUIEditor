@@ -97,9 +97,9 @@
     border-left: none;
     border-radius: 3px 3px 0px 0px;
     border-bottom: 0px;
-    margin-right: 3px;
     font-size: 12px;
     padding: 4px 7px 1px 5px;
+    margin-top: 2.5px;
 }
 
 .wcPanelTab:hover,
@@ -110,7 +110,6 @@
 .wcPanelTabActive {
     color: #e1e1e1;
     background-color: #535353;
-    margin-top: 3px;
     z-index: 99999;
 }
 
