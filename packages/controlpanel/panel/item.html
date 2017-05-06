@@ -1,21 +1,20 @@
 <dom-module id="ve-control-item">
-  <link rel="import" type="css" href="item.css">
+    <link rel="import" type="css" href="item.css">
 
-  <template>
+    <template>
       <style>
         #name {
-          border: 1px solid black;
-
-          box-shadow: inset 0 0 8px 2px rgba(0,0,0,0.2);
-          background: #333;
+          
           font-size: larger;
+          color:aliceblue;
+          font-family: "微软雅黑";
         }
       </style>
       <div class="desc layout horizontal center">
-        <img src="{{icon}}" width="46" height="46"></img>
-        <div id="name" fontsize="40x">{{name}}</div>
+        <img src="{{icon}}" width="25" height="25" style=" margin:0px 8px 8px 10px; "></img>
+        <div id="name" style="font-size: 12px; padding: 3px;">{{name}}</div>
       </div>
   </template>
 
-  <script type="text/javascript" src="item.js"></script>
+    <script type="text/javascript" src="item.js"></script>
 </dom-module>

@@ -1,129 +1,150 @@
 :host {
-  display: inherit;
-  overflow: hidden;
+    display: inherit;
+    overflow: hidden;
 }
+
 .bg {
-  display: inline-block;
-  vertical-align: baseline;
-  line-height: 1;
-  margin: 0 .125em;
-  background-color: #e8e8e8;
-  border-color: #e8e8e8;
-  background-image: none;
-  position: relative;
-  color: rgba(0, 0, 0, 0.6);
-  text-transform: none;
-  border-radius: .35em;
-  font-weight: bold;
-  box-sizing: border-box;
-  -webkit-transition: background .2s ease;
-  transition: background .2s ease;
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 1;
+    margin: 0 .125em;
+    background-color: #e8e8e8;
+    border-color: #e8e8e8;
+    background-image: none;
+    position: relative;
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: none;
+    border-radius: .35em;
+    font-weight: bold;
+    box-sizing: border-box;
+    -webkit-transition: background .2s ease;
+    transition: background .2s ease;
 }
+
 .text {
-  padding: .5em .8em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    padding: .5em .8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
 :host.image .bg {
-  width: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  max-width: 9999px;
-  vertical-align: baseline;
-  text-transform: none;
-  background: #e8e8e8;
-  padding: .6em .8em .6em .5em;
-  border-radius: .2857rem;
-  box-shadow: none;
+    width: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: 9999px;
+    vertical-align: baseline;
+    text-transform: none;
+    background: #e8e8e8;
+    padding: .6em .8em .6em .5em;
+    border-radius: .2857rem;
+    box-shadow: none;
 }
+
 :host.image::shadow img {
-  display: inline-block;
-  vertical-align: top;
-  height: 2.2em;
-  margin: -0.6em 0.5em -0.6em -0.5em;
-  border-radius: .2857rem;
+    display: inline-block;
+    vertical-align: top;
+    height: 2.2em;
+    margin: -0.6em 0.5em -0.6em -0.5em;
+    border-radius: .2857rem;
 }
+
 :host::shadow .fa {
-  margin: 0 0.5rem;
-  height: 1em;
+    margin: 0 0.5rem;
+    height: 1em;
 }
+
 :host.mini .text {
-  font-size: 0.8rem;
-  padding: 0.3em 0.4em;
+    font-size: 0.8rem;
+    padding: 0.3em 0.4em;
 }
+
 :host.small .text {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
+
 :host .text {
-  font-size: 1rem;
+    font-size: 1rem;
 }
+
 :host.large .text {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
+
 :host.big .text {
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 }
+
 :host[disabled] .bg {
-  opacity: 0.5;
-  pointer-events: none;
+    opacity: 0.5;
+    pointer-events: none;
 }
+
 :host.pointing .bg {
-  margin-top: 1em;
-  border-radius: .2815em;
-  font-weight: bold;
+    margin-top: 1em;
+    border-radius: .2815em;
+    font-weight: bold;
 }
+
 :host.pointing .bg::before {
-  position: absolute;
-  content: '';
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-  z-index: 2;
-  width: .6em;
-  height: .6em;
-  -webkit-transition: background .2s ease;
-  transition: background .2s ease;
-  background-color: #e8e8e8;
-  background-image: none;
-  margin-left: -0.3em;
-  top: -0.2em;
-  left: 50%;
+    position: absolute;
+    content: '';
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 2;
+    width: .6em;
+    height: .6em;
+    -webkit-transition: background .2s ease;
+    transition: background .2s ease;
+    background-color: #e8e8e8;
+    background-image: none;
+    margin-left: -0.3em;
+    top: -0.2em;
+    left: 50%;
 }
+
 :host.left .bg::before {
-  margin: 0;
-  margin-top: .7em;
-  margin-left: -0.3em;
-  left: 0;
+    margin: 0;
+    margin-top: .7em;
+    margin-left: -0.3em;
+    left: 0;
 }
+
 :host.left .bg {
-  margin: 0;
-  margin-left: 1em;
+    margin: 0;
+    margin-left: 1em;
 }
+
 :host.right .bg::before {
-  margin-top: .7em;
-  margin-right: -0.3em;
-  right: 0;
-  left: inherit;
+    margin-top: .7em;
+    margin-right: -0.3em;
+    right: 0;
+    left: inherit;
 }
+
 :host.right .bg {
-  margin: 0;
-  margin-right: 1em;
+    margin: 0;
+    margin-right: 1em;
 }
+
 :host.bottom .bg::before {
-  margin-left: -0.3em;
-  top: auto;
-  right: auto;
-  bottom: -0.3em;
-  left: 50%;
+    margin-left: -0.3em;
+    top: auto;
+    right: auto;
+    bottom: -0.3em;
+    left: 50%;
 }
+
 :host.bottom .bg {
-  margin: 0;
-  margin-bottom: 1em;
+    margin: 0;
+    margin-bottom: 1em;
 }
+
 :host.mini.left .bg::before {
-  margin-top: .8em;
+    margin-top: .8em;
 }
+
 :host.mini.right .bg::before {
-  margin-top: .8em;
+    margin-top: .8em;
 }

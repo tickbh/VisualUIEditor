@@ -1,38 +1,42 @@
 :host {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  background-color: #5C5C5C;
-  cursor: pointer;
-  font-weight: bold;
-  margin: 0px;
-  min-width: 35px;
-  text-align: center;
-  flex-grow: 1;
-  padding: 0.5rem 0.4rem;
-  overflow: hidden;
-  white-space: nowrap;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  color: #F2F2F2;
-  transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: #999;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0px;
+    min-width: 35px;
+    text-align: center;
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    color: #F2F2F2;
+    transition: all 0.1s ease;
 }
+
 :host ::content .fa {
-  padding: 0.2rem 0.4rem;
+    padding: 0.2rem 0.4rem;
 }
+
 :host:hover {
-  background-color: #696969;
+    background-color: #464646;
 }
+
 :host:focus {
-  outline: none;
+    outline: none;
 }
+
 :host[pressed] {
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-  color: #dedede;
-  background-color: #303030;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #dedede;
+    background-color: #303030;
 }
+
 :host[selected] {
-  background-color: #2A2A2A;
-  color: #279DFF;
-  border-color: #343333;
+    background-color: #2A2A2A;
+    color: #fff;
+    border-color: #343333;
 }

@@ -1,31 +1,34 @@
 :host {
-	display:flex;
-	/*flex-direction:row;
+    display: flex;
+    /*flex-direction:row;
 	flex-wrap:nowrap;*/
-	align-items:center;
-	font-size:12px;
-	box-sizing:border-box;
-	min-height:20px;
-	margin-top:3px;
-	margin-bottom:3px;
-	cursor:default
+    align-items: center;
+    font-size: 12px;
+    box-sizing: border-box;
+    min-height: 20px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    cursor: default;
+    letter-spacing: 1px;
+    font-family: "微软雅黑"
 }
+
 .group {
-	margin-left:15px;
-	margin-right:10px
+    margin-left: 10px;
+    margin-right: 10px
 }
+
 .name {
-	min-width:50px;
-	max-width:50px;
-	text-overflow:ellipsis;
-	overflow:hidden;
-	white-space:nowrap;
-	color: #ddd;
-	text-shadow:#666 1px 0 0,#666 0 1px 0,#666 -1px 0 0,#666 0 -1px 0;
+    min-width: 50px;
+    max-width: 50px;
+    text-overflow: ellipsis;
+    color: #fff;
 }
+
 .name:hover {
-	color:#f90
+    color: #f90
 }
+
 :host[focused] .name {
-	color:#00a6ff
+    color: #00a6ff
 }

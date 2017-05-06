@@ -1,12 +1,11 @@
 :host {
     display: block;
     box-sizing: border-box;
-
-    font-size: 12px;
+    font-size: 14px;
     margin-left: 0px;
 }
 
-:host[folded] > #content {
+:host[folded]>#content {
     display: none;
 }
 
@@ -22,7 +21,7 @@
     height: 16px;
 }
 
-:host[selected] > #bar {
+:host[selected]>#bar {
     background-color: #555;
 }
 
@@ -31,37 +30,33 @@
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: flex-end;
-
     white-space: nowrap;
     height: 16px;
-
-    color: #aaa;
+    margin-top: 3px;
+    color: #fff;
     cursor: default;
+    padding: 3px 0px 2px 2px;
 }
 
 #foldIcon {
     flex: none;
-
     font-size: 16px;
     width: 10px;
-    margin-right: 2px;
-
+    margin-right: 5px;
     visibility: hidden;
     cursor: pointer;
     text-align: center;
 }
 
-:host[foldable] > #header #foldIcon {
+:host[foldable]>#header #foldIcon {
     visibility: visible;
 }
 
 #icon {
     flex: none;
-
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     margin-right: 2px;
-
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -71,7 +66,6 @@
     font-size: 14px;
     flex: none;
     color: #ddd;
-    text-shadow:#666 1px 0 0,#666 0 1px 0,#666 -1px 0 0,#666 0 -1px 0;
 }
 
 #content {

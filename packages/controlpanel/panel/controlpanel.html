@@ -1,7 +1,7 @@
 <link rel="import" href="item.html">
 
 <dom-module id="ve-controlpanel">
-  <template>
+    <template>
     <style>
       :host {
         @apply(--layout-vertical);
@@ -25,22 +25,21 @@
       }
 
       #view {
-        border: 1px solid black;
-
         box-shadow: inset 0 0 8px 2px rgba(0,0,0,0.2);
-        background: #333;
+                      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    background-image: linear-gradient(#363636, #565656);
       }
 
       ul {
         padding: 0px;
         margin: 0px;
-
         overflow: auto;
       }
 
       .line {
-        border-bottom: 2px solid #666;
-        margin: 0px 1px 10px 0px;
+        border-top: 1px solid #333;
+        border-bottom: 1px solid #717171;
+
       }
 
     </style>
@@ -55,11 +54,10 @@
         <div class="line"></div>
       </template>
     </ul>
-  </template>
+    </template>
 
-  <script>
+    <script>
+    </script>
 
-  </script>
-  
-  <script type="text/javascript" src="controlpanel.js"></script>
+    <script type="text/javascript" src="controlpanel.js"></script>
 </dom-module>

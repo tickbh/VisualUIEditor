@@ -8,18 +8,18 @@
       .toolbar {
         position: relative;
         box-sizing: border-box;
-        height: 26px;
-
+        height: 28px;
         display: flex;
         flex: none;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
-
-        padding: 4px 2px;
+        background-color: #323232;
+        padding: 1px 1px;
         font-size: 1.0rem;
         white-space: nowrap;
         overflow: hidden;
+
       }
 
       #view {
@@ -37,15 +37,16 @@
       }
 
     </style>
-
     <div class="toolbar flex-1">
-
       <ve-input
         class="flex-1"
         id="input"
         placeholder="搜索"
         cancelable
       ></ve-input>
+      <ve-button class="black small transparent" id="openFloder" on-confirm="_onOpenFloder">
+        <i class="fa fa-folder"></i>
+      </ve-button>
       <ve-button class="black small transparent" on-confirm="_foldedAll">
         <i class="fa fa-compress"></i>
       </ve-button>
@@ -60,8 +61,7 @@
       </ve-button>
     </div>
 
-    <ve-button id="openFloder" on-confirm="_onOpenFloder" >打开文件夹</ve-button>
-    <td-tree-view id="tree" class="flex"></td-tree-view>
+    <td-tree-view id="tree" class="flex" style="border-top:0px;"></td-tree-view>
   </template>
 
     <script>

@@ -1,7 +1,7 @@
 let ExtRichText = {}
 
 ExtRichText.name = 'UIRichText'
-ExtRichText.icon = 'app://res/control/Label.png'
+ExtRichText.icon = 'app://res/control/Rich.png'
 ExtRichText.tag = 2
 
 ExtRichText.GenEmptyNode = function() {

@@ -1,7 +1,7 @@
 let ExtArmature = {}
 
 ExtArmature.name = 'UIArmature'
-ExtArmature.icon = 'app://res/control/Scale9.png'
+ExtArmature.icon = 'app://res/control/Armature.png'
 ExtArmature.tag = 10
 
 ExtArmature.GenEmptyNode = function() {

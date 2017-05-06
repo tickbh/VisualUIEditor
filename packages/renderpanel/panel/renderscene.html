@@ -9,12 +9,12 @@
 
             overflow-x: hidden;
             overflow-y: hidden;
-            border: 1px solid #171717;
-            padding: 1px 5px;
+            border-right: 1px solid #171717;
+            border-top: 1px solid #171717;
             position: relative;
 
             box-shadow: inset 0 0 8px 2px rgba(0,0,0,0.2);
-            background: url(app://res/grid.png) repeat;
+            background: #262626;
 
             min-width: 100px;
             min-height: 100px;
@@ -23,19 +23,18 @@
         #gameCanvas {
             display:inline-block;
             position: absolute;
-            border:2px solid red; 
-            border-radius: 10px; 
+            border: 2px solid #000;
+            border-radius: 10px;
             background: url(app://res/grid2.png) repeat;
-            box-shadow: 0 5px 50px #333;
+            box-shadow: 0 4px 4px #090909;
             margin: 0 auto; 
+
         }
 
         #forgeCanvas {
             display: inline-block;
             position: absolute;
-            border:1px solid black; 
-            border-radius: 10px; 
-            box-shadow: 0 5px 50px #333;
+            border:1px solid 333; 
             left: 0px;
             top: 0px;
             margin: 0 auto; 
@@ -46,6 +45,6 @@
         <canvas id="forgeCanvas" ></canvas>
     </template>
 
-  <script type="text/javascript" src="renderscene.js"></script>
-    
+    <script type="text/javascript" src="renderscene.js"></script>
+
 </dom-module>

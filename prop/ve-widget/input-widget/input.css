@@ -1,88 +1,105 @@
 :host {
-  display: flex;
-  position: relative;
-  box-sizing: border-box;
-  min-width: 60px;
-  border: 1px solid #666666;
-  cursor: default;
-  background: #232323;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    min-width: 60px;
+    cursor: default;
+    background: #555353;
+    margin-right: 2px;
+    margin-left: 2px;
 }
+
 :host:focus {
-  outline: none;
+    outline: none;
 }
+
 :host:hover {
-  border: 1px solid #999;
+    border: 1px solid #999;
 }
+
 :host[focused] {
-  border: 1px solid #228B22;
+    border: 1px solid #228B22;
 }
+
 :host[disabled] {
-  pointer-events: none;
-  background: #000;
+    pointer-events: none;
+    background: #000;
 }
+
 :host[disabled] #input {
-  color: #787878;
+    color: #787878;
 }
+
 :host[disabled] #input {
-  pointer-events: none;
+    pointer-events: none;
 }
+
 #input {
-  display: block;
-  padding: 2px 4px;
-  border: 0;
-  margin: 0;
-  width: 100%;
-  font-family: Arial, sans-serif;
-  background: transparent;
-  color: #bbb;
-  pointer-events: auto;
-  user-select: auto;
-  cursor: auto;
-  border: 1px solid black;
+    display: block;
+    padding: 3px 3px 3px 5px;
+    border: 0;
+    margin: 0;
+    width: 100%;
+    font-family: "宋体";
+    background: transparent;
+    color: #fff;
+    pointer-events: auto;
+    user-select: auto;
+    cursor: auto;
 }
+
 #input::-webkit-input-placeholder {
-  font-style: italic;
-  color: #666;
-  text-shadow: none;
+    color: #eaeaea;
+    text-shadow: none;
+    font-size: 14px;
 }
+
 #input:focus {
-  outline: none;
+    outline: none;
 }
+
 #input::selection {
-  background: #007acc;
+    background: #007acc;
 }
+
 :host.mini #input {
-  font-size: 0.6rem;
+    font-size: 0.6rem;
 }
+
 :host.small #input {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
-:host #input {
-  font-size: 1.0rem;
-}
+
+:host #input {}
+
 :host.large #input {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
+
 :host.big #input {
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 }
+
 :host[readonly] #input {
-  -webkit-user-select: text;
-  cursor: text;
+    -webkit-user-select: text;
+    cursor: text;
 }
+
 .fa-times-circle {
-  display: block;
-  padding: 0;
-  margin: -0.48em 0 0 0;
-  position: absolute;
-  top: 50%;
-  right: 4px;
-  cursor: pointer;
+    display: block;
+    padding: 0;
+    margin: -0.48em 0 0 0;
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    cursor: pointer;
 }
+
 :host .fa-times-circle {
-  font-size: 1.0rem;
-  height: 1.2em;
+    font-size: 1.0rem;
+    height: 1.2em;
 }
+
 :host[cancelable] #input {
-  padding-right: 1.4em;
+    padding-right: 1.4em;
 }

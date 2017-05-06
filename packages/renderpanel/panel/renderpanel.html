@@ -1,7 +1,7 @@
 <link rel="import" href="renderscene.html">
 
 <dom-module id="ve-renderpanel">
-  <template>
+    <template>
     <style>
       :host {
         @apply(--layout-vertical);
@@ -14,14 +14,14 @@
       .toolbar {
         position: relative;
         box-sizing: border-box;
-        height: 26px;
-
+        height: 32px;
+        border-top:1px solid #333;
         display: flex;
         flex: none;
         flex-direction: row;
         flex-wrap: nowrap;
         align-items: center;
-
+background-color: #535353;
         padding: 4px 2px;
         font-size: 1.0rem;
         white-space: nowrap;
@@ -45,7 +45,7 @@
       #location {
         font-size: 16px;
       }
-
+      p {text-indent: 10px; padding-right:10px;}
     </style>
 
     <div class="toolbar">
@@ -57,7 +57,7 @@
           <i title="源代码" class="fa fa-code"></i>
         </ve-buttons-item>
       </ve-buttons>
-
+<div style="height:15px; width:1px;  margin:0 2px 0 2px;" class="style-scope ve-renderpanel"></div>
       <ve-button class="black small transparent" on-confirm="_realignPosition">
         <i title="居中排列" class="fa fa-adjust"></i>
       </ve-button>
@@ -66,7 +66,7 @@
         <i title="强制刷新" class="fa fa-refresh"></i>
       </ve-button>
 
-      <div style="height:100px; width:1px; border-left:1px #000 solid"></div>
+      <div style="height:15px; width:1px; border-left:1px #999 dashed; margin:0 3px 0 3px;" class="style-scope ve-renderpanel"></div>
 
       <ve-button title="水平居左对齐" class="black small transparent" on-confirm="_alignLeft">
         <img src="app://res/align-left.png"></img>
@@ -79,8 +79,8 @@
       <ve-button title="水平居右对齐" class="black small transparent" on-confirm="_alignRight">
         <img src="app://res/align-right.png"></img>
       </ve-button>
-      
-      <div style="height:100px; width:1px; border-left:1px #000 solid"></div>
+
+         <div style="height:15px; width:1px; border-left:1px #999 dashed;  margin:0 3px 0 3px;" class="style-scope ve-renderpanel"></div>
 
       <ve-button title="竖直居上对齐" class="black small transparent" on-confirm="_alignTop">
         <img src="app://res/align-top.png"></img>
@@ -114,7 +114,7 @@
     <div id="code" class="flex" hidden="true"></div>
   </template>
 
-  <script src="app://third/ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
-  
-  <script type="text/javascript" src="renderpanel.js"></script>
+    <script src="app://third/ace/src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+    <script type="text/javascript" src="renderpanel.js"></script>
 </dom-module>

@@ -1,6 +1,6 @@
 let ExtScene = {}
 
-ExtScene.name = 'Scene'
+ExtScene.UIScale9UIScene
 ExtScene.icon = 'app://res/control/Node.png'
 ExtScene.tag = -1
 
