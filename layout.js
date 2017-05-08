@@ -18,7 +18,7 @@ $(document).ready(function() {
             faicon: 'compass',
             onCreate: function(myPanel) {
                 myPanel.title("节点面板")
-                myPanel.initSize(200, 400)
+                myPanel.initSize(240, 400)
                 myPanel.maxSize(Infinity, Infinity)
                 var $node = $('<ve-nodeorder id="NodePanel" style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-nodeorder>')
                 myPanel._main = $node[0]
@@ -30,7 +30,7 @@ $(document).ready(function() {
             faicon: 'plus-square',
             onCreate: function(myPanel) {
                 myPanel.title("资源面板")
-                myPanel.initSize(200, 400)
+                myPanel.initSize(240, 400)
                 var $node = $('<ve-resorder style="position:absolute;top:0px;left:0px;right:0px;bottom:0px;"></ve-resorder>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')
@@ -41,7 +41,7 @@ $(document).ready(function() {
             faicon: 'cog',
             onCreate: function(myPanel) {
                 myPanel.title("控件")
-                myPanel.maxSize(125, Infinity)
+                myPanel.maxSize(135, Infinity)
                 var $node = $('<ve-controlpanel style="position:absolute;top:0px;left:0px;right:0px;bottom:0px; "></ve-controlpanel>')
                 myPanel._main = $node[0]
                 myPanel.layout().addItem($node).stretch('', '100%')
@@ -223,11 +223,11 @@ $(document).ready(function() {
                 // var gridPanel = myDocker.addPanel('GridPanel', wcDocker.DOCK.LEFT, wcDocker.COLLAPSED, {h: '20%'})
         }
 
-        if (getSaveData('saveLayout')) {
+        if (false && getSaveData('saveLayout')) {
             myDocker.restore(getSaveData('saveLayout'))
         } else {
             var data = GetFileContent("layout.json");
-            if(data) {
+            if (data) {
                 myDocker.restore(data)
             } else {
                 myDocker.setInitLayout()
