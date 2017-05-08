@@ -41,7 +41,6 @@
 
 .wcFrameTitleBar {
     height: 22px;
-    background-color: #777;
 }
 
 .wcFrameTitle {
@@ -72,7 +71,7 @@
 
 .wcFrameButton:active,
 .wcFrameButtonActive {
-    border: 2px inset #444;
+    background: #fff;
 }
 
 .wcFrameCenter {
@@ -97,9 +96,8 @@
     border-left: none;
     border-radius: 3px 3px 0px 0px;
     border-bottom: 0px;
-    font-size: 12px;
+    font-size: 13px;
     padding: 4px 7px 1px 5px;
-    margin-top: 2.5px;
 }
 
 .wcPanelTab:hover,
@@ -110,7 +108,7 @@
 .wcPanelTabActive {
     color: #e1e1e1;
     background-color: #535353;
-    z-index: 99999;
+    z-index: 100;
 }
 
 .wcPanelTabActive:hover,
@@ -176,7 +174,8 @@
 .wcMenuItem,
 .context-menu-item,
 .context-menu-list {
-    background-color: #444;
+    background-color: #999;
+    z-index: 200;
 }
 
 .wcMenuItemHover,
@@ -188,13 +187,13 @@
 .wcMenuItem.disabled,
 .context-menu-item.disabled {
     color: #333;
-    background-color: #444;
+    background-color: #999;
 }
 
 .wcMenuSeparator,
 .context-menu-separator {
-    border: 2px solid #444;
-    background-color: #777;
+    border: 2px solid #666;
+    background-color: #999;
 }
 
 .wcLoadingBackground {
