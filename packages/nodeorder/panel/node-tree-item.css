@@ -66,6 +66,11 @@
     font-size: 14px;
     flex: none;
     color: #ddd;
+    min-width: 60%;
+    max-width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #content {

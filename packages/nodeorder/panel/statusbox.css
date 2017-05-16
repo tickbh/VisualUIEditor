@@ -8,6 +8,8 @@
     text-align: left;
     color: #ddd;
     cursor: pointer;
+    position: absolute;
+    right: 0px;
 }
 
 :host[focused] {
