@@ -66,8 +66,8 @@
     font-size: 14px;
     flex: none;
     color: #ddd;
-    min-width: 60%;
-    max-width: 60%;
+    min-width: 30%;
+    max-width: 82%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

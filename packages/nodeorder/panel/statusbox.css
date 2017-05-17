@@ -10,6 +10,7 @@
     cursor: pointer;
     position: absolute;
     right: 0px;
+    width: 15px;
 }
 
 :host[focused] {
