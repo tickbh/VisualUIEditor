@@ -1,235 +1,247 @@
 {
-    "floating": [
+    "floating":[
 
     ],
-    "root": {
-        "type": "wcSplitter",
-        "horizontal": true,
-        "isDrawer": false,
-        "pane0": {
-            "type": "wcSplitter",
-            "horizontal": true,
-            "isDrawer": false,
-            "pane0": {
-                "type": "wcSplitter",
-                "horizontal": false,
-                "isDrawer": false,
-                "pane0": {
-                    "type": "wcFrame",
-                    "floating": false,
-                    "isFocus": false,
-                    "tabOrientation": "top",
-                    "pos": {
-                        "x": 0.5,
-                        "y": 0.5
+    "root":{
+        "type":"wcSplitter",
+        "horizontal":true,
+        "isDrawer":false,
+        "pane0":{
+            "type":"wcSplitter",
+            "horizontal":true,
+            "isDrawer":false,
+            "pane0":{
+                "type":"wcSplitter",
+                "horizontal":false,
+                "isDrawer":false,
+                "pane0":{
+                    "type":"wcFrame",
+                    "floating":false,
+                    "isFocus":false,
+                    "tabOrientation":"top",
+                    "pos":{
+                        "x":0.5,
+                        "y":0.5
                     },
-                    "size": {
-                        "x": 300,
-                        "y": 400
+                    "size":{
+                        "x":300,
+                        "y":400
                     },
-                    "tab": 0,
-                    "panels": [{
-                        "type": "wcPanel",
-                        "panelType": "NodePanel",
-                        "size": {
-                            "x": 300,
-                            "y": 400
-                        },
-                        "customData": {
+                    "tab":0,
+                    "panels":[
+                        {
+                            "type":"wcPanel",
+                            "panelType":"NodePanel",
+                            "size":{
+                                "x":300,
+                                "y":400
+                            },
+                            "customData":{
 
+                            }
                         }
-                    }]
+                    ]
                 },
-                "pane1": {
-                    "type": "wcFrame",
-                    "floating": false,
-                    "isFocus": false,
-                    "tabOrientation": "top",
-                    "pos": {
-                        "x": 0.5,
-                        "y": 0.5
+                "pane1":{
+                    "type":"wcFrame",
+                    "floating":false,
+                    "isFocus":false,
+                    "tabOrientation":"top",
+                    "pos":{
+                        "x":0.5,
+                        "y":0.5
                     },
-                    "size": {
-                        "x": 300,
-                        "y": 585
+                    "size":{
+                        "x":300,
+                        "y":585
                     },
-                    "tab": 0,
-                    "panels": [{
-                        "type": "wcPanel",
-                        "panelType": "ResourcePanel",
-                        "size": {
-                            "x": 300,
-                            "y": 585
-                        },
-                        "customData": {
+                    "tab":0,
+                    "panels":[
+                        {
+                            "type":"wcPanel",
+                            "panelType":"ResourcePanel",
+                            "size":{
+                                "x":300,
+                                "y":585
+                            },
+                            "customData":{
 
+                            }
                         }
-                    }]
+                    ]
                 },
-                "pos": 0.42488804004214964
+                "pos":0.4448103266596417
             },
-            "pane1": {
-                "type": "wcSplitter",
-                "horizontal": true,
-                "isDrawer": false,
-                "pane0": {
-                    "type": "wcFrame",
-                    "floating": false,
-                    "isFocus": false,
-                    "tabOrientation": "top",
-                    "pos": {
-                        "x": 0.5,
-                        "y": 0.5
+            "pane1":{
+                "type":"wcSplitter",
+                "horizontal":true,
+                "isDrawer":false,
+                "pane0":{
+                    "type":"wcFrame",
+                    "floating":false,
+                    "isFocus":false,
+                    "tabOrientation":"top",
+                    "pos":{
+                        "x":0.5,
+                        "y":0.5
                     },
-                    "size": {
+                    "size":{
 
                     },
-                    "tab": 0,
-                    "panels": [{
-                        "type": "wcPanel",
-                        "panelType": "ControlPanel",
-                        "size": {
-                            "x": 300,
-                            "y": -1
-                        },
-                        "customData": {
+                    "tab":0,
+                    "panels":[
+                        {
+                            "type":"wcPanel",
+                            "panelType":"ControlPanel",
+                            "size":{
+                                "x":300,
+                                "y":-1
+                            },
+                            "customData":{
 
+                            }
                         }
-                    }]
+                    ]
                 },
-                "pane1": {
-                    "type": "wcFrame",
-                    "floating": false,
-                    "isFocus": false,
-                    "tabOrientation": "top",
-                    "pos": {
-                        "x": 0.5,
-                        "y": 0.5
+                "pane1":{
+                    "type":"wcFrame",
+                    "floating":false,
+                    "isFocus":false,
+                    "tabOrientation":"top",
+                    "pos":{
+                        "x":0.5,
+                        "y":0.5
                     },
-                    "size": {
+                    "size":{
 
                     },
-                    "tab": 0,
-                    "panels": [{
-                        "type": "wcPanel",
-                        "panelType": "RenderPanel",
-                        "size": {
-                            "x": -1,
-                            "y": -1
-                        },
-                        "customData": {
+                    "tab":0,
+                    "panels":[
+                        {
+                            "type":"wcPanel",
+                            "panelType":"RenderPanel",
+                            "size":{
+                                "x":-1,
+                                "y":-1
+                            },
+                            "customData":{
 
+                            }
                         }
-                    }]
+                    ]
                 },
-                "pos": 0.10727705410821643
+                "pos":0.10324483775811209
             },
-            "pos": 0.1201641266119578
+            "pos":0.20281359906213364
         },
-        "pane1": {
-            "type": "wcFrame",
-            "floating": false,
-            "isFocus": false,
-            "tabOrientation": "top",
-            "pos": {
-                "x": 0.5,
-                "y": 0.5
+        "pane1":{
+            "type":"wcFrame",
+            "floating":false,
+            "isFocus":false,
+            "tabOrientation":"top",
+            "pos":{
+                "x":0.5,
+                "y":0.5
             },
-            "size": {
+            "size":{
 
             },
-            "tab": 0,
-            "panels": [{
-                "type": "wcPanel",
-                "panelType": "PropPanel",
-                "size": {
-                    "x": 300,
-                    "y": -1
-                },
-                "customData": {
+            "tab":0,
+            "panels":[
+                {
+                    "type":"wcPanel",
+                    "panelType":"PropPanel",
+                    "size":{
+                        "x":300,
+                        "y":-1
+                    },
+                    "customData":{
 
+                    }
                 }
-            }]
+            ]
         },
-        "pos": 0.8955006544502618
+        "pos":0.8955006544502618
     },
-    "collapsers": {
-        "left": {
-            "size": 0,
-            "drawer": {
-                "closeSize": 0,
-                "frame": {
-                    "type": "wcFrame",
-                    "floating": false,
-                    "isFocus": false,
-                    "tabOrientation": "left",
-                    "pos": {
-                        "x": 0.5,
-                        "y": 0.5
+    "collapsers":{
+        "left":{
+            "size":0,
+            "drawer":{
+                "closeSize":0,
+                "frame":{
+                    "type":"wcFrame",
+                    "floating":false,
+                    "isFocus":false,
+                    "tabOrientation":"left",
+                    "pos":{
+                        "x":0.5,
+                        "y":0.5
                     },
-                    "size": {
-                        "x": 400,
-                        "y": 400
+                    "size":{
+                        "x":400,
+                        "y":400
                     },
-                    "tab": -1,
-                    "panels": [
+                    "tab":-1,
+                    "panels":[
 
                     ]
                 }
             }
         },
-        "right": {
-            "size": 0,
-            "drawer": {
-                "closeSize": 0,
-                "frame": {
-                    "type": "wcFrame",
-                    "floating": false,
-                    "isFocus": false,
-                    "tabOrientation": "right",
-                    "pos": {
-                        "x": 0.5,
-                        "y": 0.5
+        "right":{
+            "size":0,
+            "drawer":{
+                "closeSize":0,
+                "frame":{
+                    "type":"wcFrame",
+                    "floating":false,
+                    "isFocus":false,
+                    "tabOrientation":"right",
+                    "pos":{
+                        "x":0.5,
+                        "y":0.5
                     },
-                    "size": {
-                        "x": 400,
-                        "y": 400
+                    "size":{
+                        "x":400,
+                        "y":400
                     },
-                    "tab": -1,
-                    "panels": [
+                    "tab":-1,
+                    "panels":[
 
                     ]
                 }
             }
         },
-        "bottom": {
-            "size": 22,
-            "drawer": {
-                "closeSize": 22,
-                "frame": {
-                    "type": "wcFrame",
-                    "floating": false,
-                    "isFocus": false,
-                    "tabOrientation": "bottom",
-                    "pos": {
-                        "x": 0.5,
-                        "y": 0.5
+        "bottom":{
+            "size":22,
+            "drawer":{
+                "closeSize":22,
+                "frame":{
+                    "type":"wcFrame",
+                    "floating":false,
+                    "isFocus":false,
+                    "tabOrientation":"bottom",
+                    "pos":{
+                        "x":0.5,
+                        "y":0.5
                     },
-                    "size": {
+                    "size":{
 
                     },
-                    "tab": -1,
-                    "panels": [{
-                        "type": "wcPanel",
-                        "panelType": "ConsolePanel",
-                        "size": {
-                            "x": -1,
-                            "y": 195
-                        },
-                        "customData": {
+                    "tab":-1,
+                    "panels":[
+                        {
+                            "type":"wcPanel",
+                            "panelType":"ConsolePanel",
+                            "size":{
+                                "x":-1,
+                                "y":195
+                            },
+                            "customData":{
 
+                            }
                         }
-                    }]
+                    ]
                 }
             }
         }

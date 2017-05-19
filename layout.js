@@ -223,7 +223,7 @@ $(document).ready(function() {
                 // var gridPanel = myDocker.addPanel('GridPanel', wcDocker.DOCK.LEFT, wcDocker.COLLAPSED, {h: '20%'})
         }
 
-        if (false && getSaveData('saveLayout')) {
+        if (getSaveData('saveLayout')) {
             myDocker.restore(getSaveData('saveLayout'))
         } else {
             var data = GetFileContent("layout.json");
