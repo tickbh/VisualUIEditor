@@ -323,8 +323,14 @@
             nodeRect.top -= forgeRect.top
             nodeRect.scaleX = nodeRect.scaleX || 1
             nodeRect.scaleY = nodeRect.scaleY || 1
+
+            nodeRect.oriWidth = Math.max(node.width, 1) 
+            nodeRect.oriHeight = Math.max(node.height, 1)
+            nodeRect.oriScaleX = nodeRect.scaleX || 1
+            nodeRect.oriScaleY = nodeRect.scaleY || 1
             nodeRect.opacity = 0.5
             nodeRect.fill = 'red'
+            
             nodeRect.hasRotatingPoint = true
             var block = new fabric.Rect(nodeRect)
             block._innerUuid = node.uuid
@@ -740,7 +746,7 @@
 
             let canvas = this.$.scene.getFabricCanvas()
             canvas.on({
-                'object:moving': this.canvasItemChange.bind(this),
+                'object:moving': this.canvasItemMoveChange.bind(this),
                 'object:scaling': this.canvasItemChange.bind(this),
                 'object:rotating': this.canvasItemChange.bind(this),
                 'selection:preselect': this.preSelectorRect.bind(this),
@@ -853,7 +859,7 @@
             Ipc.sendToAll('ui:select_items_change', { select_items: select_items })
         },
 
-        canvasTargetChange: function(target, group) {
+        canvasTargetChange: function(e, target, group) {
             let child = cocosGetItemByUUID(this.$.scene.getRunScene(), target._innerUuid)
             let preInfo = target._preInfo
             if (!child) {
@@ -866,6 +872,10 @@
                 height: target.height,
                 scaleX: target.scaleX,
                 scaleY: target.scaleY,
+                oriScaleX: preInfo.oriScaleX,
+                oriScaleY: preInfo.oriScaleY,
+                oriWidth: preInfo.oriWidth,
+                oriHeight: preInfo.oriHeight,
                 angle: target.getAngle()
             }
 
@@ -880,36 +890,50 @@
             let runScene = this.$.scene.getRunScene()
             let undo = runScene._undo
 
-            if (curInfo.left != preInfo.left) {
-                let oldValue = child.x
-                let step = (curInfo.left - preInfo.left) / ratio
-                FixNodeHor(child, step)
-                undo.add(newPropCommandChange(runScene, child.uuid, 'x', oldValue, child.x))
-            }
+            if (e.isOnlyMove) {
+                if (curInfo.left != preInfo.left) {
+                    let oldValue = child.x
+                    let step = (curInfo.left - preInfo.left) / ratio
+                    FixNodeHor(child, step)
+                    undo.add(newPropCommandChange(runScene, child.uuid, 'x', oldValue, child.x))
+                }
 
-            if (curInfo.top != preInfo.top) {
-                let oldValue = child.y
-                let step = -(curInfo.top - preInfo.top) / ratio
-                FixNodeVer(child, step)
-                undo.add(newPropCommandChange(runScene, child.uuid, 'y', oldValue, child.y))
-            }
+                if (curInfo.top != preInfo.top) {
+                    let oldValue = child.y
+                    let step = -(curInfo.top - preInfo.top) / ratio
+                    FixNodeVer(child, step)
+                    undo.add(newPropCommandChange(runScene, child.uuid, 'y', oldValue, child.y))
+                }
+            } else {
+                if (curInfo.scaleX != preInfo.scaleX) {
+                    if(!e.isAlt) {
+                        let oldValue = child.scaleX
+                        child.setScaleX(child.getScaleX() * (curInfo.scaleX / preInfo.scaleX))
+                        undo.add(newPropCommandChange(runScene, child.uuid, 'scaleX', oldValue, child.scaleX))
+                    } else {
+                        let oldValue = child.width
+                        child.width = preInfo.oriWidth * (curInfo.scaleX / preInfo.oriScaleX)
+                        undo.add(newPropCommandChange(runScene, child.uuid, 'width', oldValue, child.width))
+                    }
+                }
 
-            if (curInfo.scaleX != preInfo.scaleX) {
-                let oldValue = child.scaleX
-                child.setScaleX(child.getScaleX() * (curInfo.scaleX / preInfo.scaleX))
-                undo.add(newPropCommandChange(runScene, child.uuid, 'scaleX', oldValue, child.scaleX))
-            }
-
-            if (curInfo.scaleY != preInfo.scaleY) {
-                let oldValue = child.scaleY
-                child.setScaleY(child.getScaleY() * (curInfo.scaleY / preInfo.scaleY))
-                undo.add(newPropCommandChange(runScene, child.uuid, 'scaleY', oldValue, child.scaleY))
-            }
-            preInfo.angle = preInfo.angle || 0
-            if (curInfo.angle != preInfo.angle) {
-                let oldValue = child.rotation
-                child.setRotation(child.getRotation() + (curInfo.angle - preInfo.angle))
-                undo.add(newPropCommandChange(runScene, child.uuid, 'rotation', oldValue, child.rotation))
+                if (curInfo.scaleY != preInfo.scaleY) {
+                    if(!e.isAlt) {
+                        let oldValue = child.scaleY
+                        child.setScaleY(child.getScaleY() * (curInfo.scaleY / preInfo.scaleY))
+                        undo.add(newPropCommandChange(runScene, child.uuid, 'scaleY', oldValue, child.scaleY))
+                    } else {
+                        let oldValue = child.height
+                        child.height = preInfo.oriHeight * (curInfo.scaleY / preInfo.oriScaleY)
+                        undo.add(newPropCommandChange(runScene, child.uuid, 'height', oldValue, child.height))
+                    }
+                }
+                preInfo.angle = preInfo.angle || 0
+                if (curInfo.angle != preInfo.angle) {
+                    let oldValue = child.rotation
+                    child.setRotation(child.getRotation() + (curInfo.angle - preInfo.angle))
+                    undo.add(newPropCommandChange(runScene, child.uuid, 'rotation', oldValue, child.rotation))
+                }
             }
 
             Ipc.sendToAll('ui:item_prop_change', { uuid: child.uuid })
@@ -918,13 +942,22 @@
             target._preInfo = curInfo
         },
 
+        canvasItemMoveChange: function(options) {
+            if (options.target._objects) {
+                options.target._objects.forEach(function(target) {
+                    this.canvasTargetChange({isOnlyMove:true, isAlt: options.e.altKey}, target, options.target)
+                }, this)
+            }
+            this.canvasTargetChange({isOnlyMove:true, isAlt: options.e.altKey}, options.target)
+        },
+
         canvasItemChange: function(options) {
             if (options.target._objects) {
                 options.target._objects.forEach(function(target) {
-                    this.canvasTargetChange(target, options.target)
+                    this.canvasTargetChange({isOnlyMove:false, isAlt: options.e.altKey}, target, options.target)
                 }, this)
             }
-            this.canvasTargetChange(options.target)
+            this.canvasTargetChange({isOnlyMove:false, isAlt: options.e.altKey}, options.target)
         },
 
         dragEnter: function(ev) {
